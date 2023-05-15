@@ -1,0 +1,76 @@
+name: transaction_viewer_app
+version: 1.0.0+1
+publish_to: none
+description: A new Flutter project.
+environment: 
+  sdk: '>=2.19.0 <3.0.0'
+
+dependencies: 
+  cupertino_icons: ^1.0.2
+
+#  fetch sms
+  flutter_sms_inbox: ^1.0.2
+
+#  takes permission for sms
+  permission_handler: ^10.2.0
+
+#  responsive design
+  responsive_sizer: ^3.1.1
+
+#  Format Date-Time
+  intl: ^0.18.1
+
+#  group listview
+  grouped_list: ^5.1.2
+  sticky_headers: ^0.3.0+2
+
+#  page_indicator
+  smooth_page_indicator: ^1.1.0
+
+#  navigation bar
+  circle_nav_bar: ^2.0.1+1
+
+#  tab bar
+  slide_switcher: ^1.1.2
+
+  get: 4.6.5
+
+  flutter: 
+    sdk: flutter
+
+dev_dependencies: 
+  flutter_lints: ^2.0.0
+  flutter_test: 
+    sdk: flutter
+
+
+flutter:
+  assets:
+    - assets/reg.json
+    - assets/splash_screen/
+    - assets/Icons/
+
+  fonts:
+    - family: Poppins
+      fonts:
+        - asset: fonts/Poppins-Thin.ttf
+          weight: 100
+        - asset: fonts/Poppins-ExtraLight.ttf
+          weight: 200
+        - asset: fonts/Poppins-Light.ttf
+          weight: 300
+        - asset: fonts/Poppins-Regular.ttf
+          weight: 400
+        - asset: fonts/Poppins-Medium.ttf
+          weight: 500
+        - asset: fonts/Poppins-SemiBold.ttf
+          weight: 600
+        - asset: fonts/Poppins-Bold.ttf
+          weight: 700
+        - asset: fonts/Poppins-ExtraBold.ttf
+          weight: 800
+        - asset: fonts/Poppins-Black.ttf
+          weight: 900
+
+  uses-material-design: true
+
