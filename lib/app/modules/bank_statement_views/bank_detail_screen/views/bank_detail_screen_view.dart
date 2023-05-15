@@ -108,6 +108,11 @@ class BankDetailScreenView extends GetView<BankDetailScreenController> {
                   containerWight: width * 0.815,
                   containerGradient: ConstantsColor.buttonGradient,
                   onSelect: (int index) {
+                    controller.scrollController.animateTo(
+                        controller.scrollController.position.minScrollExtent,
+                        duration: const Duration(milliseconds: 200),
+                        curve: Curves.easeInOut
+                    );
                     controller.loadRegExJson(transactionType: index != 0 ? index == 1 ? 'CREDITED' : 'DEBITED' : 'ALL');
                     controller.tabIndex.value = index;
                   },
@@ -121,149 +126,22 @@ class BankDetailScreenView extends GetView<BankDetailScreenController> {
                 InkWell(
                   splashColor: Colors.transparent,
                   highlightColor: Colors.transparent,
-                  onTap: () {},
+                  onTap: () {
+                    filterDialoge();
+                  },
                   child: Image.asset(ConstantsImage.select_month_icon, height: 23.sp, width: 23.sp)
                 )
               ],
             ),
-            // controller.tabIndex.value == 0 ? Container()
-            //     : controller.tabIndex.value == 1 ? Container()
-            //     : Container()
             SizedBox(height: 15.sp),
             Expanded(
               child: GetBuilder(
                 init: BankDetailScreenController(),
                 builder: (controller) {
-                  List<Map<String, dynamic>> listMessages = controller.allMessageDetails.groupBy('group');
-                  return ListView.separated(
-                      physics: BouncingScrollPhysics(),
-                      itemCount: listMessages.length,
-                      itemBuilder: (context, index) {
-                        // listMessages[index].values.first.forEach((element) {
-                        //   print('transaction_amount --> ${element['transaction_amount']}');
-                        //   print('body --> ${element['body']}');
-                        //   print('element --> ${element}');
-                        //   print(' ');
-                        //
-                        // });
-                        final t = listMessages[index].values.reduce((value, element) {
+                  return controller.tabIndex.value == 0 ? allTransaction()
+                          : controller.tabIndex.value == 1 ? creditTransaction()
+                          : debitTransaction();
 
-                          print('value --> ${value}');
-                          print('element --> ${element}');
-                          return element;
-                        });
-                        print('t --> ${t}');
-
-                        return Column(
-                          children: [
-                            Material(
-                              elevation: 2,
-                              shadowColor: Colors.white54,
-                              borderRadius: BorderRadius.circular(18.sp),
-                              child: Container(
-                                height: 34.sp,
-                                width: width,
-                                decoration: BoxDecoration(
-                                    gradient: ConstantsColor.buttonGradient,
-                                    borderRadius: BorderRadius.circular(18.sp)
-                                ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    SizedBox(width: 18.sp),
-                                    Text(listMessages[index].keys.first.toString().toUpperCase(),
-                                        style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600, color: ConstantsColor.purpleColor)),
-                                    Spacer(),
-                                    Text(listMessages[index].keys.first.toString().toUpperCase(),
-                                        style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600, color: ConstantsColor.purpleColor)),
-                                    SizedBox(width: 18.sp),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Column(
-                              children: List.generate(listMessages[index].values.first.length, (groupedIndex) {
-                                List listGroupedMessages = listMessages[index].values.first.toList();
-                                return InkWell(
-                                  onTap: () {
-                                    detailDialoge(message: listGroupedMessages[groupedIndex]['body']);
-                                  },
-                                  child: Container(
-                                    height: 33.sp,
-                                    padding: EdgeInsets.symmetric(horizontal: 15.sp),
-                                    child: Row(
-                                      children: [
-                                        Text(DateFormat('dd MMM').format(listGroupedMessages[groupedIndex]['date']), style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600, color: Colors.grey.shade500)),
-                                        SizedBox(width: 15.sp),
-                                        SizedBox(
-                                            width: width * 0.5,
-                                            child: Text(listGroupedMessages[groupedIndex]['transaction_account'] ?? 'UNKNOWN',
-                                                style: TextStyle(fontSize: 15.5.sp, fontWeight: FontWeight.w600, color: Colors.white), overflow: TextOverflow.ellipsis, maxLines: 1)
-                                        ),
-                                        const Spacer(),
-                                        Text('${listGroupedMessages[groupedIndex]['transaction_type'] == 'credit' ? '+' : '-'}  ₹ ${listGroupedMessages[groupedIndex]['transaction_amount']}',
-                                            style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.w700, color: listGroupedMessages[groupedIndex]['transaction_type'] == 'credit' ? Colors.green : Colors.red)),
-                                      ],
-                                    ),
-                                  ),
-                                );
-                              }),
-                            )
-                          ],
-                        );
-                        return StickyHeader(
-                          header: Material(
-                            elevation: 2,
-                            shadowColor: Colors.white54,
-                            borderRadius: BorderRadius.circular(18.sp),
-                            child: Container(
-                              height: 34.sp,
-                              width: width,
-                              decoration: BoxDecoration(
-                                  gradient: ConstantsColor.buttonGradient,
-                                  borderRadius: BorderRadius.circular(18.sp)
-                              ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  SizedBox(width: 18.sp),
-                                  Text(controller.allMessageDetails[index]['group'].toString().toUpperCase(),
-                                      style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600, color: ConstantsColor.purpleColor)),
-                                  Spacer(),
-                                  Text(controller.allMessageDetails[index]['group'],
-                                      style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600, color: ConstantsColor.purpleColor)),
-                                  SizedBox(width: 18.sp),
-                                ],
-                              ),
-                            ),
-                          ),
-                          content: InkWell(
-                            onTap: () {
-                              detailDialoge(message: controller.allMessageDetails[index]['body']);
-                            },
-                            child: Container(
-                              height: 33.sp,
-                              padding: EdgeInsets.symmetric(horizontal: 15.sp),
-                              child: Row(
-                                children: [
-                                  Text(DateFormat('dd MMM').format(controller.allMessageDetails[index]['date']), style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600, color: Colors.grey.shade500)),
-                                  SizedBox(width: 15.sp),
-                                  SizedBox(
-                                      width: width * 0.5,
-                                      child: Text(controller.allMessageDetails[index]['transaction_account'] ?? 'UNKNOWN',
-                                          style: TextStyle(fontSize: 15.5.sp, fontWeight: FontWeight.w600, color: Colors.white), overflow: TextOverflow.ellipsis, maxLines: 1)
-                                  ),
-                                  const Spacer(),
-                                  Text('${controller.allMessageDetails[index]['transaction_type'] == 'credit' ? '+' : '-'}  ₹ ${controller.allMessageDetails[index]['transaction_amount']}',
-                                      style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.w700, color: controller.allMessageDetails[index]['transaction_type'] == 'credit' ? Colors.green : Colors.red)),
-                                ],
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                      separatorBuilder: (context, index) => const Divider(color: Colors.white, height: 0, thickness: 0.2),
-                  );
                   return GroupedListView(
                     elements: controller.allMessageDetails,
                     groupBy: (message) => message['group'],
@@ -324,13 +202,365 @@ class BankDetailScreenView extends GetView<BankDetailScreenController> {
                     order: GroupedListOrder.DESC,
                   );
                 }
-              )
+              ),
             )
           ],
         ),
       ),
     );
   }
+
+
+  Widget allTransaction() {
+    List<Map<String, dynamic>> listMessages = controller.allMessageDetails.groupBy('group');
+    List<Map<String, dynamic>> listCredits = controller.creditMessageDetails.groupBy('group');
+    List<Map<String, dynamic>> listDebits = controller.debitMessageDetails.groupBy('group');
+    double width = 100.w;
+    RxList<double> lstCreditSum = <double>[].obs;
+    RxList<double> sumList = <double>[].obs;
+    RxList<double> lstDebitSubtraction = <double>[].obs;
+    RxList<double> subtractionList = <double>[].obs;
+    return SingleChildScrollView(
+      physics: BouncingScrollPhysics(),
+      controller: controller.scrollController,
+      child: Column(
+        children: List.generate(listMessages.length, (index) {
+
+          List.generate(listCredits.length, (index) {
+            sumList.add(0);
+          });
+          // List.generate(listDebits.length, (index) {
+          //   subtractionList.add(0);
+          // });
+
+
+          print('lstCreditSum.length -> ${listCredits[0].values.first.length}');
+          print('listDebits.length -> ${listDebits[0].values.first.length}');
+
+          listMessages[index].values.first.forEach((valCredit) {
+            if(valCredit['transaction_type'] == 'credit') {
+              lstCreditSum.add(double.parse(valCredit['transaction_amount']));
+            }
+            print('listMessages[index].values.first.length -> ${listMessages[index].values.first.length}');
+            print('listCredits[0].values.first.length -> ${listCredits[0].values.first.length}');
+            print('lstCreditSum.length -> ${lstCreditSum}');
+            if(lstCreditSum.length == listCredits[0].values.first.length) {
+              sumList.value[index] = 0;
+              sumList.value[index] = lstCreditSum.reduce((value, element) => value + element);
+              print('sumList.value[index] -> ${sumList.value[index]}');
+              lstCreditSum.clear();
+            }
+          });
+
+          // listMessages[index].values.first.forEach((val) {
+          //   lstDebitSubtraction.add(double.parse(val['transaction_amount']));
+          //   // print('listMessages[index].values.first.length -> ${listMessages[index].values.first.length}');
+          //   // print('lstCreditSum.length -> ${lstCreditSum.length}');
+          //   if(lstDebitSubtraction.length == listDebits[0].values.first.length) {
+          //     subtractionList.value[index] = lstDebitSubtraction.reduce((value, element) => value + element);
+          //     lstDebitSubtraction.clear();
+          //   }
+          // });
+          print(' ');
+
+
+          return Column(
+            children: [
+              Material(
+                elevation: 2,
+                shadowColor: Colors.white54,
+                borderRadius: BorderRadius.circular(18.sp),
+                child: Container(
+                  height: 34.sp,
+                  width: width,
+                  margin: EdgeInsets.only(right: 1.5.sp),
+                  decoration: BoxDecoration(
+                      gradient: ConstantsColor.buttonGradient,
+                      borderRadius: BorderRadius.circular(18.sp)
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(width: 18.sp),
+                      Text(listMessages[index].keys.first.toString().toUpperCase(),
+                          style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600, color: ConstantsColor.purpleColor)),
+                      Spacer(),
+                      GetBuilder(
+                          init: BankDetailScreenController(),
+                          builder: (controller) {
+                            print('sum.value 111-> ${sumList[index]}');
+                            return Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text('+ ₹ ${sumList.value[index]}',
+                                    style: TextStyle(fontSize: 16.5.sp, fontWeight: FontWeight.w600, color: Colors.green)),
+                                // Text('- ₹ ${subtractionList.value[index]}',
+                                //     style: TextStyle(fontSize: 16.5.sp, fontWeight: FontWeight.w600, color: Colors.red)),
+                              ],
+                            );
+                          }
+                      ),
+                      SizedBox(width: 18.sp),
+                    ],
+                  ),
+                ),
+              ),
+              ListView.separated(
+                shrinkWrap: true,
+                physics: const ClampingScrollPhysics(),
+                itemCount: listMessages[index].values.first.length,
+                itemBuilder: (context, groupedIndex) {
+                  List listGroupedMessages = listMessages[index].values.first.toList();
+                  return InkWell(
+                    onTap: () {
+                      detailDialoge(message: listGroupedMessages[groupedIndex]);
+                    },
+                    child: Container(
+                      height: 33.sp,
+                      padding: EdgeInsets.symmetric(horizontal: 15.sp),
+                      child: Row(
+                        children: [
+                          Text(DateFormat('dd MMM').format(listGroupedMessages[groupedIndex]['date']), style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600, color: Colors.grey.shade500)),
+                          SizedBox(width: 15.sp),
+                          SizedBox(
+                              width: width * 0.5,
+                              child: Text(listGroupedMessages[groupedIndex]['transaction_account'] ?? 'UNKNOWN',
+                                  style: TextStyle(fontSize: 15.5.sp, fontWeight: FontWeight.w600, color: Colors.white), overflow: TextOverflow.ellipsis, maxLines: 1)
+                          ),
+                          const Spacer(),
+                          Text('${listGroupedMessages[groupedIndex]['transaction_type'] == 'credit' ? '+' : '-'}  ₹ ${listGroupedMessages[groupedIndex]['transaction_amount']}',
+                              style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.w700, color: listGroupedMessages[groupedIndex]['transaction_type'] == 'credit' ? Colors.green : Colors.red)),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+                separatorBuilder: (context, index) => const Divider(color: Colors.white, height: 0, thickness: 0.2),
+              )
+              // Column(
+              //   children: List.generate(listMessages[index].values.first.length, (groupedIndex) {
+              //     List listGroupedMessages = listMessages[index].values.first.toList();
+              //     return InkWell(
+              //       onTap: () {
+              //         detailDialoge(message: listGroupedMessages[groupedIndex]['body']);
+              //       },
+              //       child: Container(
+              //         height: 33.sp,
+              //         padding: EdgeInsets.symmetric(horizontal: 15.sp),
+              //         child: Row(
+              //           children: [
+              //             Text(DateFormat('dd MMM').format(listGroupedMessages[groupedIndex]['date']), style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600, color: Colors.grey.shade500)),
+              //             SizedBox(width: 15.sp),
+              //             SizedBox(
+              //                 width: width * 0.5,
+              //                 child: Text(listGroupedMessages[groupedIndex]['transaction_account'] ?? 'UNKNOWN',
+              //                     style: TextStyle(fontSize: 15.5.sp, fontWeight: FontWeight.w600, color: Colors.white), overflow: TextOverflow.ellipsis, maxLines: 1)
+              //             ),
+              //             const Spacer(),
+              //             Text('${listGroupedMessages[groupedIndex]['transaction_type'] == 'credit' ? '+' : '-'}  ₹ ${listGroupedMessages[groupedIndex]['transaction_amount']}',
+              //                 style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.w700, color: listGroupedMessages[groupedIndex]['transaction_type'] == 'credit' ? Colors.green : Colors.red)),
+              //           ],
+              //         ),
+              //       ),
+              //     );
+              //   }),
+              // )
+            ],
+          );
+        }),
+      ),
+    );
+  }
+
+  Widget creditTransaction() {
+    List<Map<String, dynamic>> listMessages = controller.creditMessageDetails.groupBy('group');
+    double width = 100.w;
+    RxList<int> lstCreditSum = <int>[].obs;
+    RxList<int> sumList = <int>[].obs;
+    return SingleChildScrollView(
+      physics: BouncingScrollPhysics(),
+      controller: controller.scrollController,
+      child: Column(
+        children: List.generate(listMessages.length, (index) {
+          List.generate(listMessages.length, (index) => sumList.add(0));
+          listMessages[index].values.first.forEach((val) {
+            lstCreditSum.add(int.parse(val['transaction_amount']));
+            print('listMessages[index].values.first.length -> ${listMessages[index].values.first.length}');
+            print('lstCreditSum -> ${lstCreditSum}');
+            if(lstCreditSum.length == listMessages[index].values.first.length) {
+              sumList.value[index] = lstCreditSum.reduce((value, element) => value + element);
+              print('sum.value -> ${sumList[index]}');
+              lstCreditSum.clear();
+            }
+          });
+          return Column(
+            children: [
+              Material(
+                elevation: 2,
+                shadowColor: Colors.white54,
+                borderRadius: BorderRadius.circular(18.sp),
+                child: Container(
+                  height: 34.sp,
+                  width: width,
+                  margin: EdgeInsets.only(right: 1.5.sp),
+                  decoration: BoxDecoration(
+                      gradient: ConstantsColor.buttonGradient,
+                      borderRadius: BorderRadius.circular(18.sp)
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(width: 18.sp),
+                      Text(listMessages[index].keys.first.toString().toUpperCase(),
+                          style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600, color: ConstantsColor.purpleColor)),
+                      Spacer(),
+                      GetBuilder(
+                          init: BankDetailScreenController(),
+                          builder: (controller) {
+                            print('sum.value 111-> ${sumList[index]}');
+                            return Text('+ ₹ ${sumList.value[index]}',
+                                style: TextStyle(fontSize: 16.5.sp, fontWeight: FontWeight.w600, color: Colors.green));
+                          }
+                      ),
+                      SizedBox(width: 18.sp),
+                    ],
+                  ),
+                ),
+              ),
+              ListView.separated(
+                shrinkWrap: true,
+                physics: const ClampingScrollPhysics(),
+                itemCount: listMessages[index].values.first.length,
+                itemBuilder: (context, groupedIndex) {
+                  List listGroupedMessages = listMessages[index].values.first.toList();
+                  lstCreditSum.add(int.parse(listGroupedMessages[groupedIndex]['transaction_amount']));
+                  return InkWell(
+                    onTap: () {
+                      detailDialoge(message: listGroupedMessages[groupedIndex]);
+                    },
+                    child: Container(
+                      height: 33.sp,
+                      padding: EdgeInsets.symmetric(horizontal: 15.sp),
+                      child: Row(
+                        children: [
+                          Text(DateFormat('dd MMM').format(listGroupedMessages[groupedIndex]['date']), style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600, color: Colors.grey.shade500)),
+                          SizedBox(width: 15.sp),
+                          SizedBox(
+                              width: width * 0.5,
+                              child: Text(listGroupedMessages[groupedIndex]['transaction_account'] ?? 'UNKNOWN',
+                                  style: TextStyle(fontSize: 15.5.sp, fontWeight: FontWeight.w600, color: Colors.white), overflow: TextOverflow.ellipsis, maxLines: 1)
+                          ),
+                          const Spacer(),
+                          Text('${listGroupedMessages[groupedIndex]['transaction_type'] == 'credit' ? '+' : '-'}  ₹ ${listGroupedMessages[groupedIndex]['transaction_amount']}',
+                              style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.w700, color: listGroupedMessages[groupedIndex]['transaction_type'] == 'credit' ? Colors.green : Colors.red)),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+                separatorBuilder: (context, index) => const Divider(color: Colors.white, height: 0, thickness: 0.2),
+              )
+            ],
+          );
+        }),
+      ),
+    );
+  }
+
+  Widget debitTransaction() {
+    List<Map<String, dynamic>> listMessages = controller.debitMessageDetails.groupBy('group');
+    double width = 100.w;
+    RxList<double> lstDebitSubtraction = <double>[].obs;
+    RxList<double> subtractionList = <double>[].obs;
+    return SingleChildScrollView(
+      physics: BouncingScrollPhysics(),
+      controller: controller.scrollController,
+      child: Column(
+        children: List.generate(listMessages.length, (index) {
+          List.generate(listMessages.length, (index) => subtractionList.add(0));
+          listMessages[index].values.first.forEach((val) {
+            lstDebitSubtraction.add(double.parse(val['transaction_amount']));
+            print('listMessages[index].values.first.length -> ${listMessages[index].values.first.length}');
+            print('lstDebitSubtraction -> ${lstDebitSubtraction}');
+            if(lstDebitSubtraction.length == listMessages[index].values.first.length) {
+              subtractionList.value[index] = lstDebitSubtraction.reduce((value, element) => value + element);
+              print('subtractionList.value -> ${subtractionList[index]}');
+              lstDebitSubtraction.clear();
+            }
+          });
+          return Column(
+            children: [
+              Material(
+                elevation: 2,
+                shadowColor: Colors.white54,
+                borderRadius: BorderRadius.circular(18.sp),
+                child: Container(
+                  height: 34.sp,
+                  width: width,
+                  margin: EdgeInsets.only(right: 1.5.sp),
+                  decoration: BoxDecoration(
+                      gradient: ConstantsColor.buttonGradient,
+                      borderRadius: BorderRadius.circular(18.sp)
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(width: 18.sp),
+                      Text(listMessages[index].keys.first.toString().toUpperCase(),
+                          style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600, color: ConstantsColor.purpleColor)),
+                      Spacer(),
+
+                      GetBuilder(
+                          init: BankDetailScreenController(),
+                          builder: (controller) {
+                            return Text('- ₹ ${subtractionList.value[index]}',
+                                style: TextStyle(fontSize: 16.5.sp, fontWeight: FontWeight.w600, color: Colors.red));
+                          }
+                      ),
+                      SizedBox(width: 18.sp),
+                    ],
+                  ),
+                ),
+              ),
+              ListView.separated(
+                shrinkWrap: true,
+                physics: const ClampingScrollPhysics(),
+                itemCount: listMessages[index].values.first.length,
+                itemBuilder: (context, groupedIndex) {
+                  List listGroupedMessages = listMessages[index].values.first.toList();
+                  return InkWell(
+                    onTap: () {
+                      detailDialoge(message: listGroupedMessages[groupedIndex]);
+                    },
+                    child: Container(
+                      height: 33.sp,
+                      padding: EdgeInsets.symmetric(horizontal: 15.sp),
+                      child: Row(
+                        children: [
+                          Text(DateFormat('dd MMM').format(listGroupedMessages[groupedIndex]['date']), style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600, color: Colors.grey.shade500)),
+                          SizedBox(width: 15.sp),
+                          SizedBox(
+                              width: width * 0.5,
+                              child: Text(listGroupedMessages[groupedIndex]['transaction_account'] ?? 'UNKNOWN',
+                                  style: TextStyle(fontSize: 15.5.sp, fontWeight: FontWeight.w600, color: Colors.white), overflow: TextOverflow.ellipsis, maxLines: 1)
+                          ),
+                          const Spacer(),
+                          Text('${listGroupedMessages[groupedIndex]['transaction_type'] == 'credit' ? '+' : '-'}  ₹ ${listGroupedMessages[groupedIndex]['transaction_amount']}',
+                              style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.w700, color: listGroupedMessages[groupedIndex]['transaction_type'] == 'credit' ? Colors.green : Colors.red)),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+                separatorBuilder: (context, index) => const Divider(color: Colors.white, height: 0, thickness: 0.2),
+              )
+            ],
+          );
+        }),
+      ),
+    );
+  }
+
 
 
   detailDialoge({required Map<String, dynamic> message}) {
@@ -375,5 +605,99 @@ class BankDetailScreenView extends GetView<BankDetailScreenController> {
     );
   }
 
+  filterDialoge() {
+    List<String> listFilter = ['Last Month', 'Last 2 Months', 'Last 3 Months', 'Last 6 Months'];
+    Get.dialog(
+        AlertDialog(
+          backgroundColor: Colors.transparent,
+          insetPadding: EdgeInsets.symmetric(horizontal: 00.sp),
+          content: Container(
+            height: 34.h,
+            width: 100.w,
+            decoration: BoxDecoration(
+                gradient: ConstantsColor.buttonGradient,
+                borderRadius: BorderRadius.circular(18.sp),
+                border: Border.all(color: Colors.white)
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text('Save your transaction as PDF', style: TextStyle(color: Colors.white, fontSize: 18.sp, fontWeight: FontWeight.w500),),
+                SizedBox(height: 10.sp),
+                Text('For which period do you need a statement?', style: TextStyle(color: Colors.white, fontSize: 14.sp, fontWeight: FontWeight.w300),),
+                SizedBox(height: 20.sp),
+                Wrap(
+                  spacing: 22.sp,
+                  children: List.generate(listFilter.length, (index) {
+                    return GetBuilder(
+                        init: BankDetailScreenController(),
+                        builder: (controller) {
+                          return InkWell(
+                            onTap: () {
+                              controller.onClickRadio(listFilter[index]);
+                            },
+                            child: SizedBox(
+                              width: 39.w,
+                              child: Row(
+                                children: [
+                                  Theme(
+                                    data: ThemeData(unselectedWidgetColor: Colors.white),
+                                    child: Radio<String>(
+                                      activeColor: ConstantsColor.purpleColor,
+                                      value: listFilter[index],
+                                      groupValue: controller.selectedFilter.value,
+                                      onChanged: (String? value) {
+                                        controller.onClickRadio(value);
+                                      },
+                                    ),
+                                  ),
+                                  SizedBox(width: 5.sp),
+                                  Text(listFilter[index], style: TextStyle(color: Colors.white, fontSize: 15.5.sp, fontWeight: FontWeight.w400)),
+                                ],
+                              ),
+                            ),
+                          );
+                        }
+                    );
+                  }),
+                ),
+                SizedBox(height: 20.sp),
+                InkWell(
+                  highlightColor: Colors.white,
+                  splashColor: Colors.white,
+                  onTap: () {
+                    Get.back();
+                  },
+                  child: Container(
+                    height: 29.sp,
+                    width: 35.w,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(40.sp),
+                        gradient: const LinearGradient(
+                            colors: [
+                              Color.fromRGBO(128, 34, 208, 1),
+                              Color.fromRGBO(200, 32, 203, 0.82),
+                              Color.fromRGBO(242, 142, 206, 1),
+                              Color.fromRGBO(241, 130, 144, 1),
+                            ]
+                        )
+                    ),
+                    padding: EdgeInsets.all(5.sp),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(40.sp),
+                          gradient: ConstantsColor.buttonGradient
+                      ),
+                      alignment: Alignment.center,
+                      child: Text('Proceed', style: TextStyle(color: Colors.white, fontSize: 16.5.sp, fontWeight: FontWeight.w500),),
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
+        )
+    );
+  }
 
 }

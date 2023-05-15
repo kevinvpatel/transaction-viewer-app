@@ -14,6 +14,8 @@ class BankDetailScreenController extends GetxController with GetSingleTickerProv
 
   List<SmsMessage> listOfMessages = [];
   RxInt tabIndex = 0.obs;
+  ScrollController scrollController = ScrollController();
+  RxString selectedFilter = ''.obs;
 
   RxList<SmsMessage> messages = <SmsMessage>[].obs;
   RxList<Map<String, dynamic>> allMessageDetails = <Map<String, dynamic>>[].obs;
@@ -141,7 +143,11 @@ class BankDetailScreenController extends GetxController with GetSingleTickerProv
     }
   }
 
-
+  onClickRadio(value) {
+    selectedFilter.value = value!;
+    print('controller.selectedFilter.value -> ${selectedFilter.value}');
+    update();
+  }
 
   @override
   void onInit() {
