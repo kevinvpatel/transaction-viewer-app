@@ -1,15 +1,15 @@
 import 'package:get/get.dart';
 
-import '../modules/bank_category_screen/bindings/bank_category_screen_binding.dart';
-import '../modules/bank_category_screen/views/bank_category_screen_view.dart';
 import '../modules/bank_statement_views/bank_detail_screen/bindings/bank_detail_screen_binding.dart';
 import '../modules/bank_statement_views/bank_detail_screen/views/bank_detail_screen_view.dart';
 import '../modules/bank_statement_views/bank_statement_screen/bindings/bank_statement_screen_binding.dart';
 import '../modules/bank_statement_views/bank_statement_screen/views/bank_statement_screen_view.dart';
+import '../modules/bill_payment_screen/bindings/bill_payment_screen_binding.dart';
+import '../modules/bill_payment_screen/views/bill_payment_screen_view.dart';
 import '../modules/bottom_navigation_screen/bindings/bottom_navigation_screen_binding.dart';
 import '../modules/bottom_navigation_screen/views/bottom_navigation_screen_view.dart';
-import '../modules/home/bindings/home_binding.dart';
-import '../modules/home/views/home_view.dart';
+import '../modules/home_views/banking/ifsc_screen/bindings/ifsc_screen_binding.dart';
+import '../modules/home_views/banking/ifsc_screen/views/ifsc_screen_view.dart';
 import '../modules/home_views/home_screen/bindings/home_screen_binding.dart';
 import '../modules/home_views/home_screen/views/home_screen_view.dart';
 import '../modules/onboarding_screen/bindings/onboarding_screen_binding.dart';
@@ -29,16 +29,6 @@ class AppPages {
   static const INITIAL = Routes.SPLASH_SCREEN;
 
   static final routes = [
-    GetPage(
-      name: _Paths.HOME,
-      page: () => const HomeView(),
-      binding: HomeBinding(),
-    ),
-    GetPage(
-      name: _Paths.BANK_CATEGORY_SCREEN,
-      page: () => const BankCategoryScreenView(),
-      binding: BankCategoryScreenBinding(),
-    ),
     GetPage(
       name: _Paths.SPLASH_SCREEN,
       page: () => const SplashScreenView(),
@@ -78,6 +68,16 @@ class AppPages {
       name: _Paths.BANK_DETAIL_SCREEN,
       page: () => const BankDetailScreenView(),
       binding: BankDetailScreenBinding(),
+    ),
+    GetPage(
+      name: _Paths.IFSC_SCREEN,
+      page: () => const IfscScreenView(),
+      binding: IfscScreenBinding(),
+    ),
+    GetPage(
+      name: _Paths.BILL_PAYMENT_SCREEN,
+      page: () => const BillPaymentScreenView(),
+      binding: BillPaymentScreenBinding(),
     ),
   ];
 }

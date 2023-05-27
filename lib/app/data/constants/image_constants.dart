@@ -23,6 +23,12 @@ abstract class ConstantsImage {
   static const USSD_icon = 'assets/Icons/USSD.png';
   static const atm_icon = 'assets/Icons/Atm.png';
   static const more_circle_icon = 'assets/Icons/More Circle.png';
+  static const arrow_right_icon = 'assets/Icons/Arrow-right.png';
+  static const bank_holiday_icon = 'assets/Icons/BankHoliday.png';
+  static const copy_icon = 'assets/Icons/Copy.png';
+  static const sharecode_icon = 'assets/Icons/Sharecode.png';
+  static const cash_money_icon = 'assets/Icons/Cash Money.png';
+  static const bills_emis_icon = 'assets/Icons/Bills & Emis.png';
 
   ///HomeScreen icons
   static const credit_card_icon = 'assets/Icons/Credit card.png';

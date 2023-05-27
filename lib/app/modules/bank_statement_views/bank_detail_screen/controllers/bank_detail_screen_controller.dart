@@ -30,7 +30,7 @@ class BankDetailScreenController extends GetxController with GetSingleTickerProv
     creditMessageDetails.clear();
     debitMessageDetails.clear();
     rulesData = Rules();
-    String passedBankName = Get.arguments;
+    String passedBankName = Get.arguments['bank_address'];
 
     String jsonData = await rootBundle.loadString('assets/reg.json');
     Map<String, dynamic> result = json.decode(jsonData);
@@ -128,6 +128,7 @@ class BankDetailScreenController extends GetxController with GetSingleTickerProv
                   'isDuplicate' : pattern.dataFields?.posTypeRules?.rules?.last.incomeFlagOverride == false ? true : false
                 });
               }
+
               // }
 
               // print(' ');

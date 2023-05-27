@@ -19,9 +19,10 @@ class BankStatementScreenView extends GetView<BankStatementScreenController> {
     double height = 100.h;
     double width = 100.w;
 
+
     return Scaffold(
       backgroundColor: ConstantsColor.backgroundDarkColor,
-      appBar: ConstantsWidgets.appBar(title: 'Balance Check', onTapBack: () {}),
+      appBar: ConstantsWidgets.appBar(title: 'Balance Check'),
       body: Container(
         margin: EdgeInsets.symmetric(vertical: 15.sp),
         height: height,
@@ -59,11 +60,12 @@ class BankStatementScreenView extends GetView<BankStatementScreenController> {
           } else {
             return ListView.separated(
               separatorBuilder: (context, index) => SizedBox(height: 20.sp),
-              itemCount: controller.bankList.length,
+              // itemCount: controller.bankList.length,
+              itemCount: mapMessageList.length,
               itemBuilder: (context, index) {
                 return InkWell(
                   onTap: () {
-                    Get.to(BankDetailScreenView(), arguments: controller.bankList[index]!);
+                    Get.to(BankDetailScreenView(), arguments: mapMessageList[index]);
                   },
                   child: Container(
                     margin: EdgeInsets.symmetric(horizontal: 15.sp),
@@ -72,23 +74,31 @@ class BankStatementScreenView extends GetView<BankStatementScreenController> {
                         gradient: ConstantsColor.buttonGradient,
                         borderRadius: BorderRadius.circular(12.sp)
                     ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    child: Row(
                       children: [
-                        Text(controller.bankList[index]!, style: TextStyle(color: Colors.white, fontSize: 16.5.sp, fontWeight: FontWeight.w500),),
-                        Text.rich(
-                            TextSpan(
-                                text: 'Your available balance : ',
-                                style: TextStyle(color: Colors.white, fontSize: 15.5.sp, fontWeight: FontWeight.w300),
-                                children: [
-                                  TextSpan(
-                                    text: '₹ ${controller. totalBalance.value}',
-                                    style: TextStyle(color: Colors.white, fontSize: 15.5.sp, fontWeight: FontWeight.w500),
-                                  )
-                                ]
+                        SizedBox(width: 15.sp),
+                        convertBankAddressToBankIcon(bankName: mapMessageList[index]['bank_name'], bankBundleData: controller.bankBundleData),
+                        SizedBox(width: 15.sp),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(mapMessageList[index]['bank_name'], style: TextStyle(color: Colors.white, fontSize: 16.5.sp, fontWeight: FontWeight.w500),),
+                            SizedBox(height: 10.sp),
+                            Text.rich(
+                                TextSpan(
+                                    text: 'Your available balance : ',
+                                    style: TextStyle(color: Colors.white, fontSize: 15.5.sp, fontWeight: FontWeight.w300),
+                                    children: [
+                                      TextSpan(
+                                        text: '₹ ${mapMessageList[index]['total_balance']}',
+                                        style: TextStyle(color: Colors.white, fontSize: 15.5.sp, fontWeight: FontWeight.w500),
+                                      )
+                                    ]
+                                )
                             )
-                        )
+                          ],
+                        ),
                       ],
                     ),
                   ),

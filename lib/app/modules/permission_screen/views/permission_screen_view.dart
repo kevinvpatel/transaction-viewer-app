@@ -5,8 +5,8 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:transaction_viewer_app/app/data/constants/color_constants.dart';
 import 'package:transaction_viewer_app/app/data/constants/image_constants.dart';
 import 'package:transaction_viewer_app/app/modules/onboarding_screen/views/onboarding_screen_view.dart';
-
 import '../controllers/permission_screen_controller.dart';
+
 
 class PermissionScreenView extends GetView<PermissionScreenController> {
   const PermissionScreenView({Key? key}) : super(key: key);

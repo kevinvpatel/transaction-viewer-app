@@ -6,19 +6,29 @@ import 'package:transaction_viewer_app/app/data/constants/image_constants.dart';
 
 abstract class ConstantsWidgets {
 
-  static Widget gradientButton({required Function() onTap, required String title, double? titleSize, Widget? suffixChild, required double height, required double width}) {
+  static List<BoxShadow> boxShadow = const [BoxShadow(offset: Offset(0.8, 0.9), color: Colors.white30, spreadRadius: 0, blurRadius: 0.5)];
+
+  static Widget gradientButton({
+    required Function() onTap,
+    required String title,
+    double? titleSize,
+    Widget? suffixChild,
+    required double height,
+    required double width,
+    double? borderRadius
+  }) {
     return ElevatedButton(
       onPressed: onTap,
       style: ElevatedButton.styleFrom(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(60.0)),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(borderRadius ?? 60.0)),
           padding: const EdgeInsets.all(0.0),
           elevation: 0.5,
           shadowColor: Colors.white
       ),
       child: Ink(
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           gradient: ConstantsColor.buttonGradient,
-          borderRadius: BorderRadius.all(Radius.circular(60.0)),
+          borderRadius: BorderRadius.all(Radius.circular(borderRadius ?? 60.0)),
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,

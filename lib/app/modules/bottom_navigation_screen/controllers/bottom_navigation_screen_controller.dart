@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:transaction_viewer_app/app/modules/bank_statement_views/bank_statement_screen/views/bank_statement_screen_view.dart';
+import 'package:transaction_viewer_app/app/modules/bill_payment_screen/views/bill_payment_screen_view.dart';
 import 'package:transaction_viewer_app/app/modules/home_views/home_screen/views/home_screen_view.dart';
 
 class BottomNavigationScreenController extends GetxController {
@@ -12,7 +13,7 @@ class BottomNavigationScreenController extends GetxController {
   List<Widget> lstScreens = [
     BankStatementScreenView(),
     HomeScreenView(),
-    HomeScreenView(),
+    BillPaymentScreenView(),
   ];
 
 

@@ -33,6 +33,15 @@ dependencies:
 #  tab bar
   slide_switcher: ^1.1.2
 
+#  toast message
+  fluttertoast: ^8.1.2
+
+#  share intent
+  share_plus: ^6.3.1
+
+#  api calling
+  http: ^0.13.6
+
   get: 4.6.5
 
   flutter: 
@@ -47,8 +56,12 @@ dev_dependencies:
 flutter:
   assets:
     - assets/reg.json
+    - assets/bank_list_icons.json
+    - assets/IFSC_Code/
     - assets/splash_screen/
     - assets/Icons/
+    - assets/bank icons/
+    - assets/fuel_price_city/
 
   fonts:
     - family: Poppins

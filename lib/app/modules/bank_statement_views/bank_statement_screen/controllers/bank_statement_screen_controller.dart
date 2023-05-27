@@ -37,6 +37,7 @@ class BankStatementScreenController extends GetxController {
       // ///Sorting same values from 2 lists
       // bankList.value = bankList.toSet().intersection(regExList.toSet()).toList();
 
+      List<SmsMessage> bankData = [];
 
       for(int i = 0; i < messages.length; i++) {
 
@@ -63,12 +64,37 @@ class BankStatementScreenController extends GetxController {
                 int? accountBalanceGroupId = regex.dataFields?.accountBalance?.groupId;
                 final account_balance = accountBalanceGroupId == null ? null : result.group(accountBalanceGroupId);
 
+                int? accountNumberGroupId = regex.dataFields?.pan?.groupId;
+                final account_number = accountNumberGroupId == null ? regex.dataFields?.pan?.value : result.group(accountNumberGroupId);
+
+                int? amountGroupId = regex.dataFields?.amount?.groupId;
+                final transaction_amount = amountGroupId == null ? null : result.group(amountGroupId);
+
+
+                ///account_balance != null means sms have proper transaction messages
+                // if(account_balance != null || transaction_amount != null) {
                 if(account_balance != null) {
-                  bankList.value.add(messages[i].address?.split('-').last);
                   messageList.add(messages[i]);
-                  messageTotalBalanceList.add(account_balance);
+                  if(!bankList.value.contains(messages[i].address?.split('-').last)) {
+                    bankList.value.add(messages[i].address?.split('-').last);
+                    Map<String, dynamic> tempBankMap = {};
+                    print('result -> ${result}');
+                    print('account_balance -> ${account_balance}');
+                    bankData.add(messages[i]);
+                    tempBankMap['bank_address'] = messages[i].address?.split('-').last;
+                    tempBankMap['bank_name'] = regData.rules![j].fullName;
+                    tempBankMap['account_number'] = account_number;
+                    tempBankMap['total_balance'] = account_balance;
+                    mapMessageList.add(tempBankMap);
+                  }
                 }
-                totalBalance.value = messageTotalBalanceList.first ?? '0.0';
+
+                // if(account_balance != null) {
+                //   bankList.value.add(messages[i].address?.split('-').last);
+                //   messageList.add(messages[i]);
+                  // messageTotalBalanceList.add(account_balance);
+                // }
+                // totalBalance.value = messageTotalBalanceList.first ?? '0.0';
               }
             });
           }
@@ -77,24 +103,27 @@ class BankStatementScreenController extends GetxController {
     });
   }
 
+  Map<String, dynamic> bankBundleData = {};
 
   @override
-  void onInit() {
+  Future<void> onInit() async {
     super.onInit();
-    print('percentage.value -> ${percentage.value}');
     if(percentage.value <= 0.0) {
     print('loadBankCategory initiate');
-      loadBankCategory().whenComplete(() {
-        bankList.value = bankList.value.toSet().toList();
-        bankList.forEach((bankName) {
-          List<SmsMessage> messages = [];
-          messageList.forEach((message) {
-            if(bankName == message?.address?.split('-').last) {
-              messages.add(message!);
-              mapMessageList.value[bankName!] = messages;
-            }
-          });
-        });
+    String bankBundleString = await rootBundle.loadString('assets/bank_list_icons.json');
+    bankBundleData = json.decode(bankBundleString);
+
+    loadBankCategory().whenComplete(() {
+        // bankList.value = bankList.value.toSet().toList();
+        // bankList.forEach((bankName) {
+        //   List<SmsMessage> messages = [];
+        //   messageList.forEach((message) {
+        //     if(bankName == message?.address?.split('-').last) {
+        //       messages.add(message!);
+        //       mapMessageList.value[bankName!] = messages;
+        //     }
+        //   });
+        // });
       });
     }
   }

@@ -1,0 +1,1019 @@
+{
+  "rules": [
+    {
+      "full_name": "Airtel",
+      "name": "Airtel",
+      "image": "ic_0_airtel"
+    },
+    {
+      "full_name": "Airtel DTH",
+      "name": "Airtel DTH",
+      "image": "ic_1_airtel_dth"
+    },
+    {
+      "full_name": "Allahabad Bank",
+      "name": "Allahbad Bk",
+      "image": "ic_2_allaphabad"
+    },
+    {
+      "full_name": "American Express",
+      "name": "AmEx",
+      "image": "ic_3_american_exp"
+    },
+    {
+      "full_name": "Andhra Bank",
+      "name": "Andhra Bnk",
+      "image": "ic_4_andhra_bk"
+    },
+    {
+      "full_name": "Axis Bank",
+      "name": "Axis",
+      "image": "ic_5_axis_bank"
+    },
+    {
+      "full_name": "Bank of Baroda",
+      "name": "BOB",
+      "image": "ic_6_bank_of_baroda"
+    },
+    {
+      "full_name": "Bank of India",
+      "name": "BOI",
+      "image": "ic_7_bank_of_india"
+    },
+    {
+      "full_name": "Bank of Maharashtra",
+      "name": "BOM",
+      "image": "ic_8_bank_of_maharashtra"
+    },
+    {
+      "full_name": "BookMyShow",
+      "name": "BookMyShow",
+      "image": "ic_9_book_my_show"
+    },
+    {
+      "full_name": "Corporation Bank",
+      "name": "CORP BANK",
+      "image": "ic_10_corporation_bk"
+    },
+    {
+      "full_name": "Catholic Syrian Bank",
+      "name": "CSB",
+      "image": "ic_11_catholic_syrian"
+    },
+    {
+      "full_name": "Canara Bank",
+      "name": "Canara",
+      "image": "ic_12_canara"
+    },
+    {
+      "full_name": "Citibank",
+      "name": "CitiBank",
+      "image": "ic_13_citi_bank"
+    },
+    {
+      "full_name": "Citi Bank",
+      "name": "CitiBank",
+      "image": "ic_13_citi_bank"
+    },
+    {
+      "full_name": "Cosmos Bank",
+      "name": "Cosmos",
+      "image": "ic_14_cosmos_bk"
+    },
+    {
+      "full_name": "Deutsche Bank",
+      "name": "DeutscheBk",
+      "image": "ic_15_deutsche_bk"
+    },
+    {
+      "full_name": "Docomo",
+      "name": "Docomo",
+      "image": "ic_16_docomo"
+    },
+    {
+      "full_name": "Federal Bank",
+      "name": "Federal Bk",
+      "image": "ic_17_federal_bank"
+    },
+    {
+      "full_name": "FlipKart",
+      "name": "FlipKart",
+      "image": "ic_18_flipcart"
+    },
+    {
+      "full_name": "HDFC Bank",
+      "name": "HDFC",
+      "image": "ic_19_hdfc"
+    },
+    {
+      "full_name": "HSBC",
+      "name": "HSBC",
+      "image": "ic_20_hsbc"
+    },
+    {
+      "full_name": "HSBC Bank",
+      "name": "HSBC",
+      "image": "ic_20_hsbc"
+    },
+    {
+      "full_name": "ICICI Bank",
+      "name": "ICICI",
+      "image": "ic_21_icici_bk"
+    },
+    {
+      "full_name": "IDBI Bank",
+      "name": "IDBI",
+      "image": "ic_22_idb_bk"
+    },
+    {
+      "full_name": "IRCTC",
+      "name": "IRCTC",
+      "image": "ic_23_irctc"
+    },
+    {
+      "full_name": "Idea",
+      "name": "Idea",
+      "image": "ic_24_idea"
+    },
+    {
+      "full_name": "Indian Bank",
+      "name": "Indian Bnk",
+      "image": "ic_25_indian_bk"
+    },
+    {
+      "full_name": "IndusInd Bank",
+      "name": "Indus",
+      "image": "ic_26_indusind_bk"
+    },
+    {
+      "full_name": "Kotak Mahindra Bank",
+      "name": "Kotak",
+      "image": "ic_27_kotak_mahi_bk"
+    },
+    {
+      "full_name": "Make My Trip",
+      "name": "Make My Trip",
+      "image": "ic_28_make_my_trip"
+    },
+    {
+      "full_name": "OlaCab",
+      "name": "OlaCab",
+      "image": "ic_29_ola_cab"
+    },
+    {
+      "full_name": "Punjab National Bank",
+      "name": "PNB",
+      "image": "ic_30_panjab_national"
+    },
+    {
+      "full_name": "RBL Bank",
+      "name": "RBLBANK",
+      "image": "ic_31_rbl_bk"
+    },
+    {
+      "full_name": "State Bank of India",
+      "name": "SBI",
+      "image": "ic_statebank"
+    },
+    {
+      "full_name": "State Bank Of Bikaner and Jaipur",
+      "name": "SBI",
+      "image": "ic_statebank"
+    },
+    {
+      "full_name": "State Bank Of Travancore",
+      "name": "SBI",
+      "image": "ic_statebank"
+    },
+    {
+      "full_name": "Standard Chartered",
+      "name": "StanC",
+      "image": "ic_33_standard_charted"
+    },
+    {
+      "full_name": "Standard Chartered Bank",
+      "name": "StanC",
+      "image": "ic_33_standard_charted"
+    },
+    {
+      "full_name": "TATA Credit Card",
+      "name": "TATA",
+      "image": "ic_34_credit_card"
+    },
+    {
+      "full_name": "Union Bank of India",
+      "name": "Union Bank",
+      "image": "ic_35_union_bank"
+    },
+    {
+      "full_name": "Vodafone",
+      "name": "Vodafone",
+      "image": "ic_36_vodafone"
+    },
+    {
+      "full_name": "Walnut",
+      "name": "Walnut",
+      "image": "ic_37_walnut"
+    },
+    {
+      "full_name": "Yes Bank",
+      "name": "YesBank",
+      "image": "ic_38_yes_bk"
+    },
+    {
+      "full_name": "Aircel",
+      "name": "Aircel",
+      "image": "ic_39_aircel"
+    },
+    {
+      "full_name": "Reliance Communications",
+      "name": "RCom",
+      "image": "ic_40_reliance_communication"
+    },
+    {
+      "full_name": "Central Bank of India",
+      "name": "CNTRLBK",
+      "image": "ic_41_central_bk_of_india"
+    },
+    {
+      "full_name": "UCO Bank",
+      "name": "UCO",
+      "image": "ic_42_uco_bk"
+    },
+    {
+      "full_name": "Oriental Bank of Commerce",
+      "name": "OBC",
+      "image": "ic_43_orianted_bk_of_coom"
+    },
+    {
+      "full_name": "GOIBIBO",
+      "name": "GOIBIBO",
+      "image": "ic_44_goibibo"
+    },
+    {
+      "full_name": "Cleartrip",
+      "name": "Cleartrip",
+      "image": "ic_45_cleartrip"
+    },
+    {
+      "full_name": "Yatra",
+      "name": "Yatra",
+      "image": "ic_46_yatra"
+    },
+    {
+      "full_name": "BSNL",
+      "name": "BSNL",
+      "image": "ic_47_bsnl"
+    },
+    {
+      "full_name": "Vijaya Bank",
+      "name": "VIJAYA",
+      "image": "ic_53_vijya"
+    },
+    {
+      "full_name": "Dena Bank",
+      "name": "DENA",
+      "image": "ic_49_dena_bk"
+    },
+    {
+      "full_name": "MTNL",
+      "name": "MTNL",
+      "image": "ic_50_mtnl"
+    },
+    {
+      "full_name": "Syndicate Bank",
+      "name": "Syndicate",
+      "image": "ic_51_syndicate_bk"
+    },
+    {
+      "full_name": "Paytm wallet and Bank",
+      "name": "PAYTM",
+      "image": "ic_52_paytm_wallet"
+    },
+    {
+      "full_name": "PayZapp",
+      "name": "PayZapp",
+      "image": "ic_53_payzapp"
+    },
+    {
+      "full_name": "IMONEY",
+      "name": "IMONEY",
+      "image": "ic_54_imoney"
+    },
+    {
+      "full_name": "MoboMoney",
+      "name": "MoboMoney",
+      "image": "ic_55_mobomoney"
+    },
+    {
+      "full_name": "MobiKwik",
+      "name": "MobiKwik",
+      "image": "ic_56_mobikwik"
+    },
+    {
+      "full_name": "Airtel Payments Bank",
+      "name": "Airtel Money",
+      "image": "ic_57_airtel_pay_bk"
+    },
+    {
+      "full_name": "Indian Overseas Bank",
+      "name": "IOB",
+      "image": "ic_58_indian_overseas"
+    },
+    {
+      "full_name": "Karur Vysya Bank",
+      "name": "KVB",
+      "image": "ic_59_karur_vyas"
+    },
+    {
+      "full_name": "South Indian Bank",
+      "name": "South Indian",
+      "image": "ic_60_south_india"
+    },
+    {
+      "full_name": "City Union Bank",
+      "name": "CUB",
+      "image": "ic_61_city_union"
+    },
+    {
+      "full_name": "Jammu & Kashmir Bank",
+      "name": "J&K Bank",
+      "image": "ic_62_jammu_and_kashmir"
+    },
+    {
+      "full_name": "Saraswat Bank",
+      "name": "Saraswat Bank",
+      "image": "ic_63_saraswat"
+    },
+    {
+      "full_name": "United Bank of India",
+      "name": "United Bank",
+      "image": "ic_64_united_bk_of_india"
+    },
+    {
+      "full_name": "Dhanlaxmi Bank",
+      "name": "Dhanlaxmi Bank",
+      "image": "ic_65_dhanlakshmi"
+    },
+    {
+      "full_name": "Tamilnad Mercantile Bank",
+      "name": "TMB",
+      "image": "ic_66_tamilnad_mer_bk"
+    },
+    {
+      "full_name": "Lakshmi Vilas Bank",
+      "name": "Lakshmi Vilas",
+      "image": "ic_67_lakshmi_vilas"
+    },
+    {
+      "full_name": "Royal Bank of Scotland",
+      "name": "RBS",
+      "image": "ic_68_royal_bk_scotland"
+    },
+    {
+      "full_name": "IDFC First Bank",
+      "name": "IDFC",
+      "image": "ic_69_idfc"
+    },
+    {
+      "full_name": "IDFC Bank",
+      "name": "IDFC",
+      "image": "ic_69_idfc"
+    },
+    {
+      "full_name": "DBS Bank",
+      "name": "DBS",
+      "image": "ic_70_dbs_bk"
+    },
+    {
+      "full_name": "Karnataka Bank",
+      "name": "Karnataka Bank",
+      "image": "ic_71_karnatak_bk"
+    },
+    {
+      "full_name": "Shamrao Vithal Co-operative Bank",
+      "name": "SVC Bank",
+      "image": "ic_72_shamrao"
+    },
+    {
+      "full_name": "DCB Bank",
+      "name": "DCB",
+      "image": "ic_73_dcb_bk"
+    },
+    {
+      "full_name": "Ticket",
+      "name": "Ticket",
+      "image": "ic_74_ticket"
+    },
+    {
+      "full_name": "Tata Sky",
+      "name": "Tata Sky",
+      "image": "ic_75_tata_sky"
+    },
+    {
+      "full_name": "Videocon D2H",
+      "name": "Videocon D2H",
+      "image": "ic_76_videocon_d2h"
+    },
+    {
+      "full_name": "Sun DTH",
+      "name": "Sun DTH",
+      "image": "ic_77_sun_dth"
+    },
+    {
+      "full_name": "Dish TV",
+      "name": "Dish TV",
+      "image": "ic_78_dishtv"
+    },
+    {
+      "full_name": "Sodexo",
+      "name": "Sodexo",
+      "image": "ic_79_sodexo"
+    },
+    {
+      "full_name": "MSEB",
+      "name": "MSEB",
+      "image": "ic_80_mseb"
+    },
+    {
+      "full_name": "BESCOM",
+      "name": "BESCOM",
+      "image": "ic_81_bescom"
+    },
+    {
+      "full_name": "Tata Power",
+      "name": "Tata Power",
+      "image": "ic_82_tata_power"
+    },
+    {
+      "full_name": "BSES",
+      "name": "BSES",
+      "image": "ic_83_bses"
+    },
+    {
+      "full_name": "GUVNL",
+      "name": "GUVNL",
+      "image": "ic_84_guvnl"
+    },
+    {
+      "full_name": "UPPCL",
+      "name": "UPPCL",
+      "image": "ic_85_uppcl"
+    },
+    {
+      "full_name": "TSSPDCL",
+      "name": "TSSPDCL",
+      "image": "ic_86_tsspdcl"
+    },
+    {
+      "full_name": "CESC",
+      "name": "CESC",
+      "image": "ic_87_cesc"
+    },
+    {
+      "full_name": "Life Insurance Corporation",
+      "name": "LIC",
+      "image": "ic_88_life_insurance"
+    },
+    {
+      "full_name": "SBI Life Insurance Company",
+      "name": "SBI Life",
+      "image": "ic_89_sbi_life_insu_company"
+    },
+    {
+      "full_name": "Max Life Insurance",
+      "name": "Max Life",
+      "image": "ic_90_max_life_insurance"
+    },
+    {
+      "full_name": "Kotak Life Insurance",
+      "name": "Kotak Life",
+      "image": "ic_91_kotak_life"
+    },
+    {
+      "full_name": "HDFC Life",
+      "name": "HDFC Life",
+      "image": "ic_92_hdfc_life"
+    },
+    {
+      "full_name": "HDFC Home",
+      "name": "HDFC Home",
+      "image": "ic_93_hdfc_home_loan"
+    },
+    {
+      "full_name": "Bajaj Finserv",
+      "name": "Bajaj Finserv",
+      "image": "ic_94_bajaj_fin"
+    },
+    {
+      "full_name": "ICICI Prudential Life Insurance",
+      "name": "ICICI Prudential",
+      "image": "ic_95_icici_prudential"
+    },
+    {
+      "full_name": "JioMoney",
+      "name": "JioMoney",
+      "image": "ic_96_jiomoney"
+    },
+    {
+      "full_name": "TANGEDCO",
+      "name": "TANGEDCO",
+      "image": "ic_97_tangedco"
+    },
+    {
+      "full_name": "FreeCharge",
+      "name": "FreeCharge",
+      "image": "ic_98_free_charge"
+    },
+    {
+      "full_name": "Punjab & Sind Bank",
+      "name": "PSB",
+      "image": "ic_99_punjab_sind"
+    },
+    {
+      "full_name": "Punjab & Maharashtra Co-op Bank",
+      "name": "PMC",
+      "image": "ic_100_punjab_maharashtra"
+    },
+    {
+      "full_name": "PhonePe",
+      "name": "PhonePe",
+      "image": "ic_101_phonepe"
+    },
+    {
+      "full_name": "Mahanagar Gas",
+      "name": "Mahanagar Gas",
+      "image": "ic_102_mahanagar_gas"
+    },
+    {
+      "full_name": "Adani Gas",
+      "name": "Adani Gas",
+      "image": "ic_103_adani_gas"
+    },
+    {
+      "full_name": "Sabarmati Gas",
+      "name": "Sabarmati Gas",
+      "image": "ic_104_sabarmati_gas"
+    },
+    {
+      "full_name": "Gujarat Gas",
+      "name": "Gujarat Gas",
+      "image": "ic_105_gujarat_gas"
+    },
+    {
+      "full_name": "India Post Payments Bank",
+      "name": "India Post",
+      "image": "ic_106_india_post_payment"
+    },
+    {
+      "full_name": "APEPDCL",
+      "name": "APEPDCL",
+      "image": "ic_108_apspdcl"
+    },
+    {
+      "full_name": "APSPDCL",
+      "name": "APSPDCL",
+      "image": "ic_108_apspdcl"
+    },
+    {
+      "full_name": "UHBVN",
+      "name": "UHBVN",
+      "image": "ic_109_uhbvn"
+    },
+    {
+      "full_name": "DHBVN",
+      "name": "DHBVN",
+      "image": "ic_110_dhbvn"
+    },
+    {
+      "full_name": "Bandhan Bank",
+      "name": "Bandhan",
+      "image": "ic_111_bandhan_bank"
+    },
+    {
+      "full_name": "TJSB Sahakari Bank Ltd.",
+      "name": "TJSB",
+      "image": "ic_112_tjsb"
+    },
+    {
+      "full_name": "PayGo",
+      "name": "PayGo",
+      "image": "ic_113_paygo"
+    },
+    {
+      "full_name": "Amazon Pay",
+      "name": "Amazon Pay",
+      "image": "ic_114_amazon_pay"
+    },
+    {
+      "full_name": "ACT Broadband",
+      "name": "ACT Broadband",
+      "image": "ic_115_act_broadband"
+    },
+    {
+      "full_name": "Equitas Small Finance Bank",
+      "name": "Equitas",
+      "image": "ic_116_equitas_small"
+    },
+    {
+      "full_name": "LazyPay",
+      "name": "LazyPay",
+      "image": "ic_117_lazy_pay"
+    },
+    {
+      "full_name": "DHFL",
+      "name": "DHFL",
+      "image": "ic_118_dhfl"
+    },
+    {
+      "full_name": "Tata Capital",
+      "name": "Tata Capital",
+      "image": "ic_119_tata_capital"
+    },
+    {
+      "full_name": "Indiabulls",
+      "name": "Indiabulls",
+      "image": "ic_120_indiabulls"
+    },
+    {
+      "full_name": "Maharashtra Natural Gas Ltd.",
+      "name": "MNGL",
+      "image": "ic_121_maharashtra_gas"
+    },
+    {
+      "full_name": "OlaMoney",
+      "name": "OlaMoney",
+      "image": "ic_122_olamoney"
+    },
+    {
+      "full_name": "Aegon Life Insurance Company",
+      "name": "Aegon",
+      "image": "ic_123_aegon_life"
+    },
+    {
+      "full_name": "Bharat Bank",
+      "name": "Bharat Bank",
+      "image": "ic_124_bharat_bank"
+    },
+    {
+      "full_name": "Adani Electricity",
+      "name": "Adani Electricity",
+      "image": "ic_125_adani_electricity"
+    },
+    {
+      "full_name": "NIYO",
+      "name": "NIYO",
+      "image": "ic_126_niyo"
+    },
+    {
+      "full_name": "Capital Float",
+      "name": "Capital Float",
+      "image": "ic_127_capital_float"
+    },
+    {
+      "full_name": "Hathway Broadband",
+      "name": "Hathway Broadband",
+      "image": "ic_128_hathway_broad"
+    },
+    {
+      "full_name": "Aviva",
+      "name": "Aviva",
+      "image": "ic_129_aviva"
+    },
+    {
+      "full_name": "Avantika Gas",
+      "name": "Avantika Gas",
+      "image": "ic_130_avantika_gas"
+    },
+    {
+      "full_name": "NDMC",
+      "name": "NDMC",
+      "image": "ic_131_ndmc"
+    },
+    {
+      "full_name": "WBSEDCL",
+      "name": "WBSEDCL",
+      "image": "ic_132_wbsedcl"
+    },
+    {
+      "full_name": "Torrent Power",
+      "name": "Torrent Power",
+      "image": "ic_133_torrent"
+    },
+    {
+      "full_name": "HPSEBL",
+      "name": "HPSEBL",
+      "image": "ic_134_hpsebl"
+    },
+    {
+      "full_name": "Jio",
+      "name": "Jio",
+      "image": "ic_135_jio"
+    },
+    {
+      "full_name": "ABHYUDAYA CO-OP BANK",
+      "name": "Abhyudaya",
+      "image": "ic_136_abhyudaya"
+    },
+    {
+      "full_name": "Andhra Pradesh Grameena Vikas Bank",
+      "name": "APGV",
+      "image": "ic_137_andhra_pradesh_grammen"
+    },
+    {
+      "full_name": "Fino Payments Bank",
+      "name": "Fino",
+      "image": "ic_138_fino_payment"
+    },
+    {
+      "full_name": "Ujjivan Small Finance Bank",
+      "name": "Ujjivan",
+      "image": "ic_139_ujjivan"
+    },
+    {
+      "full_name": "AP Mahesh Bank",
+      "name": "AP Mahesh",
+      "image": "ic_140_ap_mahesh"
+    },
+    {
+      "full_name": "NKGSB Cooperative Bank",
+      "name": "NKGSB",
+      "image": "ic_141_nkgsb_bank"
+    },
+    {
+      "full_name": "Zaggle",
+      "name": "Zaggle",
+      "image": "ic_142_zaggle"
+    },
+    {
+      "full_name": "Simpl",
+      "name": "Simpl",
+      "image": "ic_143_simpl"
+    },
+    {
+      "full_name": "AU Small Finance Bank",
+      "name": "AU Bank",
+      "image": "ic_144_au_small"
+    },
+    {
+      "full_name": "PSPCL",
+      "name": "PSPCL",
+      "image": "ic_145_pspcl"
+    },
+    {
+      "full_name": "Bharti AXA Life Insurance",
+      "name": "Bharti AXA Life",
+      "image": "ic_146_bharti_life"
+    },
+    {
+      "full_name": "Aditya Birla Sun Life Insurance",
+      "name": "Aditya Birla Sun Life",
+      "image": "ic_147_aditya_birla"
+    },
+    {
+      "full_name": "Unique Central Piped Gas",
+      "name": "UCPGPL",
+      "image": "ic_148_unique_central"
+    },
+    {
+      "full_name": "Connect Broadband",
+      "name": "Connect Broadband",
+      "image": "ic_149_connect_broadband"
+    },
+    {
+      "full_name": "Canara HSBC OBC Life Insurance Company Limited",
+      "name": "Canara HSBC OBC Life",
+      "image": "ic_150_canara_hsbc"
+    },
+    {
+      "full_name": "DHFL Pramerica Life Insurance",
+      "name": "DHFL Pramerica Life",
+      "image": "ic_151_dhfl_pramerica_life"
+    },
+    {
+      "full_name": "HDFC ERGO General Insurance",
+      "name": "HDFC ERGO",
+      "image": "ic_152_hdfc_ergo"
+    },
+    {
+      "full_name": "IDBI Federal Life Insurance",
+      "name": "IDBI Federal Life",
+      "image": "ic_153_idbi_federal"
+    },
+    {
+      "full_name": "India First Life Insurance",
+      "name": "India First Life",
+      "image": "ic_154_india_first_life"
+    },
+    {
+      "full_name": "APDCL",
+      "name": "APDCL",
+      "image": "ic_155_apdcl"
+    },
+    {
+      "full_name": "Brihanmumbai Electric Supply and Transport",
+      "name": "BEST",
+      "image": "ic_156_brihanmumbai"
+    },
+    {
+      "full_name": "CSEB",
+      "name": "CSEB",
+      "image": "ic_157_cseb"
+    },
+    {
+      "full_name": "Edelweiss Tokio Life Insurance",
+      "name": "Edelweiss Tokio Life",
+      "image": "ic_158_edelweiss"
+    },
+    {
+      "full_name": "Haryana City Gas",
+      "name": "Haryana City Gas",
+      "image": "ic_159_haryana_city_gas"
+    },
+    {
+      "full_name": "HESCOM",
+      "name": "HESCOM",
+      "image": "ic_160_hescom"
+    },
+    {
+      "full_name": "Indraprastha Gas",
+      "name": "Indraprastha Gas",
+      "image": "ic_161_indraprasth_gas"
+    },
+    {
+      "full_name": "Kanpur Electricity",
+      "name": "KESCO",
+      "image": "ic_162_kanpur_elc"
+    },
+    {
+      "full_name": "Kota Electricity Distribution Limited",
+      "name": "KEDL",
+      "image": "ic_163_kota_elc"
+    },
+    {
+      "full_name": "Tikona",
+      "name": "Tikona",
+      "image": "ic_164_tikona"
+    },
+    {
+      "full_name": "Mangalore Electricity Supply",
+      "name": "MESCOM",
+      "image": "ic_165_mangalore_elc"
+    },
+    {
+      "full_name": "Noida Power Co Limited",
+      "name": "NPCL",
+      "image": "ic_166_noida_power"
+    },
+    {
+      "full_name": "NBPDCL",
+      "name": "NBPDCL",
+      "image": "ic_167_nbpdcl"
+    },
+    {
+      "full_name": "PNB Metlife Insurance",
+      "name": "PNB Metlife",
+      "image": "ic_168_pnb_metlife"
+    },
+    {
+      "full_name": "Reliance Nippon Life Insurance",
+      "name": "Reliance Nippon Life",
+      "image": "ic_169_reliance_nippon"
+    },
+    {
+      "full_name": "Nextra Broadband",
+      "name": "Nextra Broadband",
+      "image": "ic_170_nextra_broadband"
+    },
+    {
+      "full_name": "SBPDCL",
+      "name": "SBPDCL",
+      "image": "ic_171_sbpdcl"
+    },
+    {
+      "full_name": "Spectra Broadband",
+      "name": "Spectra Broadband",
+      "image": "ic_172_spectra_broadband"
+    },
+    {
+      "full_name": "Tata AIA Life Insurance",
+      "name": "Tata AIA Life",
+      "image": "ic_173_tata_aia_life"
+    },
+    {
+      "full_name": "TSECL",
+      "name": "TSECL",
+      "image": "ic_174_tsecl"
+    },
+    {
+      "full_name": "Tripura Natural Gas",
+      "name": "Tripura Natural Gas",
+      "image": "ic_175_tripura_natural_gas"
+    },
+    {
+      "full_name": "Uttarakhand Power Corporation",
+      "name": "UPCL",
+      "image": "ic_176_uttarakhand_power"
+    },
+    {
+      "full_name": "Vadodara Gas",
+      "name": "Vadodara Gas",
+      "image": "ic_177_vadodara_gas"
+    },
+    {
+      "full_name": "Bharatpur Electricity",
+      "name": "BESL",
+      "image": "ic_184_bes"
+    },
+    {
+      "full_name": "Bikaner Electricity Supply",
+      "name": "BKESLM",
+      "image": "ic_185_bke"
+    },
+    {
+      "full_name": "Daman & Diu electricity",
+      "name": "DDED",
+      "image": "ic_180_daman_div_elc"
+    },
+    {
+      "full_name": "JUSCO",
+      "name": "JUSCO",
+      "image": "ic_181_jusco"
+    },
+    {
+      "full_name": "TTN BroadBand",
+      "name": "TTN BroadBand",
+      "image": "ic_182_ttn_broadband"
+    },
+    {
+      "full_name": "M.P. Madhya Kshetra Vidyut Vitaran",
+      "name": "MPMKVVCL",
+      "image": "ic_183_mp_madhya_kshetra"
+    },
+    {
+      "full_name": "M.P. Poorv Kshetra Vidyut Vitaran",
+      "name": "MPPKVVCL-EAST",
+      "image": "ic_184_mp_poorv"
+    },
+    {
+      "full_name": "M.P. Paschim Kshetra Vidyut Vitaran",
+      "name": "MPPKVVCL-WEST",
+      "image": "ic_191_mpm"
+    },
+    {
+      "full_name": "One Card",
+      "name": "One Card",
+      "image": "ic_186_one_card"
+    },
+    {
+      "full_name": "Slice",
+      "name": "Slice",
+      "image": "ic_187_slice"
+    },
+    {
+      "full_name": "Sezzle",
+      "name": "Sezzle",
+      "image": "ic_188_sezzle"
+    },
+    {
+      "full_name": "ZestMoney",
+      "name": "ZestMoney",
+      "image": "ic_189_zestmoney"
+    },
+    {
+      "full_name": "Bullet",
+      "name": "Bullet",
+      "image": "ic_190_bullet"
+    },
+    {
+      "full_name": "Uni Card",
+      "name": "Uni Card",
+      "image": "ic_191_unicard"
+    },
+    {
+      "full_name": "ABN AMRO",
+      "name": "ABN AMRO",
+      "image": "ic_198_abn"
+    },
+    {
+      "full_name": "ANZ Bank ",
+      "name": "ANZ Bank ",
+      "image": "ic_199_anzbk"
+    },
+    {
+      "full_name": "Barclays Bank ",
+      "name": "Barclays Bank",
+      "image": "ic_198_abn"
+    },
+    {
+      "full_name": "Bharatiya Mahila Bank",
+      "name": "Bharatiya Mahila Bank",
+      "image": "ic_201_bhartiy_mahila"
+    },
+    {
+      "full_name": "Janata Sahakari Bank",
+      "name": "Janata Sahakari Bank",
+      "image": "ic_202_janta_sahkari"
+    }
+  ]
+}

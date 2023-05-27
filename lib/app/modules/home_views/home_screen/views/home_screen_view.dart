@@ -8,6 +8,9 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:transaction_viewer_app/app/data/constants/color_constants.dart';
 import 'package:transaction_viewer_app/app/data/constants/image_constants.dart';
 import 'package:transaction_viewer_app/app/data/constants/widget_constants.dart';
+import 'package:transaction_viewer_app/app/data/fuel_price_model.dart';
+import 'package:transaction_viewer_app/app/modules/home_views/banking/ifsc_screen/views/ifsc_screen_view.dart';
+import 'package:transaction_viewer_app/app/modules/home_views/home_screen/views/change_city_screen.dart';
 
 import '../controllers/home_screen_controller.dart';
 
@@ -22,35 +25,33 @@ class HomeScreenView extends GetView<HomeScreenController> {
     return Scaffold(
       backgroundColor: ConstantsColor.backgroundDarkColor,
       appBar: ConstantsWidgets.appBar(title: 'All Bank Balance Check'),
-      body: Container(
-        child: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
-          child: Column(
-            children: [
-              SizedBox(height: 15.sp),
-              ///Advertise
-              Container(
-                height: 32.h,
-                width: 100.w,
-                margin: EdgeInsets.symmetric(horizontal: 10.sp),
-                decoration: BoxDecoration(
-                  color: Colors.green,
-                  borderRadius: BorderRadius.circular(15.sp),
-                ),
+      body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
+        child: Column(
+          children: [
+            SizedBox(height: 15.sp),
+            ///Advertise
+            Container(
+              height: 32.h,
+              width: 100.w,
+              margin: EdgeInsets.symmetric(horizontal: 10.sp),
+              decoration: BoxDecoration(
+                color: Colors.green,
+                borderRadius: BorderRadius.circular(15.sp),
               ),
-              ///Banking
-              gradientCard(height: height, width: width, title: 'Banking', mapData: controller.listBanking),
-              SizedBox(height: 22.sp),
-              dailyPriceList(height: height, width: width),
-              SizedBox(height: 22.sp),
-              simpleCard(width: width, title: 'Credit & Loan Products', data: controller.listLoan),
-              ///Calculators
-              gradientCard(height: height, width: width, title: 'Calculators', mapData: controller.listCalculators),
-              SizedBox(height: 22.sp),
-              simpleCard(width: width, title: 'Schemes  ', data: controller.listSchemes),
-              SizedBox(height: 30.sp),
-            ],
-          ),
+            ),
+            ///Banking
+            gradientCard(height: height, width: width, title: 'Banking', mapData: controller.listBanking),
+            SizedBox(height: 22.sp),
+            dailyPriceList(height: height, width: width),
+            SizedBox(height: 22.sp),
+            simpleCard(width: width, title: 'Credit & Loan Products', data: controller.listCreditAndLoan),
+            ///Calculators
+            gradientCard(height: height, width: width, title: 'Calculators', mapData: controller.listCalculators),
+            SizedBox(height: 22.sp),
+            simpleCard(width: width, title: 'Schemes  ', data: controller.listSchemes),
+            SizedBox(height: 30.sp),
+          ],
         ),
       ),
     );
@@ -59,6 +60,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
 
   dailyPriceList({required double height, required double width}) {
     double cardHeight = height * 0.36;
+
     return Container(
       height: cardHeight,
       width: width,
@@ -75,153 +77,206 @@ class HomeScreenView extends GetView<HomeScreenController> {
             child: Text('Daily Price List', style: TextStyle(color: Colors.white, fontSize: 17.sp, fontWeight: FontWeight.w500))
           ),
           SizedBox(height: 15.sp),
-          Container(
-            height: cardHeight * 0.64,
-            width: width,
-            child: PageView.builder(
-              controller: controller.pageController,
-              itemCount: 3,
-              onPageChanged: (page) => controller.currentPage.value = page,
-              itemBuilder: (context, index) {
-                return Container(
-                  height: cardHeight * 0.6,
-                  margin: EdgeInsets.symmetric(horizontal: 21.sp),
-                  decoration: BoxDecoration(
-                      color: Color.fromRGBO(91, 17, 176, 1),
-                      borderRadius: BorderRadius.circular(17.sp)
-                  ),
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          IconButton(onPressed: null, icon: SizedBox(width: 20.sp, height: 20.sp)),
-                          Text('Today’s Fuel Price', style: TextStyle(color: Colors.white, fontSize: 16.5.sp, fontWeight: FontWeight.w600)),
-                          IconButton(
-                            onPressed: (){},
-                            icon: Image.asset(ConstantsImage.more_circle_icon, height: 20.sp)
-                          )
-                        ],
-                      ),
-                      Spacer(),
-                      IntrinsicHeight(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Column(
-                              children: [
-                                Text('₹ 106.01', style: TextStyle(color: Colors.white, fontSize: 19.sp, fontWeight: FontWeight.w600)),
-                                SizedBox(height: 12.sp),
-                                Text('Petrol', style: TextStyle(color: Colors.white, fontSize: 16.sp, fontWeight: FontWeight.w300)),
-                              ],
-                            ),
-                            VerticalDivider(
-                              color: Colors.white,
-                              thickness: 1,
-                            ),
-                            Column(
-                              children: [
-                                Text('₹ 92.74', style: TextStyle(color: Colors.white, fontSize: 19.sp, fontWeight: FontWeight.w600)),
-                                SizedBox(height: 12.sp),
-                                Text('Diesel', style: TextStyle(color: Colors.white, fontSize: 16.sp, fontWeight: FontWeight.w300)),
-                              ],
-                            ),
-
-                          ],
-                        ),
-                      ),
-                      Spacer(flex: 2),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          InkWell(
-                            onTap: (){},
-                            child: Row(
-                              children: [
-                                Text('MUMBAI, MAHARASHTRA ', style: TextStyle(color: Colors.white, fontSize: 15.sp, fontWeight: FontWeight.w500)),
-                                Icon(CupertinoIcons.chevron_right, color: Colors.white, size: 18.sp),
-                                SizedBox(width: 12.sp)
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-
-                      Spacer(flex: 2),
-                    ],
-                  ),
-                );
-              }
-            ),
+          ///Petrol Price Scroll
+          GetBuilder(
+            init: HomeScreenController(),
+            builder: (controller) {
+              return FutureBuilder<Price?>(
+                  future: controller.getFuelPriceData(state: controller.stateName, city: controller.cityName),
+                  builder: (BuildContext context, AsyncSnapshot<Price?> snapshot) {
+                    if(snapshot.hasData) {
+                      if(snapshot.connectionState == ConnectionState.waiting || snapshot.connectionState == ConnectionState.active || snapshot.connectionState == ConnectionState.none) {
+                        return Container(
+                            height: cardHeight * 0.64,
+                            width: width,
+                            child: const Center(child: CircularProgressIndicator(color: Colors.white))
+                        );
+                      } else {
+                        Price? price = snapshot.data;
+                        print('price -> ${price?.fuel?.diesel?.retailPrice}');
+                        return fuelPriceSlider(price: price);
+                      }
+                    } else {
+                      return fuelPriceSlider();
+                    }
+                  }
+              );
+            }
           ),
-          Spacer(),
-          SmoothPageIndicator(
-              controller: controller.pageController,  // PageController
-              count: 3,
-              effect: ExpandingDotsEffect(
-                  dotColor: Colors.white70,
-                  activeDotColor: Colors.white,
-                  dotHeight: 11.5.sp,
-                  expansionFactor: 3,
-                  dotWidth: 11.5.sp
-              ),  // your preferred effect
-              onDotClicked: (index){
-              }
-          ),
-          Spacer(),
+          // Spacer(),
         ],
       ),
     );
   }
 
 
+  fuelPriceSlider({Price? price}) {
+    double width = 100.w;
+    double height = 100.h;
+    double cardHeight = height * 0.36;
+
+    print('price111 -> $price');
+
+    return GetBuilder(
+      init: HomeScreenController(),
+      builder: (controller) {
+        return Column(
+          children: [
+            SizedBox(
+              height: cardHeight * 0.64,
+              width: width,
+              child: PageView.builder(
+                  controller: controller.pageController,
+                  itemCount: price != null ? 3 : 1,
+                  onPageChanged: (page) => controller.currentPage.value = page,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      height: cardHeight * 0.6,
+                      margin: EdgeInsets.symmetric(horizontal: 21.sp),
+                      decoration: BoxDecoration(
+                          color: const Color.fromRGBO(91, 17, 176, 1),
+                          borderRadius: BorderRadius.circular(17.sp)
+                      ),
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              IconButton(onPressed: null, icon: SizedBox(width: 20.sp, height: 20.sp)),
+                              Text('Today’s Fuel Price', style: TextStyle(color: Colors.white, fontSize: 16.5.sp, fontWeight: FontWeight.w600)),
+                              IconButton(
+                                  onPressed: (){},
+                                  icon: Image.asset(ConstantsImage.more_circle_icon, height: 20.sp)
+                              )
+                            ],
+                          ),
+                          Spacer(),
+                          price != null ? IntrinsicHeight(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Column(
+                                  children: [
+                                    Text('₹ ${price.fuel?.petrol?.retailPrice}', style: TextStyle(color: Colors.white, fontSize: 19.sp, fontWeight: FontWeight.w600)),
+                                    SizedBox(height: 12.sp),
+                                    Text('Petrol', style: TextStyle(color: Colors.white, fontSize: 16.sp, fontWeight: FontWeight.w300)),
+                                  ],
+                                ),
+                                VerticalDivider(
+                                  color: Colors.white,
+                                  thickness: 1,
+                                ),
+                                Column(
+                                  children: [
+                                    Text('₹ ${price.fuel?.diesel?.retailPrice}', style: TextStyle(color: Colors.white, fontSize: 19.sp, fontWeight: FontWeight.w600)),
+                                    SizedBox(height: 12.sp),
+                                    Text('Diesel', style: TextStyle(color: Colors.white, fontSize: 16.sp, fontWeight: FontWeight.w300)),
+                                  ],
+                                ),
+
+                              ],
+                            ),
+                          ) : Center(
+                              child: Obx(() => Text(controller.failedAPIMessage.value,
+                                style: TextStyle(color: Colors.white, fontSize: 15.5.sp, fontWeight: FontWeight.w300),
+                                textAlign: TextAlign.center,
+                              ))
+                          ),
+                          Spacer(flex: 2),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              InkWell(
+                                onTap: () {
+                                  print('controller.allCitiesMap -> ${controller.allCitiesMap}');
+                                  Get.to(const ChangeCityScreen(), arguments: controller.allCitiesMap);
+                                },
+                                child: Row(
+                                  children: [
+                                    Text('${controller.cityName.toUpperCase()}, ${controller.stateName.toUpperCase()} ',
+                                      style: TextStyle(color: Colors.white, fontSize: 15.sp, fontWeight: FontWeight.w500),
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 1,
+                                    ),
+                                    Icon(CupertinoIcons.chevron_right, color: Colors.white, size: 18.sp),
+                                    SizedBox(width: 12.sp)
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                          Spacer(flex: 2),
+                        ],
+                      ),
+                    );
+                  }
+              ),
+            ),
+            SizedBox(height: cardHeight * 0.07),
+            SmoothPageIndicator(
+                controller: controller.pageController,  // PageController
+                count: price != null ? 3 : 1,
+                effect: ExpandingDotsEffect(
+                    dotColor: Colors.white70,
+                    activeDotColor: Colors.white,
+                    dotHeight: 11.5.sp,
+                    expansionFactor: 3,
+                    dotWidth: 11.5.sp
+                ),  // your preferred effect
+                onDotClicked: (index){
+                }
+            ),
+          ],
+        );
+      }
+    );
+  }
+
 
   simpleCard({required double width, required String title, required List<Map<String, dynamic>> data}) {
-    return Container(
-      child: Column(
-        children: [
-          Container(
-              width: width,
-              padding: EdgeInsets.only(left: 12.sp),
-              alignment: Alignment.centerLeft,
-              child: Text(title, style: TextStyle(color: Colors.white, fontSize: 17.sp, fontWeight: FontWeight.w500))
-          ),
-          SizedBox(height: 15.sp),
-          Container(
-            margin: EdgeInsets.symmetric(horizontal: 12.sp),
-            child: Wrap(
-              spacing: 22.sp,
-              runSpacing: 15.sp,
-              children: List.generate(data.length, (index) {
-                return Column(
-                  children: [
-                    Container(
-                      height: 33.8.sp,
-                      width: 33.8.sp,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(18.sp),
-                        gradient: ConstantsColor.buttonGradient,
-                      ),
-                      padding: EdgeInsets.all(10.sp),
-                      child: Image.asset(data[index]['image']),
+    return Column(
+      children: [
+        Container(
+            width: width,
+            padding: EdgeInsets.only(left: 12.sp),
+            alignment: Alignment.centerLeft,
+            child: Text(title, style: TextStyle(color: Colors.white, fontSize: 17.sp, fontWeight: FontWeight.w500))
+        ),
+        SizedBox(height: 15.sp),
+        Container(
+          margin: EdgeInsets.symmetric(horizontal: 12.sp),
+          child: Wrap(
+            spacing: 22.sp,
+            runSpacing: 15.sp,
+            children: List.generate(data.length, (index) {
+              return Column(
+                children: [
+                  Container(
+                    height: 33.8.sp,
+                    width: 33.8.sp,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(18.sp),
+                      gradient: ConstantsColor.buttonGradient,
                     ),
-                    SizedBox(height: 10.sp),
-                    Container(
-                      width: 35.sp,
-                      child: Text(data[index]['title'],
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 15.sp, color: Colors.white),
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis
-                      ),
-                    )
-                  ],
-                );
-              }),
-            ),
-          )
-        ],
-      ),
+                    padding: EdgeInsets.all(10.sp),
+                    child: Image.asset(data[index]['image']),
+                  ),
+                  SizedBox(height: 10.sp),
+                  Container(
+                    width: 35.sp,
+                    child: Text(data[index]['title'],
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 15.sp, color: Colors.white),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis
+                    ),
+                  )
+                ],
+              );
+            }),
+          ),
+        )
+      ],
     );
   }
 
@@ -252,7 +307,20 @@ class HomeScreenView extends GetView<HomeScreenController> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: List.generate(mapData.length, (index) {
-                  return Container(
+                  return InkWell(
+                    onTap: () {
+                      if(index == 0) {
+                        Get.to(IfscScreenView());
+                      } else if(index == 1) {
+                        Get.to(IfscScreenView());
+                      } else if(index == 2) {
+                        Get.to(IfscScreenView());
+                      } else if(index == 3) {
+                        Get.to(IfscScreenView());
+                      } else {
+                        Get.to(IfscScreenView());
+                      }
+                    },
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
