@@ -51,14 +51,7 @@ class BottomNavigationScreenView
       circlPadding: EdgeInsets.all(controller.tabIndex.value == 0 ? 15.sp : 14.sp),
       circlBorderColor: Colors.green,
       circlBorderWidth: 2,
-      circleGradient: const LinearGradient(
-          colors: [
-            Color.fromRGBO(128, 34, 208, 1),
-            Color.fromRGBO(200, 32, 203, 0.82),
-            Color.fromRGBO(242, 142, 206, 1),
-            Color.fromRGBO(241, 130, 144, 1),
-          ]
-      ),
+      circleGradient: ConstantsColor.pinkGradient,
       height: 32.sp,
       circleWidth: 31.sp,
       color: ConstantsColor.backgroundDarkColor,

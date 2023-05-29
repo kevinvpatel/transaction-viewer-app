@@ -16,6 +16,7 @@ abstract class Routes {
       _Paths.BANK_DETAIL_SCREEN;
   static const HOME_VIEWS_BANKING_IFSC_SCREEN = _Paths.IFSC_SCREEN;
   static const BILL_PAYMENT_SCREEN = _Paths.BILL_PAYMENT_SCREEN;
+  static const HOME_LOAN_CALCULATOR_SCREEN = _Paths.HOME_LOAN_CALCULATOR_SCREEN;
 }
 
 abstract class _Paths {
@@ -32,4 +33,5 @@ abstract class _Paths {
   static const BANK_DETAIL_SCREEN = '/bank-detail-screen';
   static const IFSC_SCREEN = '/ifsc-screen';
   static const BILL_PAYMENT_SCREEN = '/bill-payment-screen';
+  static const HOME_LOAN_CALCULATOR_SCREEN = '/home-loan-calculator-screen';
 }

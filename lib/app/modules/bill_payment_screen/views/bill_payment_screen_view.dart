@@ -78,14 +78,7 @@ class BillPaymentScreenView extends GetView<BillPaymentScreenController> {
         children: [
           Container(
             decoration: BoxDecoration(
-              gradient: const LinearGradient(
-                  colors: [
-                    Color.fromRGBO(128, 34, 208, 1),
-                    Color.fromRGBO(200, 32, 203, 0.82),
-                    Color.fromRGBO(242, 142, 206, 1),
-                    Color.fromRGBO(241, 130, 144, 1),
-                  ]
-              ),
+              gradient: ConstantsColor.pinkGradient,
               borderRadius: BorderRadius.circular(15.5.sp),
             ),
             padding: EdgeInsets.all(3.sp),

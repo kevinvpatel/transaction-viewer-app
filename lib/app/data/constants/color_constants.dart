@@ -12,4 +12,16 @@ abstract class ConstantsColor {
       colors: [Color.fromRGBO(33, 35, 59, 1), Color.fromRGBO(33, 20, 52, 1)]
   );
 
+  ///purple gradient
+  static const Gradient pinkGradient = LinearGradient(
+      colors: [
+        Color.fromRGBO(128, 34, 208, 1),
+        Color.fromRGBO(200, 32, 203, 0.82),
+        Color.fromRGBO(242, 142, 206, 1),
+        Color.fromRGBO(241, 130, 144, 1),
+      ]
+  );
+
+
+
 }

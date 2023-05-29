@@ -29,6 +29,7 @@ abstract class ConstantsImage {
   static const sharecode_icon = 'assets/Icons/Sharecode.png';
   static const cash_money_icon = 'assets/Icons/Cash Money.png';
   static const bills_emis_icon = 'assets/Icons/Bills & Emis.png';
+  static const two_arrows_icon = 'assets/Icons/two-arrows 1.png';
 
   ///HomeScreen icons
   static const credit_card_icon = 'assets/Icons/Credit card.png';

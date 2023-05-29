@@ -87,14 +87,7 @@ class BankDetailScreenView extends GetView<BankDetailScreenController> {
                     width: width * 0.27,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(25.sp),
-                      gradient: const LinearGradient(
-                          colors: [
-                            Color.fromRGBO(128, 34, 208, 1),
-                            Color.fromRGBO(200, 32, 203, 0.82),
-                            Color.fromRGBO(242, 142, 206, 1),
-                            Color.fromRGBO(241, 130, 144, 1),
-                          ]
-                      )
+                      gradient: ConstantsColor.pinkGradient
                     ),
                     padding: EdgeInsets.all(5.sp),
                     child: AnimatedContainer(
@@ -699,14 +692,7 @@ class BankDetailScreenView extends GetView<BankDetailScreenController> {
                     width: 35.w,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(40.sp),
-                        gradient: const LinearGradient(
-                            colors: [
-                              Color.fromRGBO(128, 34, 208, 1),
-                              Color.fromRGBO(200, 32, 203, 0.82),
-                              Color.fromRGBO(242, 142, 206, 1),
-                              Color.fromRGBO(241, 130, 144, 1),
-                            ]
-                        )
+                        gradient: ConstantsColor.pinkGradient
                     ),
                     padding: EdgeInsets.all(5.sp),
                     child: Container(

@@ -43,14 +43,7 @@ class IfscCodeBankResultView extends GetView<IfscScreenController> {
                     Container(
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(50.sp),
-                          gradient: const LinearGradient(
-                              colors: [
-                                Color.fromRGBO(128, 34, 208, 1),
-                                Color.fromRGBO(200, 32, 203, 0.82),
-                                Color.fromRGBO(242, 142, 206, 1),
-                                Color.fromRGBO(241, 130, 144, 1),
-                              ]
-                          )
+                          gradient: ConstantsColor.pinkGradient
                       ),
                       padding: EdgeInsets.all(6.sp),
                       child: Container(
@@ -180,14 +173,7 @@ class IfscCodeBankResultView extends GetView<IfscScreenController> {
           padding: EdgeInsets.all(3.2.sp),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(13.2.sp),
-              gradient:  const LinearGradient(
-                  colors: [
-                    Color.fromRGBO(128, 34, 208, 1),
-                    Color.fromRGBO(200, 32, 203, 0.82),
-                    Color.fromRGBO(242, 142, 206, 1),
-                    Color.fromRGBO(241, 130, 144, 1),
-                  ]
-              )
+              gradient: ConstantsColor.pinkGradient
           ),
           child: Container(
             height: (height ?? 42.sp) * 0.45,

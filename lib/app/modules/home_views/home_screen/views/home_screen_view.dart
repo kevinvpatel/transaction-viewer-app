@@ -10,6 +10,7 @@ import 'package:transaction_viewer_app/app/data/constants/image_constants.dart';
 import 'package:transaction_viewer_app/app/data/constants/widget_constants.dart';
 import 'package:transaction_viewer_app/app/data/fuel_price_model.dart';
 import 'package:transaction_viewer_app/app/modules/home_views/banking/ifsc_screen/views/ifsc_screen_view.dart';
+import 'package:transaction_viewer_app/app/modules/home_views/calculators/home_loan_calculator_screen/views/home_loan_calculator_screen_view.dart';
 import 'package:transaction_viewer_app/app/modules/home_views/home_screen/views/change_city_screen.dart';
 
 import '../controllers/home_screen_controller.dart';
@@ -41,13 +42,13 @@ class HomeScreenView extends GetView<HomeScreenController> {
               ),
             ),
             ///Banking
-            gradientCard(height: height, width: width, title: 'Banking', mapData: controller.listBanking),
+            gradientCard(height: height, width: width, title: 'Banking', mapData: controller.listBanking, isBanking: true),
             SizedBox(height: 22.sp),
             dailyPriceList(height: height, width: width),
             SizedBox(height: 22.sp),
             simpleCard(width: width, title: 'Credit & Loan Products', data: controller.listCreditAndLoan),
             ///Calculators
-            gradientCard(height: height, width: width, title: 'Calculators', mapData: controller.listCalculators),
+            gradientCard(height: height, width: width, title: 'Calculators', mapData: controller.listCalculators, isBanking: false),
             SizedBox(height: 22.sp),
             simpleCard(width: width, title: 'Schemes  ', data: controller.listSchemes),
             SizedBox(height: 30.sp),
@@ -282,7 +283,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
 
 
 
-  gradientCard({required double height, required double width, required String title, required List<Map<String, dynamic>> mapData}) {
+  gradientCard({required double height, required double width, required String title, required List<Map<String, dynamic>> mapData, required bool isBanking}) {
     double cardHeight = height * 0.14;
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 10.sp),
@@ -309,17 +310,32 @@ class HomeScreenView extends GetView<HomeScreenController> {
                 children: List.generate(mapData.length, (index) {
                   return InkWell(
                     onTap: () {
-                      if(index == 0) {
-                        Get.to(IfscScreenView());
-                      } else if(index == 1) {
-                        Get.to(IfscScreenView());
-                      } else if(index == 2) {
-                        Get.to(IfscScreenView());
-                      } else if(index == 3) {
-                        Get.to(IfscScreenView());
+                      if(isBanking == true) {
+                        if(index == 0) {
+                          Get.to(IfscScreenView());
+                        } else if(index == 1) {
+                          Get.to(IfscScreenView());
+                        } else if(index == 2) {
+                          Get.to(IfscScreenView());
+                        } else if(index == 3) {
+                          Get.to(IfscScreenView());
+                        } else {
+                          Get.to(IfscScreenView());
+                        }
                       } else {
-                        Get.to(IfscScreenView());
+                        if(index == 0) {
+                          Get.to(HomeLoanCalculatorScreenView());
+                        } else if(index == 1) {
+                          Get.to(HomeLoanCalculatorScreenView());
+                        } else if(index == 2) {
+                          Get.to(HomeLoanCalculatorScreenView());
+                        } else if(index == 3) {
+                          Get.to(HomeLoanCalculatorScreenView());
+                        } else {
+                          Get.to(HomeLoanCalculatorScreenView());
+                        }
                       }
+
                     },
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -329,14 +345,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
                           width: cardHeight * 0.45,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(16.sp),
-                              gradient: const LinearGradient(
-                                  colors: [
-                                    Color.fromRGBO(128, 34, 208, 1),
-                                    Color.fromRGBO(200, 32, 203, 0.82),
-                                    Color.fromRGBO(242, 142, 206, 1),
-                                    Color.fromRGBO(241, 130, 144, 1),
-                                  ]
-                              )
+                              gradient: ConstantsColor.pinkGradient
                           ),
                           padding: EdgeInsets.all(3.5.sp),
                           child: Container(

@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
-
+import 'package:transaction_viewer_app/app/modules/home_views/calculators/home_loan_calculator_screen/bindings/home_loan_calculator_screen_binding.dart';
+import 'package:transaction_viewer_app/app/modules/home_views/calculators/home_loan_calculator_screen/views/home_loan_calculator_screen_view.dart';
 import '../modules/bank_statement_views/bank_detail_screen/bindings/bank_detail_screen_binding.dart';
 import '../modules/bank_statement_views/bank_detail_screen/views/bank_detail_screen_view.dart';
 import '../modules/bank_statement_views/bank_statement_screen/bindings/bank_statement_screen_binding.dart';
@@ -78,6 +79,11 @@ class AppPages {
       name: _Paths.BILL_PAYMENT_SCREEN,
       page: () => const BillPaymentScreenView(),
       binding: BillPaymentScreenBinding(),
+    ),
+    GetPage(
+      name: _Paths.HOME_LOAN_CALCULATOR_SCREEN,
+      page: () => const HomeLoanCalculatorScreenView(),
+      binding: HomeLoanCalculatorScreenBinding(),
     ),
   ];
 }
