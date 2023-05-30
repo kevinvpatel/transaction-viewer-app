@@ -10,7 +10,10 @@ import 'package:transaction_viewer_app/app/data/constants/image_constants.dart';
 import 'package:transaction_viewer_app/app/data/constants/widget_constants.dart';
 import 'package:transaction_viewer_app/app/data/fuel_price_model.dart';
 import 'package:transaction_viewer_app/app/modules/home_views/banking/ifsc_screen/views/ifsc_screen_view.dart';
+import 'package:transaction_viewer_app/app/modules/home_views/calculators/home_loan_calculator_screen/views/business_loan_calculator_screen.dart';
+import 'package:transaction_viewer_app/app/modules/home_views/calculators/home_loan_calculator_screen/views/fd_loan_calculator_screen.dart';
 import 'package:transaction_viewer_app/app/modules/home_views/calculators/home_loan_calculator_screen/views/home_loan_calculator_screen_view.dart';
+import 'package:transaction_viewer_app/app/modules/home_views/calculators/home_loan_calculator_screen/views/rd_loan_calculator_screen.dart';
 import 'package:transaction_viewer_app/app/modules/home_views/home_screen/views/change_city_screen.dart';
 
 import '../controllers/home_screen_controller.dart';
@@ -328,11 +331,11 @@ class HomeScreenView extends GetView<HomeScreenController> {
                         } else if(index == 1) {
                           Get.to(HomeLoanCalculatorScreenView());
                         } else if(index == 2) {
-                          Get.to(HomeLoanCalculatorScreenView());
+                          Get.to(BusinessLoanCalculatorScreenView());
                         } else if(index == 3) {
-                          Get.to(HomeLoanCalculatorScreenView());
+                          Get.to(RDLoanCalculatorScreenView());
                         } else {
-                          Get.to(HomeLoanCalculatorScreenView());
+                          Get.to(FDLoanCalculatorScreenView());
                         }
                       }
 

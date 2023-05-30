@@ -53,46 +53,41 @@ class HomeLoanCalculatorScreenView extends GetView<HomeLoanCalculatorScreenContr
             controller.bottomButtons(
               onTapBtn2: () {
                 double loanAmount = double.parse(controller.txtLoanAmount.value.text);
-                int loanYear = int.parse(controller.txtLoanYear.value.text);
-                print('loanYear -> $loanYear');
-                int loanMonth = loanYear * 12;
-                print('loanMonth -> $loanMonth');
+                int loanMonth = int.parse(controller.txtLoanYear.value.text);
+                print('loanYear -> $loanMonth');
+                // int loanMonth = loanYear * 12;
+                // print('loanMonth -> $loanMonth');
                 double interestRate = double.parse(controller.txtInterestAmount.value.text) / 100 / 12;
                 print('interestRate -> $interestRate');
+                ///ama badhe loan year ni jgya pr month levanu
                 final emi = (loanAmount * interestRate * pow((1+interestRate), loanMonth) / (pow((1+interestRate), loanMonth) - 1));
                 print('emi -> $emi');
 
-
-                double interestRate2 = double.parse(controller.txtInterestAmount.value.text);
-                print('interestRate2 -> $interestRate2');
-                final interestAmount;
-                if(controller.isYear.value) {
-                  interestAmount = loanAmount * interestRate2 * loanMonth / 100 / 12;
-                } else {
-                  interestAmount = loanAmount * interestRate2 * loanMonth / 100;
-                }
+                final totalAmount = emi * loanMonth;
+                print('totalAmount -> $totalAmount');
+                final interestAmount = totalAmount - loanAmount;
                 print('interestAmount -> $interestAmount');
 
-                // controller.mapHomeLoan.updateAll((key, value) {
-                //   if(key == 'Loan Amount') {
-                //     return loanAmount.toString();
-                //   } else if(key == 'Interest %') {
-                //     return averageInterest.toString();
-                //   } else if(key == 'EMI') {
-                //     return emi_amount.toString();
-                //   } else if(key == 'Total Amount') {
-                //     return totalAmount.toString();
-                //   } else if(key == 'Total Interest') {
-                //     return interestAmount.toString();
-                //   } else {
-                //     return controller.isYear.value ? loanMonth.toString().split('.').first : loanYear;
-                //   }
-                // });
+                controller.mapHomeLoan.updateAll((key, value) {
+                  if(key == 'Loan Amount') {
+                    return loanAmount.toStringAsFixed(2);
+                  } else if(key == 'Interest %') {
+                    return interestAmount.toStringAsFixed(2);
+                  } else if(key == 'EMI') {
+                    return emi.toStringAsFixed(2);
+                  } else if(key == 'Total Amount') {
+                    return totalAmount.toStringAsFixed(2);
+                  } else if(key == 'Total Interest') {
+                    return controller.txtInterestAmount.value.text;
+                  } else {
+                    return controller.isYear.value ? loanMonth.toString().split('.').first.toString() : loanMonth.toString();
+                  }
+                });
                 // print('controller.mapHomeLoan -> ${controller.mapHomeLoan}');
               }
             ),
             SizedBox(height: 20.sp),
-            controller.loanResult()
+            controller.homeLoanResult(loanMapData: controller.mapHomeLoan)
           ],
         ),
       ),
