@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -43,7 +42,7 @@ class HomeLoanCalculatorScreenView extends GetView<HomeLoanCalculatorScreenContr
             fields(
                 width: width,
                 title: 'Loan Time',
-                txtController: controller.txtLoanYear,
+                txtController: controller.txtLoanPeriod,
                 onTap: () {
                   controller.isYear.value =! controller.isYear.value;
                   controller.update();
@@ -53,9 +52,13 @@ class HomeLoanCalculatorScreenView extends GetView<HomeLoanCalculatorScreenContr
             controller.bottomButtons(
               onTapBtn2: () {
                 double loanAmount = double.parse(controller.txtLoanAmount.value.text);
-                int loanMonth = int.parse(controller.txtLoanYear.value.text);
+                int loanMonth;
+                if(controller.isYear.value == true) {
+                  loanMonth = int.parse(controller.txtLoanPeriod.value.text) * 12;
+                } else {
+                  loanMonth = int.parse(controller.txtLoanPeriod.value.text);
+                }
                 print('loanYear -> $loanMonth');
-                // int loanMonth = loanYear * 12;
                 // print('loanMonth -> $loanMonth');
                 double interestRate = double.parse(controller.txtInterestAmount.value.text) / 100 / 12;
                 print('interestRate -> $interestRate');
@@ -87,7 +90,8 @@ class HomeLoanCalculatorScreenView extends GetView<HomeLoanCalculatorScreenContr
               }
             ),
             SizedBox(height: 20.sp),
-            controller.homeLoanResult(loanMapData: controller.mapHomeLoan)
+            controller.homeLoanResult(loanMapData: controller.mapHomeLoan),
+            Spacer(),
           ],
         ),
       ),

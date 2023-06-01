@@ -42,6 +42,9 @@ dependencies:
 #  api calling
   http: ^0.13.6
 
+#  dropdown
+  dropdown_button2: ^2.1.3
+
   get: 4.6.5
 
   flutter: 

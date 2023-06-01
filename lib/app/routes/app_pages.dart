@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
-import 'package:transaction_viewer_app/app/modules/home_views/calculators/home_loan_calculator_screen/bindings/home_loan_calculator_screen_binding.dart';
-import 'package:transaction_viewer_app/app/modules/home_views/calculators/home_loan_calculator_screen/views/home_loan_calculator_screen_view.dart';
+
 import '../modules/bank_statement_views/bank_detail_screen/bindings/bank_detail_screen_binding.dart';
 import '../modules/bank_statement_views/bank_detail_screen/views/bank_detail_screen_view.dart';
 import '../modules/bank_statement_views/bank_statement_screen/bindings/bank_statement_screen_binding.dart';
@@ -11,6 +10,10 @@ import '../modules/bottom_navigation_screen/bindings/bottom_navigation_screen_bi
 import '../modules/bottom_navigation_screen/views/bottom_navigation_screen_view.dart';
 import '../modules/home_views/banking/ifsc_screen/bindings/ifsc_screen_binding.dart';
 import '../modules/home_views/banking/ifsc_screen/views/ifsc_screen_view.dart';
+import '../modules/home_views/calculators/currency_converter_screen/bindings/home_views_calculators_currency_converter_screen_binding.dart';
+import '../modules/home_views/calculators/currency_converter_screen/views/home_views_calculators_currency_converter_screen_view.dart';
+import '../modules/home_views/calculators/home_loan_calculator_screen/bindings/home_loan_calculator_screen_binding.dart';
+import '../modules/home_views/calculators/home_loan_calculator_screen/views/home_loan_calculator_screen_view.dart';
 import '../modules/home_views/home_screen/bindings/home_screen_binding.dart';
 import '../modules/home_views/home_screen/views/home_screen_view.dart';
 import '../modules/onboarding_screen/bindings/onboarding_screen_binding.dart';
@@ -84,6 +87,11 @@ class AppPages {
       name: _Paths.HOME_LOAN_CALCULATOR_SCREEN,
       page: () => const HomeLoanCalculatorScreenView(),
       binding: HomeLoanCalculatorScreenBinding(),
+    ),
+    GetPage(
+      name: _Paths.HOME_VIEWS_CALCULATORS_CURRENCY_CONVERTER_SCREEN,
+      page: () => const HomeViewsCalculatorsCurrencyConverterScreenView(),
+      binding: HomeViewsCalculatorsCurrencyConverterScreenBinding(),
     ),
   ];
 }

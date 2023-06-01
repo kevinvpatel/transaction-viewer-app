@@ -10,7 +10,7 @@ class HomeLoanCalculatorScreenController extends GetxController {
   ///HomeLoan
   Rx<TextEditingController> txtLoanAmount = TextEditingController().obs;
   Rx<TextEditingController> txtInterestAmount = TextEditingController().obs;
-  Rx<TextEditingController> txtLoanYear = TextEditingController().obs;
+  Rx<TextEditingController> txtLoanPeriod = TextEditingController().obs;
   Rx<TextEditingController> txtLoanRepayYear = TextEditingController().obs;
   RxBool isYear = true.obs;
 
@@ -23,6 +23,8 @@ class HomeLoanCalculatorScreenController extends GetxController {
   Rx<TextEditingController> txtDepositAmount = TextEditingController().obs;
   Rx<TextEditingController> txtInterestRate = TextEditingController().obs;
   Rx<TextEditingController> txtPeriodInMonth = TextEditingController().obs;
+  List<String> listPeriods = ['Monthly', 'Quarterly', 'Half-Yearly', 'Yearly'];
+  RxString selectedPeriod = 'Monthly'.obs;
 
 
   Widget bottomButtons({required Function() onTapBtn2}) {
@@ -35,7 +37,7 @@ class HomeLoanCalculatorScreenController extends GetxController {
           onTap: () {
             txtLoanAmount.value.clear();
             txtInterestAmount.value.clear();
-            txtLoanYear.value.clear();
+            txtLoanPeriod.value.clear();
           },
           child: Container(
             decoration: BoxDecoration(
@@ -107,33 +109,35 @@ class HomeLoanCalculatorScreenController extends GetxController {
   }.obs;
 
   Widget homeLoanResult({required RxMap<String, dynamic> loanMapData}) {
-    return Container(
-      decoration: BoxDecoration(
-        gradient: ConstantsColor.buttonGradient,
-        borderRadius: BorderRadius.circular(15.sp),
-        boxShadow: ConstantsWidgets.boxShadow
-      ),
-      padding: EdgeInsets.symmetric(horizontal: 17.sp, vertical: 15.sp),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Text('Results For Your Loan', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 17.sp),),
-          SizedBox(height: 17.sp),
-          Container(
-            height: 100.h * 0.22,
-            child: SingleChildScrollView(
-              physics: BouncingScrollPhysics(),
-              child: Obx(() => Column(
-                mainAxisSize: MainAxisSize.min,
-                children: List.generate(loanMapData.length, (index) {
-                  List listKeys = loanMapData.keys.toList();
-                  List listValues = loanMapData.values.toList();
-                  return textRow(leftText: listKeys[index], rightText: listValues[index].toString());
-                }),
-              )),
-            ),
-          )
-        ],
+    return Expanded(
+      child: Container(
+        decoration: BoxDecoration(
+          gradient: ConstantsColor.buttonGradient,
+          borderRadius: BorderRadius.circular(15.sp),
+          boxShadow: ConstantsWidgets.boxShadow
+        ),
+        padding: EdgeInsets.symmetric(horizontal: 17.sp, vertical: 15.sp),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text('Results For Your Loan', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 17.sp),),
+            SizedBox(height: 17.sp),
+            Expanded(
+              // height: 100.h * 0.22,
+              child: SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
+                child: Obx(() => Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: List.generate(loanMapData.length, (index) {
+                    List listKeys = loanMapData.keys.toList();
+                    List listValues = loanMapData.values.toList();
+                    return textRow(leftText: listKeys[index], rightText: listValues[index].toString());
+                  }),
+                )),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

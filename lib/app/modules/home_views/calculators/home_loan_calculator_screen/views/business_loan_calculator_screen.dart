@@ -6,6 +6,7 @@ import 'package:transaction_viewer_app/app/data/constants/color_constants.dart';
 import 'package:transaction_viewer_app/app/data/constants/widget_constants.dart';
 import 'package:transaction_viewer_app/app/modules/home_views/calculators/home_loan_calculator_screen/controllers/home_loan_calculator_screen_controller.dart';
 
+
 class BusinessLoanCalculatorScreenView extends GetView<HomeLoanCalculatorScreenController> {
   const BusinessLoanCalculatorScreenView({Key? key}) : super(key: key);
   @override
@@ -40,20 +41,13 @@ class BusinessLoanCalculatorScreenView extends GetView<HomeLoanCalculatorScreenC
                 width: width,
                 title: 'Loan Year',
                 fieldName: 'Year',
-                txtController: controller.txtLoanYear,
+                txtController: controller.txtLoanPeriod,
             ),
-            // SizedBox(height: 17.sp),
-            // fields(
-            //     width: width,
-            //     title: 'Loan Repay Year',
-            //     fieldName: 'Year',
-            //     txtController: controller.txtLoanRepayYear,
-            // ),
             SizedBox(height: 20.sp),
             controller.bottomButtons(
                 onTapBtn2: () {
                   double loanAmount = double.parse(controller.txtLoanAmount.value.text);
-                  int loanMonth = int.parse(controller.txtLoanYear.value.text);
+                  int loanMonth = int.parse(controller.txtLoanPeriod.value.text);
                   double interestRate = double.parse(controller.txtInterestAmount.value.text) / 12 / 100;
                   final emi = loanAmount * interestRate * pow((1+interestRate), loanMonth) / (pow((1+interestRate), loanMonth) - 1);
 
@@ -77,7 +71,8 @@ class BusinessLoanCalculatorScreenView extends GetView<HomeLoanCalculatorScreenC
                 }
             ),
             SizedBox(height: 20.sp),
-            controller.homeLoanResult(loanMapData: controller.mapBusinessLoan)
+            controller.homeLoanResult(loanMapData: controller.mapBusinessLoan),
+            Spacer(),
           ],
         ),
       ),
