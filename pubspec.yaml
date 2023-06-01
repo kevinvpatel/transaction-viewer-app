@@ -65,6 +65,8 @@ flutter:
     - assets/Icons/
     - assets/bank icons/
     - assets/fuel_price_city/
+    - assets/credit card/
+    - assets/credit_card_apply.json
 
   fonts:
     - family: Poppins

@@ -10,10 +10,12 @@ import 'package:transaction_viewer_app/app/data/constants/image_constants.dart';
 import 'package:transaction_viewer_app/app/data/constants/widget_constants.dart';
 import 'package:transaction_viewer_app/app/data/fuel_price_model.dart';
 import 'package:transaction_viewer_app/app/modules/home_views/banking/ifsc_screen/views/ifsc_screen_view.dart';
+import 'package:transaction_viewer_app/app/modules/home_views/calculators/currency_converter_screen/views/currency_converter_screen_view.dart';
 import 'package:transaction_viewer_app/app/modules/home_views/calculators/home_loan_calculator_screen/views/business_loan_calculator_screen.dart';
 import 'package:transaction_viewer_app/app/modules/home_views/calculators/home_loan_calculator_screen/views/fd_loan_calculator_screen.dart';
 import 'package:transaction_viewer_app/app/modules/home_views/calculators/home_loan_calculator_screen/views/home_loan_calculator_screen_view.dart';
 import 'package:transaction_viewer_app/app/modules/home_views/calculators/home_loan_calculator_screen/views/rd_loan_calculator_screen.dart';
+import 'package:transaction_viewer_app/app/modules/home_views/credit_and_loan_screen/credit_card_screen/views/credit_card_screen_view.dart';
 import 'package:transaction_viewer_app/app/modules/home_views/home_screen/views/change_city_screen.dart';
 
 import '../controllers/home_screen_controller.dart';
@@ -49,11 +51,11 @@ class HomeScreenView extends GetView<HomeScreenController> {
             SizedBox(height: 22.sp),
             dailyPriceList(height: height, width: width),
             SizedBox(height: 22.sp),
-            simpleCard(width: width, title: 'Credit & Loan Products', data: controller.listCreditAndLoan),
+            simpleCard(width: width, title: 'Credit & Loan Products', data: controller.listCreditAndLoan, isCreditAndLoan: true),
             ///Calculators
             gradientCard(height: height, width: width, title: 'Calculators', mapData: controller.listCalculators, isBanking: false),
             SizedBox(height: 22.sp),
-            simpleCard(width: width, title: 'Schemes  ', data: controller.listSchemes),
+            simpleCard(width: width, title: 'Schemes  ', data: controller.listSchemes, isCreditAndLoan: false),
             SizedBox(height: 30.sp),
           ],
         ),
@@ -118,8 +120,6 @@ class HomeScreenView extends GetView<HomeScreenController> {
     double width = 100.w;
     double height = 100.h;
     double cardHeight = height * 0.36;
-
-    print('price111 -> $price');
 
     return GetBuilder(
       init: HomeScreenController(),
@@ -237,7 +237,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
   }
 
 
-  simpleCard({required double width, required String title, required List<Map<String, dynamic>> data}) {
+  simpleCard({required double width, required String title, required List<Map<String, dynamic>> data, required bool isCreditAndLoan}) {
     return Column(
       children: [
         Container(
@@ -253,29 +253,48 @@ class HomeScreenView extends GetView<HomeScreenController> {
             spacing: 22.sp,
             runSpacing: 15.sp,
             children: List.generate(data.length, (index) {
-              return Column(
-                children: [
-                  Container(
-                    height: 33.8.sp,
-                    width: 33.8.sp,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(18.sp),
-                      gradient: ConstantsColor.buttonGradient,
+              return InkWell(
+                onTap: () {
+                  if(isCreditAndLoan) {
+                    if(index == 0) {
+                      Get.to(CreditCardScreenView());
+                    } else if(index == 1) {
+                      Get.to(CreditCardScreenView());
+                    } else if(index == 2) {
+                      Get.to(CreditCardScreenView());
+                    } else if(index == 3) {
+                      Get.to(CreditCardScreenView());
+                    } else {
+                      Get.to(CreditCardScreenView());
+                    }
+                  } else {
+
+                  }
+                },
+                child: Column(
+                  children: [
+                    Container(
+                      height: 33.8.sp,
+                      width: 33.8.sp,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(18.sp),
+                        gradient: ConstantsColor.buttonGradient,
+                      ),
+                      padding: EdgeInsets.all(10.sp),
+                      child: Image.asset(data[index]['image']),
                     ),
-                    padding: EdgeInsets.all(10.sp),
-                    child: Image.asset(data[index]['image']),
-                  ),
-                  SizedBox(height: 10.sp),
-                  Container(
-                    width: 35.sp,
-                    child: Text(data[index]['title'],
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 15.sp, color: Colors.white),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis
-                    ),
-                  )
-                ],
+                    SizedBox(height: 10.sp),
+                    Container(
+                      width: 35.sp,
+                      child: Text(data[index]['title'],
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 15.sp, color: Colors.white),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis
+                      ),
+                    )
+                  ],
+                ),
               );
             }),
           ),
@@ -327,7 +346,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
                         }
                       } else {
                         if(index == 0) {
-                          Get.to(HomeLoanCalculatorScreenView());
+                          Get.to(CurrencyConverterScreenView());
                         } else if(index == 1) {
                           Get.to(HomeLoanCalculatorScreenView());
                         } else if(index == 2) {

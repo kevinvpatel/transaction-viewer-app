@@ -1,0 +1,80 @@
+{
+  "0":{
+      "name": "Axis Bank Credit Card",
+      "data":"Rs. 4000 worth SpiceJet Flight vouchers on doing 2 transactions in first 30 days as welcome",
+      "link":"https://www.axisbank.com/retail/cards/credit-card",
+      "image":"assets/credit card/Axis Bank.png"
+    },
+  "1":{
+    "name": "IDFC First Bank Credit Card",
+    "data":"Discounts on shopping, dining & movies complimentary round of golf every month,",
+    "link":"https://www.idfcfirstbank.com/credit-card",
+    "image":"assets/credit card/IDFC Bank.png"
+  },
+  "2":{
+    "name": "State Bank of India Credit Card",
+    "data":"By using SBI credit cards, you can also earn amazing rewards and e-vouchers from plenty of ",
+    "link":"https://www.sbicard.com/en/personal/credit-cards.page",
+    "image": "assets/credit card/State Bank Of India.png"
+  },
+  "3":{
+    "name": "ICICI Bank Credit Card",
+    "data":"Save up on cars, electronics, watches, apparels, jewellery, movie plans, food outlets, and even",
+    "link":"https://www.icicibank.com/card/credit-cards/credit-card",
+    "image": "assets/credit card/ICICI Bank.png"
+  },
+  "4":{
+    "name": "HDFC Bank Credit Card",
+    "data":"₹1000 worth gift vouchers on spends of ₹1,00,000 and above in each calendar quarter",
+    "link":"https://www.hdfcbank.com/personal/pay/cards/credit-cards",
+    "image": "assets/credit card/HDFC Bank.png"
+  },
+  "5":{
+    "name": "Bank of India Credit Card",
+    "data":"Cardholders get the benefit of interest free credit period for up to 51 days.",
+    "link":"https://bankofindia.co.in/credit-card",
+    "image": "assets/credit card/Bank Of India.png"
+  },
+  "6":{
+    "name": "IDBI Bank Credit Card",
+    "data":"IDBI Bank credit cards offer benefits that match your preferences, suit your lifestyle and are accepted ",
+    "link":"https://www.idbibank.in/credit-card.aspx",
+    "image":"assets/credit card/IDBI Bank.png"
+  },
+  "7":{
+    "name": "Kotak Mahindra Bank Credit Card",
+    "data":"Earn 2 Reward Points for every Rs. 100 spent online, Get Rs. 750 cashback on crossing Rs. 75,000 spends every year.",
+    "link":"https://www.kotak.com/en/personal-banking/cards/credit-cards.html",
+    "image": "assets/credit card/Kotak Mahindra Bank.png"
+  },
+  "8":{
+    "name": "Bank of Baroda Credit Card",
+    "data":"Cashbacks, discounts & deals from all leading brands on your BoB RuPay Credit",
+    "link":"https://www.bankofbaroda.in/personal-banking/digital-products/cards/credit-cards",
+    "image":"assets/credit card/Bank Of Baroda.png"
+  },
+  "9":{
+    "name": "City Bank Credit Card",
+    "data":"Earn 300 bonus reward points on card purchases of over ₹30,000 in a month,",
+    "link":"https://www.online.citibank.co.in/credit-card",
+    "image": "assets/credit card/City Bank.png"
+  },
+  "10":{
+    "name": "RBL Bank Credit Card",
+    "data":"Presenting RBL Bank range of credit cards which offer a host of exclusive benefits",
+    "link":"https://www.rblbank.com/category/credit-cards",
+    "image": "assets/credit card/RBL Bank.png"
+  },
+  "11":{
+    "name": "American Express Credit Card",
+    "data":"Earn 1,000 Bonus Membership Rewards Points for simply using your",
+    "link":"https://www.americanexpress.com/in/credit-cards/",
+    "image":"assets/credit card/American Express.png"
+  },
+  "12":{
+    "name": "Bajaj Emi Card",
+    "data":"Get your favourite products on No Cost Emis, Shop with any of our 1 lakh+ offline",
+    "link":"https://www.bajajfinserv.in/insta-emi-network-card-apply-online",
+    "image": "assets/credit card/Bajaj EMI.png"
+}
+}

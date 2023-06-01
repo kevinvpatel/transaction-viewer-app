@@ -10,10 +10,12 @@ import '../modules/bottom_navigation_screen/bindings/bottom_navigation_screen_bi
 import '../modules/bottom_navigation_screen/views/bottom_navigation_screen_view.dart';
 import '../modules/home_views/banking/ifsc_screen/bindings/ifsc_screen_binding.dart';
 import '../modules/home_views/banking/ifsc_screen/views/ifsc_screen_view.dart';
-import '../modules/home_views/calculators/currency_converter_screen/bindings/home_views_calculators_currency_converter_screen_binding.dart';
-import '../modules/home_views/calculators/currency_converter_screen/views/home_views_calculators_currency_converter_screen_view.dart';
+import '../modules/home_views/calculators/currency_converter_screen/bindings/currency_converter_screen_binding.dart';
+import '../modules/home_views/calculators/currency_converter_screen/views/currency_converter_screen_view.dart';
 import '../modules/home_views/calculators/home_loan_calculator_screen/bindings/home_loan_calculator_screen_binding.dart';
 import '../modules/home_views/calculators/home_loan_calculator_screen/views/home_loan_calculator_screen_view.dart';
+import '../modules/home_views/credit_and_loan_screen/credit_card_screen/bindings/credit_card_screen_binding.dart';
+import '../modules/home_views/credit_and_loan_screen/credit_card_screen/views/credit_card_screen_view.dart';
 import '../modules/home_views/home_screen/bindings/home_screen_binding.dart';
 import '../modules/home_views/home_screen/views/home_screen_view.dart';
 import '../modules/onboarding_screen/bindings/onboarding_screen_binding.dart';
@@ -89,9 +91,14 @@ class AppPages {
       binding: HomeLoanCalculatorScreenBinding(),
     ),
     GetPage(
-      name: _Paths.HOME_VIEWS_CALCULATORS_CURRENCY_CONVERTER_SCREEN,
-      page: () => const HomeViewsCalculatorsCurrencyConverterScreenView(),
-      binding: HomeViewsCalculatorsCurrencyConverterScreenBinding(),
+      name: _Paths.CURRENCY_CONVERTER_SCREEN,
+      page: () => const CurrencyConverterScreenView(),
+      binding: CurrencyConverterScreenBinding(),
+    ),
+    GetPage(
+      name: _Paths.CREDIT_CARD_SCREEN,
+      page: () => const CreditCardScreenView(),
+      binding: CreditCardScreenBinding(),
     ),
   ];
 }
