@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:transaction_viewer_app/app/data/constants/color_constants.dart';
 import 'package:transaction_viewer_app/app/data/constants/widget_constants.dart';
-
+import 'package:transaction_viewer_app/app/modules/home_views/credit_and_loan_screen/credit_card_screen/views/credit_card_apply_screen.dart';
 import '../controllers/credit_card_screen_controller.dart';
+
 
 class CreditCardScreenView extends GetView<CreditCardScreenController> {
   const CreditCardScreenView({Key? key})
@@ -38,8 +38,8 @@ class CreditCardScreenView extends GetView<CreditCardScreenController> {
               children: [
                 Row(
                   children: [
-                    Image.asset(list[index]['image'], fit: BoxFit.fitWidth, height: 28.sp),
-                    SizedBox(width: 10.sp),
+                    Image.asset(list[index]['image'], height: 27.sp),
+                    SizedBox(width: 14.sp),
                     Expanded(
                       child: Text(list[index]['name'],
                         style: TextStyle(color: Colors.white, fontSize: 16.5.sp, fontWeight: FontWeight.w400),
@@ -55,11 +55,13 @@ class CreditCardScreenView extends GetView<CreditCardScreenController> {
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),
-                Spacer(flex: 2),
+                const Spacer(flex: 3),
                 InkWell(
                   highlightColor: Colors.transparent,
                   splashColor: Colors.transparent,
-                  onTap: () {},
+                  onTap: () {
+                    Get.to(const CreditCardApplyScreenView(), arguments: list[index]);
+                  },
                   child: Container(
                     decoration: BoxDecoration(
                         gradient: ConstantsColor.pinkGradient,

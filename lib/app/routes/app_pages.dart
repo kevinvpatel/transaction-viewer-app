@@ -14,6 +14,8 @@ import '../modules/home_views/calculators/currency_converter_screen/bindings/cur
 import '../modules/home_views/calculators/currency_converter_screen/views/currency_converter_screen_view.dart';
 import '../modules/home_views/calculators/home_loan_calculator_screen/bindings/home_loan_calculator_screen_binding.dart';
 import '../modules/home_views/calculators/home_loan_calculator_screen/views/home_loan_calculator_screen_view.dart';
+import '../modules/home_views/credit_and_loan_screen/car_loan_screen/bindings/car_loan_screen_binding.dart';
+import '../modules/home_views/credit_and_loan_screen/car_loan_screen/views/car_loan_screen_view.dart';
 import '../modules/home_views/credit_and_loan_screen/credit_card_screen/bindings/credit_card_screen_binding.dart';
 import '../modules/home_views/credit_and_loan_screen/credit_card_screen/views/credit_card_screen_view.dart';
 import '../modules/home_views/home_screen/bindings/home_screen_binding.dart';
@@ -99,6 +101,11 @@ class AppPages {
       name: _Paths.CREDIT_CARD_SCREEN,
       page: () => const CreditCardScreenView(),
       binding: CreditCardScreenBinding(),
+    ),
+    GetPage(
+      name: _Paths.CAR_LOAN_SCREEN,
+      page: () => const CarLoanScreenView(),
+      binding: CarLoanScreenBinding(),
     ),
   ];
 }

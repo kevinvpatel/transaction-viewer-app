@@ -45,6 +45,12 @@ dependencies:
 #  dropdown
   dropdown_button2: ^2.1.3
 
+#  flutter webview
+  flutter_inappwebview: ^5.7.2+3
+
+#  html file data load
+  html: ^0.15.3
+
   get: 4.6.5
 
   flutter: 
@@ -67,6 +73,8 @@ flutter:
     - assets/fuel_price_city/
     - assets/credit card/
     - assets/credit_card_apply.json
+    - assets/schemes files/
+    - assets/credit & loan files/
 
   fonts:
     - family: Poppins

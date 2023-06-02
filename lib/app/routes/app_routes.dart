@@ -19,7 +19,9 @@ abstract class Routes {
   static const HOME_LOAN_CALCULATOR_SCREEN = _Paths.HOME_LOAN_CALCULATOR_SCREEN;
   static const HOME_VIEWS_CALCULATORS_CURRENCY_CONVERTER_SCREEN =
       _Paths.CURRENCY_CONVERTER_SCREEN;
-  static const HOME_VIEWS_CREDIT_AND_LOAN_SCREEN_CREDIT_CARD_SCREEN = _Paths.CREDIT_CARD_SCREEN;
+  static const HOME_VIEWS_CREDIT_AND_LOAN_SCREEN_CREDIT_CARD_SCREEN =
+      _Paths.CREDIT_CARD_SCREEN;
+  static const HOME_VIEWS_CREDIT_AND_LOAN_SCREEN_CAR_LOAN_SCREEN = _Paths.CAR_LOAN_SCREEN;
 }
 
 abstract class _Paths {
@@ -38,6 +40,7 @@ abstract class _Paths {
   static const BILL_PAYMENT_SCREEN = '/bill-payment-screen';
   static const HOME_LOAN_CALCULATOR_SCREEN = '/home-loan-calculator-screen';
   static const CURRENCY_CONVERTER_SCREEN = '/currency-converter-screen';
-  static const CREDIT_CARD_SCREEN =
-      '/credit-card-screen';
+  static const CREDIT_CARD_SCREEN = '/credit-card-screen';
+  static const CAR_LOAN_SCREEN =
+      '/car-loan-screen';
 }

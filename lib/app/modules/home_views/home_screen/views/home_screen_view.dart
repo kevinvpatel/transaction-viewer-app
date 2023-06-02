@@ -15,6 +15,7 @@ import 'package:transaction_viewer_app/app/modules/home_views/calculators/home_l
 import 'package:transaction_viewer_app/app/modules/home_views/calculators/home_loan_calculator_screen/views/fd_loan_calculator_screen.dart';
 import 'package:transaction_viewer_app/app/modules/home_views/calculators/home_loan_calculator_screen/views/home_loan_calculator_screen_view.dart';
 import 'package:transaction_viewer_app/app/modules/home_views/calculators/home_loan_calculator_screen/views/rd_loan_calculator_screen.dart';
+import 'package:transaction_viewer_app/app/modules/home_views/credit_and_loan_screen/car_loan_screen/views/car_loan_screen_view.dart';
 import 'package:transaction_viewer_app/app/modules/home_views/credit_and_loan_screen/credit_card_screen/views/credit_card_screen_view.dart';
 import 'package:transaction_viewer_app/app/modules/home_views/home_screen/views/change_city_screen.dart';
 
@@ -259,13 +260,13 @@ class HomeScreenView extends GetView<HomeScreenController> {
                     if(index == 0) {
                       Get.to(CreditCardScreenView());
                     } else if(index == 1) {
-                      Get.to(CreditCardScreenView());
+                      Get.to(CarLoanScreenView(), arguments: 'carloan');
                     } else if(index == 2) {
-                      Get.to(CreditCardScreenView());
+                      Get.to(CarLoanScreenView(), arguments: 'homeloan');
                     } else if(index == 3) {
-                      Get.to(CreditCardScreenView());
+                      Get.to(CarLoanScreenView(), arguments: 'bussiness');
                     } else {
-                      Get.to(CreditCardScreenView());
+                      Get.to(CarLoanScreenView(), arguments: 'personal');
                     }
                   } else {
 
