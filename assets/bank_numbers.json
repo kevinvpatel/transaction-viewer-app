@@ -1,0 +1,370 @@
+[
+  {
+    "no": 1,
+    "bank_name": "State Bank of India",
+    "balance_check": "09223766666 ",
+    "customer_care": "18004253800",
+    "icon": "sbi",
+    "mini_statement": "09223866666"
+  },
+  {
+    "no": 2,
+    "bank_name": "Bank of Baroda",
+    "balance_check": " 09223011311",
+    "customer_care": "18001024455",
+    "icon": "ic_6_bank_of_baroda",
+    "mini_statement": "MINI  <Last 4 digits of Account Number>#E.g. MINI 2345#5616150"
+  },
+  {
+    "no": 3,
+    "bank_name": "HDFC Bank",
+    "balance_check": " 18002703333 ",
+    "customer_care": "18004254332",
+    "icon": "ic_19_hdfc",
+    "mini_statement": "18002703355"
+  },
+  {
+    "no": 7,
+    "bank_name": "Bank of India",
+    "balance_check": "09015135135",
+    "customer_care": "1800220229",
+    "icon": "ic_7_bank_of_india",
+    "mini_statement": "TRANS <SMS Password>#E.g. BAL 1111#09810558585"
+  },
+  {
+    "no": 8,
+    "bank_name": "Dena Bank",
+    "balance_check": "09289356677",
+    "customer_care": "18002336427",
+    "icon": "ic_49_dena_bk",
+    "mini_statement": "09278656677"
+  },
+  {
+    "no": 9,
+    "bank_name": "Kotak Mahindra Bank",
+    "balance_check": "18002740110",
+    "customer_care": "18602662666",
+    "icon": "ic_27_kotak_mahi_bk",
+    "mini_statement": "TXN  <Last 4 digits of Account Number>#E.g. TXN 6895#5676788"
+  },
+  {
+    "no": 10,
+    "bank_name": "Canara Bank",
+    "balance_check": " 09015483483",
+    "customer_care": "18004250018",
+    "icon": "ic_12_canara",
+    "mini_statement": "09015734734"
+  },
+  {
+    "no": 11,
+    "bank_name": "Citi Bank",
+    "balance_check": "BAL  <Last 4 digits of your debit card number>#E.g. BAL 3425#09880752484",
+    "customer_care": "NA",
+    "icon": "ic_13_citi_bank",
+    "mini_statement": "NA"
+  },
+  {
+    "no": 12,
+    "bank_name": "Punjab National Bank",
+    "balance_check": "BAL  <16 digit Account Number>#E.g.  BAL 0153001234567890#5607040",
+    "customer_care": "18001802222",
+    "icon": "ic_30_panjab_national",
+    "mini_statement": "MINSTMT  <16 digit Account Number>#E.g. MINSTMT 0153001234567890#5607040"
+  },
+  {
+    "no": 13,
+    "bank_name": "Union Bank of India",
+    "balance_check": "09223008586",
+    "customer_care": "18002082244",
+    "icon": "ic_35_union_bank",
+    "mini_statement": "UMNS#E.g. SMS UMNS to 09223008486#09223008486"
+  },
+  {
+    "no": 14,
+    "bank_name": "UCO Bank",
+    "balance_check": "09278792787",
+    "customer_care": "18001030123",
+    "icon": "ic_42_uco_bk",
+    "mini_statement": "09213125125"
+  },
+  {
+    "no": 15,
+    "bank_name": "Vijaya Bank",
+    "balance_check": "18002665555 ",
+    "customer_care": "18004255885",
+    "icon": "ic_53_vijya",
+    "mini_statement": "18001035535"
+  },
+  {
+    "no": 16,
+    "bank_name": "HSBC Bank",
+    "balance_check": "18001034722",
+    "customer_care": "18001034722",
+    "icon": "ic_20_hsbc",
+    "mini_statement": "MINI <account nickname>#E.g. MINI NIR#09611124722"
+  },
+  {
+    "no": 17,
+    "bank_name": "Yes Bank",
+    "balance_check": "09840909000",
+    "customer_care": "18002000",
+    "icon": "ic_38_yes_bk",
+    "mini_statement": "09223921111"
+  },
+  {
+    "no": 18,
+    "bank_name": "South Indian Bank",
+    "balance_check": "09223008488 ",
+    "customer_care": "18008431800",
+    "icon": "ic_60_south_india",
+    "mini_statement": "TRN<Customer PIN>#E.g. TRN1234#09840777222"
+  },
+  {
+    "no": 19,
+    "bank_name": "Corporation Bank",
+    "balance_check": "09268892688",
+    "customer_care": "18004253555",
+    "icon": "ic_10_corporation_bk",
+    "mini_statement": "CTRN#E.g. Send SMS CTRN to 5667716#5667716"
+  },
+  {
+    "no": 20,
+    "bank_name": "Allahabad Bank",
+    "balance_check": " 09224150150",
+    "customer_care": "1800226061",
+    "icon": "ic_2_allaphabad",
+    "mini_statement": "09224150150"
+  },
+  {
+    "no": 21,
+    "bank_name": "American Express",
+    "balance_check": "1800446630",
+    "customer_care": "1800446630",
+    "icon": "ic_3_american_exp",
+    "mini_statement": "NA"
+  },
+  {
+    "no": 22,
+    "bank_name": "Andhra Bank",
+    "balance_check": "09223011300",
+    "customer_care": "18004251515",
+    "icon": "ic_4_andhra_bk",
+    "mini_statement": "MINI <MPIN>#E.g. MINI 4444#09223173924"
+  },
+  {
+    "no": 23,
+    "bank_name": "Central Bank of India",
+    "balance_check": "09222250000 ",
+    "customer_care": "18002001911",
+    "icon": "ic_41_central_bk_of_india",
+    "mini_statement": "09555144441"
+  },
+  {
+    "no": 24,
+    "bank_name": "Indian Bank",
+    "balance_check": " 09289592895 ",
+    "customer_care": "180042500000",
+    "icon": "ic_25_indian_bk",
+    "mini_statement": "LATRAN <Account No> <MPIN>#E.g. LATRAN 989898989 5555#09444394443"
+  },
+  {
+    "no": 25,
+    "bank_name": "Deutsche Bank",
+    "balance_check": "Bal#E.g. Send SMS Bal to 561615#561615",
+    "customer_care": "18001236601",
+    "icon": "ic_15_deutsche_bk",
+    "mini_statement": "TSA <last 4 digits of a/c>#E.g. TSA 3456#561615"
+  },
+  {
+    "no": 26,
+    "bank_name": "Dhanlaxmi Bank",
+    "balance_check": "08067747700",
+    "customer_care": "18004251747",
+    "icon": "ic_65_dhanlakshmi",
+    "mini_statement": "DLBTXN <Customer ID>#E.g. DLBTXN 568497#56161"
+  },
+  {
+    "no": 27,
+    "bank_name": "United Bank Of India ",
+    "balance_check": "ubal <Account no> <Password>#E.g. ubal 1234567891013 7890#56161",
+    "customer_care": "18003450345",
+    "icon": "ic_64_united_bk_of_india",
+    "mini_statement": "utran <Account no> <Password>#E.g. utran 1234567891013 7890#56161"
+  },
+  {
+    "no": 29,
+    "bank_name": "Karnataka Bank",
+    "balance_check": "18004251445",
+    "customer_care": "18004251444",
+    "icon": "ic_71_karnatak_bk",
+    "mini_statement": "18004251446"
+  },
+  {
+    "no": 31,
+    "bank_name": "State Bank of Bikaner & Jaipur",
+    "balance_check": "09223866666",
+    "customer_care": "18001806005",
+    "icon": "",
+    "mini_statement": "09223866666"
+  },
+  {
+    "no": 32,
+    "bank_name": "ABN Amro Bank ",
+    "balance_check": "1800112224",
+    "customer_care": "1800112224",
+    "icon": "ic_198_abn",
+    "mini_statement": "NA"
+  },
+  {
+    "no": 33,
+    "bank_name": "ANZ Bank",
+    "balance_check": "18002000269",
+    "customer_care": "18002000269",
+    "icon": "ic_199_anzbk",
+    "mini_statement": "NA"
+  },
+  {
+    "no": 35,
+    "bank_name": "Bharatiya Mahila Bank",
+    "balance_check": "09212438888",
+    "customer_care": "01147472100",
+    "icon": "ic_201_bhartiy_mahila",
+    "mini_statement": "MINI <Account No>#E.g. MINI 123456789012#09212438888"
+  },
+  {
+    "no": 36,
+    "bank_name": "Cashnet Bank - Member Bank",
+    "balance_check": "1800225087",
+    "customer_care": "1800225087",
+    "icon": "",
+    "mini_statement": "NA"
+  },
+  {
+    "no": 37,
+    "bank_name": "Tamilnad Mercantile Bank",
+    "balance_check": "09211937373",
+    "customer_care": "18004250426",
+    "icon": "ic_66_tamilnad_mer_bk",
+    "mini_statement": "NA"
+  },
+  {
+    "no": 38,
+    "bank_name": "Varachha Cooperative Bank Limited",
+    "balance_check": "02614008080",
+    "customer_care": "02614008000",
+    "icon": "",
+    "mini_statement": "NA"
+  },
+  {
+    "no": 39,
+    "bank_name": "Royal Bank of Scotland",
+    "balance_check": "09227148472",
+    "customer_care": "1800112224",
+    "icon": "ic_68_royal_bk_scotland",
+    "mini_statement": "NA"
+  },
+  {
+    "no": 40,
+    "bank_name": "State Bank of Hyderabad",
+    "balance_check": "09223766666",
+    "customer_care": "18004251825",
+    "icon": "",
+    "mini_statement": "NA"
+  },
+  {
+    "no": 41,
+    "bank_name": "State Bank of Mysore",
+    "balance_check": "18004252244",
+    "customer_care": "18004252244",
+    "icon": "",
+    "mini_statement": "NA"
+  },
+  {
+    "no": 42,
+    "bank_name": "State Bank of Patiala",
+    "balance_check": "18001802010",
+    "customer_care": "18001802010",
+    "icon": "",
+    "mini_statement": "NA"
+  },
+  {
+    "no": 43,
+    "bank_name": "State Bank of Travancore",
+    "balance_check": "09223866666 ",
+    "customer_care": "18004255566",
+    "icon": "",
+    "mini_statement": "NA"
+  },
+  {
+    "no": 44,
+    "bank_name": "Syndicate Bank",
+    "balance_check": "09664552255",
+    "customer_care": "08026639966",
+    "icon": "ic_51_syndicate_bk",
+    "mini_statement": "STXN <Customer ID>#E.g. STXN 123456#09664552255"
+  },
+  {
+    "no": 45,
+    "bank_name": "Federal Bank",
+    "balance_check": "8431900900",
+    "customer_care": "18004251199",
+    "icon": "ic_17_federal_bank",
+    "mini_statement": "08431600600"
+  },
+  {
+    "no": 46,
+    "bank_name": "DCB Bank",
+    "balance_check": " 7506660011",
+    "customer_care": "18002095363",
+    "icon": "ic_73_dcb_bk",
+    "mini_statement": "07506660022"
+  },
+  {
+    "no": 47,
+    "bank_name": "Bank of Maharashtra",
+    "balance_check": "09222281818",
+    "customer_care": "18002334526",
+    "icon": "ic_8_bank_of_maharashtra",
+    "mini_statement": "LATRAN <mpin>#E.g.LATRAN 1234#09223181818"
+  },
+  {
+    "no": 48,
+    "bank_name": "Lakshmi Vilas Bank",
+    "balance_check": "LVB <BAL> <Customer_id>#E.g.LVB BAL 123456#09282441155",
+    "customer_care": "18004252233",
+    "icon": "ic_67_lakshmi_vilas",
+    "mini_statement": "LVB TXN Customer_id#E.g. LVB TXN 123456#09282441155"
+  },
+  {
+    "no": 49,
+    "bank_name": "IndusInd Bank",
+    "balance_check": "18002741000",
+    "customer_care": "18605005004",
+    "icon": "ic_26_indusind_bk",
+    "mini_statement": "MINI#E.g. Send SMS MINI to 9212299955#09212299955"
+  },
+  {
+    "no": 50,
+    "bank_name": "Indian Overseas Bank",
+    "balance_check": "18004254445",
+    "customer_care": "18004254445",
+    "icon": "ic_58_indian_overseas",
+    "mini_statement": "NA"
+  },
+  {
+    "no": 52,
+    "bank_name": "RBL Bank",
+    "balance_check": "18004190610",
+    "customer_care": "18001238040",
+    "icon": "ic_31_rbl_bk",
+    "mini_statement": "TXN <Customer ID>#E.g. TXN 8008801010000423#09223366333"
+  },
+  {
+    "no": 53,
+    "bank_name": "Bandhan Bank",
+    "balance_check": "18002588181",
+    "customer_care": "18002588181",
+    "icon": "ic_111_bandhan_bank",
+    "mini_statement": "09223008777"
+  }
+]

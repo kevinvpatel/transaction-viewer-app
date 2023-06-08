@@ -21,7 +21,13 @@ abstract class Routes {
       _Paths.CURRENCY_CONVERTER_SCREEN;
   static const HOME_VIEWS_CREDIT_AND_LOAN_SCREEN_CREDIT_CARD_SCREEN =
       _Paths.CREDIT_CARD_SCREEN;
-  static const HOME_VIEWS_CREDIT_AND_LOAN_SCREEN_CAR_LOAN_SCREEN = _Paths.CAR_LOAN_SCREEN;
+  static const HOME_VIEWS_CREDIT_AND_LOAN_SCREEN_CAR_LOAN_SCREEN =
+      _Paths.CAR_LOAN_SCREEN;
+  static const HOME_VIEWS_BANKING_BALANCE_SCREEN = _Paths.BALANCE_SCREEN;
+  static const HOME_VIEWS_BANKING_HOLIDAY_SCREEN = _Paths.HOLIDAY_SCREEN;
+  static const HOME_VIEWS_BANKING_USSD_BANK_LIST_SCREEN_VIEW =
+      _Paths.USSD_BANK_LIST_SCREEN_VIEW;
+  static const HOME_VIEWS_BANKING_ATM_MAP_SCREEN_VIEW = _Paths.ATM_MAP_SCREEN_VIEW;
 }
 
 abstract class _Paths {
@@ -41,6 +47,9 @@ abstract class _Paths {
   static const HOME_LOAN_CALCULATOR_SCREEN = '/home-loan-calculator-screen';
   static const CURRENCY_CONVERTER_SCREEN = '/currency-converter-screen';
   static const CREDIT_CARD_SCREEN = '/credit-card-screen';
-  static const CAR_LOAN_SCREEN =
-      '/car-loan-screen';
+  static const CAR_LOAN_SCREEN = '/car-loan-screen';
+  static const BALANCE_SCREEN = '/balance-screen';
+  static const HOLIDAY_SCREEN = '/holiday-screen';
+  static const USSD_BANK_LIST_SCREEN_VIEW = '/ussd-bank-list-screen-view';
+  static const ATM_MAP_SCREEN_VIEW = '/atm-map-screen-view';
 }

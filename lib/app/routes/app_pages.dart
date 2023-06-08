@@ -8,8 +8,16 @@ import '../modules/bill_payment_screen/bindings/bill_payment_screen_binding.dart
 import '../modules/bill_payment_screen/views/bill_payment_screen_view.dart';
 import '../modules/bottom_navigation_screen/bindings/bottom_navigation_screen_binding.dart';
 import '../modules/bottom_navigation_screen/views/bottom_navigation_screen_view.dart';
+import '../modules/home_views/banking/atm_map_screen_view/bindings/atm_map_screen_view_binding.dart';
+import '../modules/home_views/banking/atm_map_screen_view/views/atm_map_screen_view_view.dart';
+import '../modules/home_views/banking/balance_screen/bindings/balance_screen_binding.dart';
+import '../modules/home_views/banking/balance_screen/views/balance_screen_view.dart';
+import '../modules/home_views/banking/holiday_screen/bindings/holiday_screen_binding.dart';
+import '../modules/home_views/banking/holiday_screen/views/holiday_screen_view.dart';
 import '../modules/home_views/banking/ifsc_screen/bindings/ifsc_screen_binding.dart';
 import '../modules/home_views/banking/ifsc_screen/views/ifsc_screen_view.dart';
+import '../modules/home_views/banking/ussd_bank_list_screen_view/bindings/ussd_bank_list_screen_view_binding.dart';
+import '../modules/home_views/banking/ussd_bank_list_screen_view/views/ussd_bank_list_screen_view_view.dart';
 import '../modules/home_views/calculators/currency_converter_screen/bindings/currency_converter_screen_binding.dart';
 import '../modules/home_views/calculators/currency_converter_screen/views/currency_converter_screen_view.dart';
 import '../modules/home_views/calculators/home_loan_calculator_screen/bindings/home_loan_calculator_screen_binding.dart';
@@ -106,6 +114,26 @@ class AppPages {
       name: _Paths.CAR_LOAN_SCREEN,
       page: () => const CarLoanScreenView(),
       binding: CarLoanScreenBinding(),
+    ),
+    GetPage(
+      name: _Paths.BALANCE_SCREEN,
+      page: () => const BalanceScreenView(),
+      binding: BalanceScreenBinding(),
+    ),
+    GetPage(
+      name: _Paths.HOLIDAY_SCREEN,
+      page: () => const HolidayScreenView(),
+      binding: HolidayScreenBinding(),
+    ),
+    GetPage(
+      name: _Paths.USSD_BANK_LIST_SCREEN_VIEW,
+      page: () => const UssdBankListScreenViewView(),
+      binding: UssdBankListScreenViewBinding(),
+    ),
+    GetPage(
+      name: _Paths.ATM_MAP_SCREEN_VIEW,
+      page: () => const AtmMapScreenViewView(),
+      binding: AtmMapScreenViewBinding(),
     ),
   ];
 }

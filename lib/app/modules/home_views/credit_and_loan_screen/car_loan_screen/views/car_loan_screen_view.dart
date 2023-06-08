@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_html/flutter_html.dart';
 
 import 'package:get/get.dart';
 import 'package:html/parser.dart';
@@ -22,13 +23,25 @@ class CarLoanScreenView extends GetView<CarLoanScreenController> {
     double height = 100.h;
     double width = 100.w;
 
-
-    controller.html(filePath: 'assets/credit & loan files/${Get.arguments}.html');
-
     return Scaffold(
       backgroundColor: ConstantsColor.backgroundDarkColor,
-      appBar: ConstantsWidgets.appBar(title: 'controller.listCarloan[0].text', isShareButtonEnable: false, onTapBack: () => Get.back()),
-      body: Container(
+      // appBar: ConstantsWidgets.appBar(title: 'controller.listCarloan[0].text', isShareButtonEnable: false, onTapBack: () => Get.back()),
+      appBar: AppBar(
+        title: Text(Get.arguments['title']),
+        leading: IconButton(
+            onPressed: () { Get.back(); },
+            icon: const Icon(CupertinoIcons.arrow_left)
+        ),
+        actions: [
+          InkWell(
+            child: Image.asset(ConstantsImage.share_icon1, width: 20.sp),
+          ),
+          SizedBox(width: 15.sp)
+        ],
+        backgroundColor: ConstantsColor.backgroundDarkColor,
+        elevation: 0,
+      ),
+      body: SizedBox(
         height: height,
         width: width,
         child: Column(
@@ -47,32 +60,19 @@ class CarLoanScreenView extends GetView<CarLoanScreenController> {
                 borderRadius: BorderRadius.circular(15.sp),
                 boxShadow: ConstantsWidgets.boxShadow
               ),
-              child: GetBuilder(
-                  init: CarLoanScreenController(),
-                  builder: (controller) {
-                    return ListView.separated(
-                      shrinkWrap: true,
-                      physics: BouncingScrollPhysics(),
-                      itemCount: controller.listHeadings.length,
-                      itemBuilder: (context, index) {
-                        log('controller.listHeadings -> ${controller.listHeadings.length}');
-                        // return index % 2 != 0
-                        //     ? Text('${controller.listBody[index].text.trim()}\n\n', style: TextStyle(color: Colors.white, fontSize: 15.5.sp),)
-                        //     : SizedBox.shrink();
-                        return Text('${controller.listBody[index].text.trim()}\n\n', style: TextStyle(color: Colors.white, fontSize: 15.5.sp),);
-                      },
-                      separatorBuilder: (context, index) {
-                        ///Headings
-                        // return index % 2 == 0 && index != 0
-                        //     ? Text(controller.listHeadings[index].text.trim(),
-                        //   style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 19.sp),)
-                        //     : SizedBox.shrink();
-                        return Text(controller.listHeadings[index].text.trim(),
-                          style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 19.sp),);
-                      },
-                    );
-                  }
-              ),
+              child: Obx(() => SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
+                child: Html(
+                  style: {
+                    "h3": Style(color: Colors.white, fontWeight: FontWeight.w500, fontSize: FontSize(19.sp)),
+                    "h2": Style(color: Colors.white, fontWeight: FontWeight.w500, fontSize: FontSize(19.sp)),
+                    "p": Style(color: Colors.white, fontSize: FontSize(15.5.sp)),
+                    "ul": Style(color: Colors.white, fontSize: FontSize(15.5.sp)),
+                    "li": Style(color: Colors.white, fontSize: FontSize(15.5.sp))
+                  },
+                  data: controller.htmlCode.value,
+                ),
+              )),
             ),
           ],
         ),

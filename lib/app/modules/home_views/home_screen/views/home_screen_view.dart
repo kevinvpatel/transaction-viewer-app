@@ -9,7 +9,11 @@ import 'package:transaction_viewer_app/app/data/constants/color_constants.dart';
 import 'package:transaction_viewer_app/app/data/constants/image_constants.dart';
 import 'package:transaction_viewer_app/app/data/constants/widget_constants.dart';
 import 'package:transaction_viewer_app/app/data/fuel_price_model.dart';
+import 'package:transaction_viewer_app/app/modules/home_views/banking/atm_map_screen_view/views/atm_map_screen_view_view.dart';
+import 'package:transaction_viewer_app/app/modules/home_views/banking/balance_screen/views/balance_screen_view.dart';
+import 'package:transaction_viewer_app/app/modules/home_views/banking/holiday_screen/views/holiday_screen_view.dart';
 import 'package:transaction_viewer_app/app/modules/home_views/banking/ifsc_screen/views/ifsc_screen_view.dart';
+import 'package:transaction_viewer_app/app/modules/home_views/banking/ussd_bank_list_screen_view/views/ussd_bank_list_screen_view_view.dart';
 import 'package:transaction_viewer_app/app/modules/home_views/calculators/currency_converter_screen/views/currency_converter_screen_view.dart';
 import 'package:transaction_viewer_app/app/modules/home_views/calculators/home_loan_calculator_screen/views/business_loan_calculator_screen.dart';
 import 'package:transaction_viewer_app/app/modules/home_views/calculators/home_loan_calculator_screen/views/fd_loan_calculator_screen.dart';
@@ -260,16 +264,32 @@ class HomeScreenView extends GetView<HomeScreenController> {
                     if(index == 0) {
                       Get.to(CreditCardScreenView());
                     } else if(index == 1) {
-                      Get.to(CarLoanScreenView(), arguments: 'carloan');
+                      Get.to(CarLoanScreenView(), arguments: {'title' : 'Car Loan', 'path' : 'assets/credit & loan files/carloan.html'});
                     } else if(index == 2) {
-                      Get.to(CarLoanScreenView(), arguments: 'homeloan');
+                      Get.to(CarLoanScreenView(), arguments: {'title' : 'Home Loan', 'path' : 'assets/credit & loan files/homeloan.html'});
                     } else if(index == 3) {
-                      Get.to(CarLoanScreenView(), arguments: 'bussiness');
+                      Get.to(CarLoanScreenView(), arguments: {'title' : 'Business Loan', 'path' : 'assets/credit & loan files/bussiness.html'});
                     } else {
-                      Get.to(CarLoanScreenView(), arguments: 'personal');
+                      Get.to(CarLoanScreenView(), arguments: {'title' : 'Micro Loan', 'path' : 'assets/credit & loan files/personal.html'});
                     }
                   } else {
-
+                    if(index == 0) {
+                      Get.to(CarLoanScreenView(), arguments: {'title' : 'Employee PF', 'path' : 'assets/schemes files/employee pf.html'});
+                    } else if(index == 1) {
+                      Get.to(CarLoanScreenView(), arguments: {'title' : 'National PS', 'path' : 'assets/schemes files/national ps.html'});
+                    } else if(index == 2) {
+                      Get.to(CarLoanScreenView(), arguments: {'title' : 'National SC', 'path' : 'assets/schemes files/sc national.html'});
+                    } else if(index == 3) {
+                      Get.to(CarLoanScreenView(), arguments: {'title' : 'PM Jan Dhan Yojna', 'path' : 'assets/schemes files/pm jan dhan.html'});
+                    } else if(index == 4) {
+                      Get.to(CarLoanScreenView(), arguments: {'title' : 'PM Vaya', 'path' : 'assets/schemes files/pm vaya.html'});
+                    } else if(index == 5) {
+                      Get.to(CarLoanScreenView(), arguments: {'title' : 'SS Post', 'path' : 'assets/schemes files/ss post.html'});
+                    } else if(index == 6) {
+                      Get.to(CarLoanScreenView(), arguments: {'title' : 'Public PF', 'path' : 'assets/schemes files/public pf.html'});
+                    } else {
+                      Get.to(CarLoanScreenView(), arguments: {'title' : 'Senior CS', 'path' : 'assets/schemes files/cs senior.html'});
+                    }
                   }
                 },
                 child: Column(
@@ -335,15 +355,15 @@ class HomeScreenView extends GetView<HomeScreenController> {
                     onTap: () {
                       if(isBanking == true) {
                         if(index == 0) {
-                          Get.to(IfscScreenView());
+                          Get.to(BalanceScreenView());
                         } else if(index == 1) {
                           Get.to(IfscScreenView());
                         } else if(index == 2) {
-                          Get.to(IfscScreenView());
+                          Get.to(HolidayScreenView());
                         } else if(index == 3) {
-                          Get.to(IfscScreenView());
+                          Get.to(UssdBankListScreenViewView());
                         } else {
-                          Get.to(IfscScreenView());
+                          Get.to(AtmMapScreenViewView());
                         }
                       } else {
                         if(index == 0) {
@@ -383,7 +403,10 @@ class HomeScreenView extends GetView<HomeScreenController> {
                         SizedBox(height: 11.sp),
                         Container(
                           width: cardHeight * 0.45,
-                          child: Text(mapData[index]['title'], textAlign: TextAlign.center, style: TextStyle(fontSize: 13.5.sp, color: Colors.white), maxLines: 2, overflow: TextOverflow.ellipsis)
+                          child: Text(mapData[index]['title'],
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontSize: 13.5.sp, color: Colors.white),
+                              maxLines: 1, overflow: TextOverflow.ellipsis)
                         )
                       ],
                     ),

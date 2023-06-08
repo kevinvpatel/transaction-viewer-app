@@ -46,6 +46,11 @@ abstract class ConstantsImage {
   static const pf_public_icon = 'assets/Icons/PF Public.png';
   static const cs_senior_icon = 'assets/Icons/CS Senior.png';
   static const select_month_icon = 'assets/Icons/Select Month Icon.png';
+  static const call_icon = 'assets/Icons/Call.png';
 
+  ///Bank Holidays icons
+  static const stock_exchange_icon = 'assets/Icons/Stock Exchange.png';
+  static const international_holiday_icon = 'assets/Icons/International Holiday.png';
+  static const public_holiday_icon = 'assets/Icons/Public Holiday.png';
 
 }

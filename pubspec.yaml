@@ -8,6 +8,9 @@ environment:
 dependencies: 
   cupertino_icons: ^1.0.2
 
+#  launch url
+  url_launcher: ^6.1.11
+
 #  fetch sms
   flutter_sms_inbox: ^1.0.2
 
@@ -50,6 +53,11 @@ dependencies:
 
 #  html file data load
   html: ^0.15.3
+  flutter_html: ^3.0.0-beta.2
+
+#  sqlite data base
+  sqflite: ^2.2.8+4
+  path: ^1.8.3
 
   get: 4.6.5
 
@@ -75,6 +83,9 @@ flutter:
     - assets/credit_card_apply.json
     - assets/schemes files/
     - assets/credit & loan files/
+    - assets/bankholiday.json
+    - assets/bank_numbers.json
+    - assets/myDatabase.db
 
   fonts:
     - family: Poppins

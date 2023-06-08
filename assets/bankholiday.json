@@ -1,0 +1,356 @@
+{
+  "BankHoliDay": [
+    {
+      "ShortDate": "14",
+      "FulltDate": "14 Jan 2023",
+      "Month": "1",
+      "Year": "2023",
+      "Day": "Saturday",
+      "HoliDayName": "Makar Sankranti"
+    },
+    {
+      "ShortDate": "15",
+      "FulltDate": "15 Jan 2023",
+      "Month": "1",
+      "Year": "2023",
+      "Day": "Sunday",
+      "HoliDayName": "Pongal"
+    },
+    {
+      "ShortDate": "26",
+      "FulltDate": "26 Jan 2023",
+      "Month": "1",
+      "Year": "2023",
+      "Day": "Thursday",
+      "HoliDayName": "Republic Day"
+    },
+    {
+      "ShortDate": "28",
+      "FulltDate": "28 Jan 2023",
+      "Month": "1",
+      "Year": "2023",
+      "Day": "Saturday",
+      "HoliDayName": "Fourth Saturday"
+    },
+    {
+      "ShortDate": "11",
+      "FulltDate": "11 Feb 2023",
+      "Month": "2",
+      "Year": "2023",
+      "Day": "Saturday",
+      "HoliDayName": "Second Saturday"
+    },
+    {
+      "ShortDate": "25",
+      "FulltDate": "25 Feb 2023",
+      "Month": "2",
+      "Year": "2023",
+      "Day": "Saturday",
+      "HoliDayName": "Fourth Saturday"
+    },
+    {
+      "ShortDate": "8",
+      "FulltDate": "8 Mar 2023",
+      "Month": "3",
+      "Year": "2023",
+      "Day": "Wednesday",
+      "HoliDayName": "Holi"
+    },
+    {
+      "ShortDate": "11",
+      "FulltDate": "11 Mar 2023",
+      "Month": "3",
+      "Year": "2023",
+      "Day": "Saturday",
+      "HoliDayName": "Second Saturday"
+    },
+    {
+      "ShortDate": "25",
+      "FulltDate": "25 Mar 2023",
+      "Month": "3",
+      "Year": "2023",
+      "Day": "Saturday",
+      "HoliDayName": "Fourth Saturday"
+    },
+    {
+      "ShortDate": "30",
+      "FulltDate": "30 Mar 2023",
+      "Month": "3",
+      "Year": "2023",
+      "Day": "Thursday",
+      "HoliDayName": "Ram Navami"
+    },
+    {
+      "ShortDate": "4",
+      "FulltDate": "4 Apr 2023",
+      "Month": "4",
+      "Year": "2023",
+      "Day": "Tuesday",
+      "HoliDayName": "Mahavir Jayanti"
+    },
+    {
+      "ShortDate": "7",
+      "FulltDate": "7 Apr 2023",
+      "Month": "4",
+      "Year": "2023",
+      "Day": "Friday",
+      "HoliDayName": "Good Friday "
+    },
+    {
+      "ShortDate": "8",
+      "FulltDate": "8 Apr 2023",
+      "Month": "4",
+      "Year": "2023",
+      "Day": "Saturday",
+      "HoliDayName": "Second Saturday "
+    },
+    {
+      "ShortDate": "14",
+      "FulltDate": "14 Apr 2023",
+      "Month": "4",
+      "Year": "2023",
+      "Day": "Friday",
+      "HoliDayName": "Dr Ambedkar Jayanti "
+    },
+    {
+      "ShortDate": "22",
+      "FulltDate": "22 Apr 2023",
+      "Month": "4",
+      "Year": "2023",
+      "Day": "Saturday",
+      "HoliDayName": "Fourth Saturday"
+    },
+    {
+      "ShortDate": "22",
+      "FulltDate": "22 Apr 2023",
+      "Month": "4",
+      "Year": "2023",
+      "Day": "Saturday",
+      "HoliDayName": "Id-ul-Fitr "
+    },
+    {
+      "ShortDate": "1",
+      "FulltDate": "1 May 2023",
+      "Month": "5",
+      "Year": "2023",
+      "Day": "Monday",
+      "HoliDayName": "May Day/Labour Day"
+    },
+    {
+      "ShortDate": "5",
+      "FulltDate": "5 May 2023",
+      "Month": "5",
+      "Year": "2023",
+      "Day": "Friday",
+      "HoliDayName": "Buddha Purnima"
+    },
+    {
+      "ShortDate": "13",
+      "FulltDate": "13 May 2023",
+      "Month": "5",
+      "Year": "2023",
+      "Day": "Saturday",
+      "HoliDayName": "Second Saturday"
+    },
+    {
+      "ShortDate": "27",
+      "FulltDate": "27 May 2023",
+      "Month": "5",
+      "Year": "2023",
+      "Day": "Saturday",
+      "HoliDayName": "Fourth Saturday"
+    },
+    {
+      "ShortDate": "10",
+      "FulltDate": "10 Jun 2023",
+      "Month": "6",
+      "Year": "2023",
+      "Day": "Saturday",
+      "HoliDayName": "Second Saturday"
+    },
+    {
+      "ShortDate": "24",
+      "FulltDate": "24 Jun 2023",
+      "Month": "6",
+      "Year": "2023",
+      "Day": "Saturday",
+      "HoliDayName": "Fourth Saturday"
+    },
+{
+      "ShortDate": "29",
+      "FulltDate": "29 Jun 2023",
+      "Month": "6",
+      "Year": "2023",
+      "Day": "Thursday",
+      "HoliDayName": "Bakrid/Id-ul-Zuha"
+    },
+    {
+      "ShortDate": "8",
+      "FulltDate": "8 Jul 2023",
+      "Month": "7",
+      "Year": "2023",
+      "Day": "Saturday",
+      "HoliDayName": "Second Saturday"
+    },
+    {
+      "ShortDate": "22",
+      "FulltDate": "22 Jul 2023",
+      "Month": "7",
+      "Year": "2023",
+      "Day": "Saturday",
+      "HoliDayName": "Fourth Saturday"
+    },
+    {
+      "ShortDate": "29",
+      "FulltDate": "29 Jul 2023",
+      "Month": "7",
+      "Year": "2023",
+      "Day": "Saturday",
+      "HoliDayName": "Muharram"
+    },
+    {
+      "ShortDate": "12",
+      "FulltDate": "12 Aug 2023",
+      "Month": "8",
+      "Year": "2023",
+      "Day": "Saturday",
+      "HoliDayName": "Second Saturday"
+    },
+    {
+      "ShortDate": "15",
+      "FulltDate": "15 Aug 2023",
+      "Month": "8",
+      "Year": "2023",
+      "Day": "Tuesday",
+      "HoliDayName": "Independence Day"
+    },
+    {
+      "ShortDate": "26",
+      "FulltDate": "26 Aug 2023",
+      "Month": "8",
+      "Year": "2023",
+      "Day": "Saturday",
+      "HoliDayName": "Fourth Saturday"
+    },
+    {
+      "ShortDate": "7",
+      "FulltDate": "7 Sep 2023",
+      "Month": "9",
+      "Year": "2023",
+      "Day": "Thursday",
+      "HoliDayName": "Janmashtami (Vaishnva)"
+    },
+    {
+      "ShortDate": "9",
+      "FulltDate": "9 Sep 2023",
+      "Month": "9",
+      "Year": "2023",
+      "Day": "Saturday",
+      "HoliDayName": "Second Saturday "
+    },
+    {
+      "ShortDate": "23",
+      "FulltDate": "23 Sep 2023",
+      "Month": "9",
+      "Year": "2023",
+      "Day": "Saturday",
+      "HoliDayName": "Fourth Saturday "
+    },
+    {
+      "ShortDate": "28",
+      "FulltDate": "28 Sep 2023",
+      "Month": "9",
+      "Year": "2023",
+      "Day": "Thursday",
+      "HoliDayName": "Milad-un-Nabi or Id-e-Milad "
+    },
+    {
+      "ShortDate": "2",
+      "FulltDate": "2 Oct 2023",
+      "Month": "10",
+      "Year": "2023",
+      "Day": "Monday",
+      "HoliDayName": "Mahatma Gandhi’s Birthday"
+    },
+    {
+      "ShortDate": "14",
+      "FulltDate": "14 Oct 2023",
+      "Month": "10",
+      "Year": "2023",
+      "Day": "Saturday",
+      "HoliDayName": "Second Saturday"
+    },
+    {
+      "ShortDate": "24",
+      "FulltDate": "24 Oct 2023",
+      "Month": "10",
+      "Year": "2023",
+      "Day": "Tuesday",
+      "HoliDayName": "Dussehra"
+    },
+    {
+      "ShortDate": "28",
+      "FulltDate": "28 Oct 2023",
+      "Month": "10",
+      "Year": "2023",
+      "Day": "Saturday",
+      "HoliDayName": "Fourth Saturday"
+    },
+    {
+      "ShortDate": "8",
+      "FulltDate": "8 Nov 2023",
+      "Month": "11",
+      "Year": "2023",
+      "Day": "Tuesday",
+      "HoliDayName": "Guru Nanak Jayanti"
+    },
+    {
+      "ShortDate": "11",
+      "FulltDate": "11 Nov 2023",
+      "Month": "11",
+      "Year": "2023",
+      "Day": "Saturday",
+      "HoliDayName": "Second Saturday"
+    },
+    {
+      "ShortDate": "25",
+      "FulltDate": "25 Nov 2023",
+      "Month": "11",
+      "Year": "2023",
+      "Day": "Saturday",
+      "HoliDayName": "Fourth Saturday"
+    },
+    {
+      "ShortDate": "27",
+      "FulltDate": "27 Nov 2023",
+      "Month": "11",
+      "Year": "2023",
+      "Day": "Monday",
+      "HoliDayName": "Guru Nanak’s Birthday"
+    },
+    {
+      "ShortDate": "9",
+      "FulltDate": "9 Dec 2023",
+      "Month": "12",
+      "Year": "2023",
+      "Day": "Saturday",
+      "HoliDayName": "Second Saturday"
+    },
+    {
+      "ShortDate": "23",
+      "FulltDate": "23 Dec 2023",
+      "Month": "12",
+      "Year": "2023",
+      "Day": "Saturday",
+      "HoliDayName": "Fourth Saturday"
+    },
+    {
+      "ShortDate": "25",
+      "FulltDate": "25 Dec 2023",
+      "Month": "12",
+      "Year": "2023",
+      "Day": "Monday",
+      "HoliDayName": "Christmas"
+    }
+  ]
+}
