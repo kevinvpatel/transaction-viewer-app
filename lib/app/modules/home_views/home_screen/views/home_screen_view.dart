@@ -143,7 +143,8 @@ class HomeScreenView extends GetView<HomeScreenController> {
               width: width,
               child: PageView.builder(
                   controller: controller.pageController,
-                  itemCount: price != null ? 3 : 1,
+                  // itemCount: price != null ? 3 : 1,
+                  itemCount: 1,
                   onPageChanged: (page) => controller.currentPage.value = page,
                   itemBuilder: (context, index) {
                     return Container(
@@ -235,7 +236,8 @@ class HomeScreenView extends GetView<HomeScreenController> {
             SizedBox(height: cardHeight * 0.07),
             SmoothPageIndicator(
                 controller: controller.pageController,  // PageController
-                count: price != null ? 3 : 1,
+                // count: price != null ? 3 : 1,
+                count: 1,
                 effect: ExpandingDotsEffect(
                     dotColor: Colors.white70,
                     activeDotColor: Colors.white,
