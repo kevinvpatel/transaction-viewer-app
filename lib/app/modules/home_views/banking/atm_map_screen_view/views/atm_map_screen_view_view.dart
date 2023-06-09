@@ -19,6 +19,7 @@ class AtmMapScreenViewView extends GetView<AtmMapScreenViewController> {
     String query = Uri.encodeComponent('atm near me');
     print('query -> $query');
     String googleUrl = "https://www.google.com/maps/search/?api=1&query=$query";
+    // controller.openGoogleMap(search: 'atm near me');
 
     return Scaffold(
       // backgroundColor: ConstantsColor.backgroundDarkColor,

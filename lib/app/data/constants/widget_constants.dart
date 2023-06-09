@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:transaction_viewer_app/app/data/adServices.dart';
 import 'package:transaction_viewer_app/app/data/constants/color_constants.dart';
 import 'package:transaction_viewer_app/app/data/constants/image_constants.dart';
 
@@ -62,6 +64,11 @@ abstract class ConstantsWidgets {
       leadingWidth: onTapBack == null ? 0 : 56.0,
       actions: [
         isShareButtonEnable ? InkWell(
+          onTap: () {
+            AdService adService = AdService();
+            adService.checkCounterAd();
+            Share.share('Look what i found') ;
+          },
           child: Image.asset(ConstantsImage.share_icon1, width: 20.sp),
         ) : const SizedBox.shrink(),
         isShareButtonEnable ? SizedBox(width: 15.sp) : const SizedBox.shrink()

@@ -57,7 +57,16 @@ dependencies:
 
 #  sqlite data base
   sqflite: ^2.2.8+4
-  path: ^1.8.3
+  path: ^1.8.2
+
+#  Advertisement
+  google_mobile_ads: ^2.3.0
+  facebook_audience_network: ^1.0.1
+
+#  firebase
+  firebase_core: ^2.4.1
+  firebase_remote_config: ^3.0.9
+
 
   get: 4.6.5
 

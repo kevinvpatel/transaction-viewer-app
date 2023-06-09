@@ -125,8 +125,6 @@ class HomeScreenController extends GetxController {
 
   Future<Price?> getFuelPriceData({String? state, String? city}) async {
     Price? price;
-    print('state -> ${state}');
-    print('city -> ${city}');
     http.Response response = await http.get(
         Uri.parse('https://daily-petrol-diesel-lpg-cng-fuel-prices-in-india.p.rapidapi.com/v1/fuel-prices/today/india/${state}/${city}'),
         headers: {'X-RapidAPI-Key' : '7d868c649amshe5043f350a71f8bp16a4ffjsn89f8096a1aba', 'X-RapidAPI-Host' : 'daily-petrol-diesel-lpg-cng-fuel-prices-in-india.p.rapidapi.com'}

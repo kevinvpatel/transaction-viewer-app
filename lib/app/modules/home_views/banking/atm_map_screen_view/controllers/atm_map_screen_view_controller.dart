@@ -12,7 +12,7 @@ class AtmMapScreenViewController extends GetxController {
 
   InAppWebViewGroupOptions options = InAppWebViewGroupOptions(
     crossPlatform: InAppWebViewOptions(
-      incognito: true,
+      incognito: false,
       useShouldOverrideUrlLoading: true,
       mediaPlaybackRequiresUserGesture: false,
       userAgent: 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; en-US; rv:1.9.0.4) Gecko/20100101 Firefox/60.0',
@@ -25,6 +25,17 @@ class AtmMapScreenViewController extends GetxController {
       allowsInlineMediaPlayback: true,
     ),
   );
+
+  openGoogleMap({required String search}) async {
+    String query = Uri.encodeComponent(search);
+    print('query -> $query');
+    String googleUrl = "https://www.google.com/maps/search/?api=1&query=$query";
+    if(await canLaunchUrl(Uri.parse(googleUrl))) {
+      await launchUrl(Uri.parse(googleUrl));
+    } else {
+
+    }
+  }
 
 
 

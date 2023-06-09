@@ -3,8 +3,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:transaction_viewer_app/app/data/adServices.dart';
 import 'package:transaction_viewer_app/app/data/constants/color_constants.dart';
 import 'package:transaction_viewer_app/app/data/constants/image_constants.dart';
 import 'package:transaction_viewer_app/app/data/constants/widget_constants.dart';
@@ -33,6 +35,8 @@ class HomeScreenView extends GetView<HomeScreenController> {
     double height = 100.h;
     double width = 100.w;
 
+    AdService adService = AdService();
+
     return Scaffold(
       backgroundColor: ConstantsColor.backgroundDarkColor,
       appBar: ConstantsWidgets.appBar(title: 'All Bank Balance Check'),
@@ -47,20 +51,23 @@ class HomeScreenView extends GetView<HomeScreenController> {
               width: 100.w,
               margin: EdgeInsets.symmetric(horizontal: 10.sp),
               decoration: BoxDecoration(
-                color: Colors.green,
                 borderRadius: BorderRadius.circular(15.sp),
+              ),
+              child: ClipRRect(
+                  borderRadius: BorderRadius.circular(15.sp),
+                  child: AdService.nativeAd(width: width, height: 52.sp, smallAd: false, radius: 15.sp)
               ),
             ),
             ///Banking
-            gradientCard(height: height, width: width, title: 'Banking', mapData: controller.listBanking, isBanking: true),
+            gradientCard(height: height, adService: adService, width: width, title: 'Banking', mapData: controller.listBanking, isBanking: true),
             SizedBox(height: 22.sp),
-            dailyPriceList(height: height, width: width),
+            dailyPriceList(height: height, width: width, adService: adService),
             SizedBox(height: 22.sp),
-            simpleCard(width: width, title: 'Credit & Loan Products', data: controller.listCreditAndLoan, isCreditAndLoan: true),
+            simpleCard(width: width, title: 'Credit & Loan Products', data: controller.listCreditAndLoan, isCreditAndLoan: true, adService: adService),
             ///Calculators
-            gradientCard(height: height, width: width, title: 'Calculators', mapData: controller.listCalculators, isBanking: false),
+            gradientCard(height: height, width: width, title: 'Calculators', mapData: controller.listCalculators, isBanking: false, adService: adService),
             SizedBox(height: 22.sp),
-            simpleCard(width: width, title: 'Schemes  ', data: controller.listSchemes, isCreditAndLoan: false),
+            simpleCard(width: width, title: 'Schemes  ', data: controller.listSchemes, isCreditAndLoan: false, adService: adService),
             SizedBox(height: 30.sp),
           ],
         ),
@@ -69,7 +76,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
   }
 
 
-  dailyPriceList({required double height, required double width}) {
+  dailyPriceList({required double height, required AdService adService, required double width}) {
     double cardHeight = height * 0.36;
 
     return Container(
@@ -105,10 +112,10 @@ class HomeScreenView extends GetView<HomeScreenController> {
                       } else {
                         Price? price = snapshot.data;
                         print('price -> ${price?.fuel?.diesel?.retailPrice}');
-                        return fuelPriceSlider(price: price);
+                        return fuelPriceSlider(price: price, adService: adService);
                       }
                     } else {
-                      return fuelPriceSlider();
+                      return fuelPriceSlider(adService: adService);
                     }
                   }
               );
@@ -121,7 +128,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
   }
 
 
-  fuelPriceSlider({Price? price}) {
+  fuelPriceSlider({Price? price, required AdService adService}) {
     double width = 100.w;
     double height = 100.h;
     double cardHeight = height * 0.36;
@@ -154,7 +161,10 @@ class HomeScreenView extends GetView<HomeScreenController> {
                               IconButton(onPressed: null, icon: SizedBox(width: 20.sp, height: 20.sp)),
                               Text('Today’s Fuel Price', style: TextStyle(color: Colors.white, fontSize: 16.5.sp, fontWeight: FontWeight.w600)),
                               IconButton(
-                                  onPressed: (){},
+                                  onPressed: () {
+                                    Get.to(const ChangeCityScreen(), arguments: controller.allCitiesMap);
+                                    adService.checkCounterAd();
+                                  },
                                   icon: Image.asset(ConstantsImage.more_circle_icon, height: 20.sp)
                               )
                             ],
@@ -199,6 +209,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                 onTap: () {
                                   print('controller.allCitiesMap -> ${controller.allCitiesMap}');
                                   Get.to(const ChangeCityScreen(), arguments: controller.allCitiesMap);
+                                  adService.checkCounterAd();
                                 },
                                 child: Row(
                                   children: [
@@ -242,7 +253,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
   }
 
 
-  simpleCard({required double width, required String title, required List<Map<String, dynamic>> data, required bool isCreditAndLoan}) {
+  simpleCard({required double width, required AdService adService, required String title, required List<Map<String, dynamic>> data, required bool isCreditAndLoan}) {
     return Column(
       children: [
         Container(
@@ -263,32 +274,45 @@ class HomeScreenView extends GetView<HomeScreenController> {
                   if(isCreditAndLoan) {
                     if(index == 0) {
                       Get.to(CreditCardScreenView());
+                      adService.checkCounterAd();
                     } else if(index == 1) {
                       Get.to(CarLoanScreenView(), arguments: {'title' : 'Car Loan', 'path' : 'assets/credit & loan files/carloan.html'});
+                      adService.checkCounterAd();
                     } else if(index == 2) {
                       Get.to(CarLoanScreenView(), arguments: {'title' : 'Home Loan', 'path' : 'assets/credit & loan files/homeloan.html'});
+                      adService.checkCounterAd();
                     } else if(index == 3) {
                       Get.to(CarLoanScreenView(), arguments: {'title' : 'Business Loan', 'path' : 'assets/credit & loan files/bussiness.html'});
+                      adService.checkCounterAd();
                     } else {
                       Get.to(CarLoanScreenView(), arguments: {'title' : 'Micro Loan', 'path' : 'assets/credit & loan files/personal.html'});
+                      adService.checkCounterAd();
                     }
                   } else {
                     if(index == 0) {
                       Get.to(CarLoanScreenView(), arguments: {'title' : 'Employee PF', 'path' : 'assets/schemes files/employee pf.html'});
+                      adService.checkCounterAd();
                     } else if(index == 1) {
                       Get.to(CarLoanScreenView(), arguments: {'title' : 'National PS', 'path' : 'assets/schemes files/national ps.html'});
+                      adService.checkCounterAd();
                     } else if(index == 2) {
                       Get.to(CarLoanScreenView(), arguments: {'title' : 'National SC', 'path' : 'assets/schemes files/sc national.html'});
+                      adService.checkCounterAd();
                     } else if(index == 3) {
                       Get.to(CarLoanScreenView(), arguments: {'title' : 'PM Jan Dhan Yojna', 'path' : 'assets/schemes files/pm jan dhan.html'});
+                      adService.checkCounterAd();
                     } else if(index == 4) {
                       Get.to(CarLoanScreenView(), arguments: {'title' : 'PM Vaya', 'path' : 'assets/schemes files/pm vaya.html'});
+                      adService.checkCounterAd();
                     } else if(index == 5) {
                       Get.to(CarLoanScreenView(), arguments: {'title' : 'SS Post', 'path' : 'assets/schemes files/ss post.html'});
+                      adService.checkCounterAd();
                     } else if(index == 6) {
                       Get.to(CarLoanScreenView(), arguments: {'title' : 'Public PF', 'path' : 'assets/schemes files/public pf.html'});
+                      adService.checkCounterAd();
                     } else {
                       Get.to(CarLoanScreenView(), arguments: {'title' : 'Senior CS', 'path' : 'assets/schemes files/cs senior.html'});
+                      adService.checkCounterAd();
                     }
                   }
                 },
@@ -326,7 +350,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
 
 
 
-  gradientCard({required double height, required double width, required String title, required List<Map<String, dynamic>> mapData, required bool isBanking}) {
+  gradientCard({required double height, required AdService adService, required double width, required String title, required List<Map<String, dynamic>> mapData, required bool isBanking}) {
     double cardHeight = height * 0.14;
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 10.sp),
@@ -356,26 +380,36 @@ class HomeScreenView extends GetView<HomeScreenController> {
                       if(isBanking == true) {
                         if(index == 0) {
                           Get.to(BalanceScreenView());
+                          adService.checkCounterAd();
                         } else if(index == 1) {
                           Get.to(IfscScreenView());
+                          adService.checkCounterAd();
                         } else if(index == 2) {
                           Get.to(HolidayScreenView());
+                          adService.checkCounterAd();
                         } else if(index == 3) {
                           Get.to(UssdBankListScreenViewView());
+                          adService.checkCounterAd();
                         } else {
                           Get.to(AtmMapScreenViewView());
+                          adService.checkCounterAd();
                         }
                       } else {
                         if(index == 0) {
                           Get.to(CurrencyConverterScreenView());
+                          adService.checkCounterAd();
                         } else if(index == 1) {
                           Get.to(HomeLoanCalculatorScreenView());
+                          adService.checkCounterAd();
                         } else if(index == 2) {
                           Get.to(BusinessLoanCalculatorScreenView());
+                          adService.checkCounterAd();
                         } else if(index == 3) {
                           Get.to(RDLoanCalculatorScreenView());
+                          adService.checkCounterAd();
                         } else {
                           Get.to(FDLoanCalculatorScreenView());
+                          adService.checkCounterAd();
                         }
                       }
 
