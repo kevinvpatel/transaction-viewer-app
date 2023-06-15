@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:transaction_viewer_app/app/data/adServices.dart';
 import 'package:transaction_viewer_app/app/data/constants/color_constants.dart';
 import 'package:transaction_viewer_app/app/data/constants/image_constants.dart';
 import 'package:transaction_viewer_app/app/data/constants/widget_constants.dart';
@@ -14,6 +15,8 @@ class WelcomeScreenView extends GetView<WelcomeScreenController> {
     WelcomeScreenController controller = Get.put(WelcomeScreenController());
     double height = 100.h;
     double width = 100.w;
+
+    AdService adService = AdService();
 
     return Scaffold(
       backgroundColor: ConstantsColor.backgroundDarkColor,
@@ -44,6 +47,7 @@ class WelcomeScreenView extends GetView<WelcomeScreenController> {
                 width: width * 0.42,
                 onTap: () {
                   Get.to(BottomNavigationScreenView());
+                  adService.checkCounterAd();
                 }
             ),
             SizedBox(height: 28.sp),
@@ -56,7 +60,7 @@ class WelcomeScreenView extends GetView<WelcomeScreenController> {
                     height: 28.sp,
                     width: width * 0.22,
                     onTap: () {
-
+                      adService.checkCounterAd();
                     }
                 ),
                 SizedBox(width: 25.sp),
@@ -67,6 +71,7 @@ class WelcomeScreenView extends GetView<WelcomeScreenController> {
                     width: width * 0.22,
                     onTap: () {
 
+                      adService.checkCounterAd();
                     }
                 ),
               ],
@@ -79,6 +84,7 @@ class WelcomeScreenView extends GetView<WelcomeScreenController> {
                 width: width * 0.34,
                 onTap: () {
 
+                  adService.checkCounterAd();
                 }
             ),
             Spacer(flex: 2),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:transaction_viewer_app/app/data/adServices.dart';
 import 'package:transaction_viewer_app/app/data/constants/color_constants.dart';
 import 'package:transaction_viewer_app/app/data/constants/image_constants.dart';
 import 'package:transaction_viewer_app/app/data/constants/widget_constants.dart';
@@ -56,6 +57,8 @@ class OnboardingScreenView extends GetView<OnboardingScreenController> {
                     height: 28.sp,
                     width: 19.w,
                     onTap: () {
+                      AdService adService = AdService();
+                      adService.checkCounterAd();
                       if(controller.selectedPage.value == controller.lstScreens.length - 1) {
                         Get.to(WelcomeScreenView());
                       } else {

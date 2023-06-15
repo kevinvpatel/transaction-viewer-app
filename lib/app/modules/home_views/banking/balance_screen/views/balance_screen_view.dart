@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:transaction_viewer_app/app/data/adServices.dart';
 import 'package:transaction_viewer_app/app/data/constants/color_constants.dart';
 import 'package:transaction_viewer_app/app/data/constants/image_constants.dart';
 import 'package:transaction_viewer_app/app/data/constants/widget_constants.dart';
@@ -17,53 +18,63 @@ class BalanceScreenView extends GetView<BalanceScreenController> {
     double width = 100.w;
 
     controller.getBankData();
-
+    AdService adService = AdService();
 
     RxList searchedData = [].obs;
     RxBool isSearchOn = false.obs;
 
-    return Scaffold(
-      backgroundColor: ConstantsColor.backgroundDarkColor,
-      appBar: ConstantsWidgets.appBar(title: 'Select Bank', onTapBack: () => Get.back()),
-      body: Container(
-        margin: EdgeInsets.only(top: 15.sp),
-        child: Column(
-          children: [
-            searchBar(
-              width: width,
-              fieldName: 'Search Bank',
-              isSearchOn: isSearchOn,
-              searchedData: searchedData
-            ),
-            SizedBox(height: 15.sp),
-            GetBuilder(
-              init: BalanceScreenController(),
-              builder: (controller) {
-                return Expanded(
-                  child: Obx(() => ListView.separated(
-                    physics: const BouncingScrollPhysics(),
-                    padding: EdgeInsets.only(left: 17.sp, right: 17.sp, bottom: 17.sp, top: 10.sp),
-                    itemCount: isSearchOn.value == true ? searchedData.length : controller.bankData.length,
-                    itemBuilder: (context, index) {
-                      return InkWell(
-                        onTap: () {
-                          Get.to(const BalanceDetailScreenView(),
-                              arguments: isSearchOn.value == true ? searchedData[index] : controller.bankData[index]
-                          );
-                        },
-                        child: bankItems(
-                            width: width,
-                            title: isSearchOn.value == true ? searchedData[index]['bank_name'] : controller.bankData[index]['bank_name'],
-                            image: isSearchOn.value == true ? searchedData[index]['icon'] : controller.bankData[index]['icon']
-                        ),
-                      );
-                    },
-                    separatorBuilder: (context, index) => SizedBox(height: 15.sp),
-                  )),
-                );
-              }
-            )
-          ],
+    return WillPopScope(
+      onWillPop: () async {
+        adService.checkBackCounterAd();
+        return Future.value(true);
+      },
+      child: Scaffold(
+        backgroundColor: ConstantsColor.backgroundDarkColor,
+        appBar: ConstantsWidgets.appBar(title: 'Select Bank', onTapBack: () {
+          adService.checkBackCounterAd();
+          Get.back();
+        }),
+        body: Container(
+          margin: EdgeInsets.only(top: 15.sp),
+          child: Column(
+            children: [
+              searchBar(
+                width: width,
+                fieldName: 'Search Bank',
+                isSearchOn: isSearchOn,
+                searchedData: searchedData
+              ),
+              SizedBox(height: 15.sp),
+              GetBuilder(
+                init: BalanceScreenController(),
+                builder: (controller) {
+                  return Expanded(
+                    child: Obx(() => ListView.separated(
+                      physics: const BouncingScrollPhysics(),
+                      padding: EdgeInsets.only(left: 17.sp, right: 17.sp, bottom: 17.sp, top: 10.sp),
+                      itemCount: isSearchOn.value == true ? searchedData.length : controller.bankData.length,
+                      itemBuilder: (context, index) {
+                        return InkWell(
+                          onTap: () {
+                            Get.to(const BalanceDetailScreenView(),
+                                arguments: isSearchOn.value == true ? searchedData[index] : controller.bankData[index]
+                            );
+                            adService.checkCounterAd();
+                          },
+                          child: bankItems(
+                              width: width,
+                              title: isSearchOn.value == true ? searchedData[index]['bank_name'] : controller.bankData[index]['bank_name'],
+                              image: isSearchOn.value == true ? searchedData[index]['icon'] : controller.bankData[index]['icon']
+                          ),
+                        );
+                      },
+                      separatorBuilder: (context, index) => SizedBox(height: 15.sp),
+                    )),
+                  );
+                }
+              )
+            ],
+          ),
         ),
       ),
     );

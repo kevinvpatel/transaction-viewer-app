@@ -5,6 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:transaction_viewer_app/app/data/constants/color_constants.dart';
 import 'package:transaction_viewer_app/main.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -76,6 +77,9 @@ class AdService {
 
   ///NATIVE AD
   static Widget nativeAd({required double width, required double height, required bool smallAd, required double radius}) {
+    debugPrint('Get.previousRoute11 -> ${Get.previousRoute}');
+    debugPrint('Get.currentRoute11 -> ${Get.currentRoute}');
+    debugPrint('configData.value11 -> ${configData.value}');
     NativeAd? nativeMediumAd;
     RxBool isNativeAdLoaded = false.obs;
     if(configData.value[Get.currentRoute]['native-type'] == 'admob') {
@@ -152,11 +156,15 @@ class AdService {
   Future interstitialAd({String? adId, required Function(LoadAdError) onAdFailedToLoad, bool isBack = false}) async {
     ///isBack is here to prevent to take previousRoute name
     ///isBack = true "PreviousRoute"   isBack = false "CurrentRoute"
-    print('interstitial Screen -> ${Get.currentRoute}');
+    print('interstitial currentRoute -> ${Get.currentRoute}');
+    print('interstitial previousRoute -> ${Get.previousRoute}');
+    print('interstitial isBack -> ${isBack}');
+    print('interstitial configData -> ${configData.value[Get.currentRoute]}');
+    print('interstitial  -> ${configData.value}');
 
-    if(configData.value[isBack ? Get.previousRoute : Get.currentRoute]['interstitial-type'] == 'admob') {
+    if(configData[isBack ? Get.previousRoute : Get.currentRoute]['interstitial-type'] == 'admob') {
       await InterstitialAd.load(
-          adUnitId: adId ?? configData.value[isBack ? Get.previousRoute : Get.currentRoute]['interstitial-admob'],
+          adUnitId: adId ?? configData[isBack ? Get.previousRoute : Get.currentRoute]['interstitial-admob'],
           request: const AdRequest(),
           adLoadCallback: InterstitialAdLoadCallback(onAdLoaded: (ad) {
             interstitialAdMob = ad;
@@ -198,6 +206,11 @@ class AdService {
   checkCounterAd() {
     print('counterr -> $counterInterstitalAd');
     print('counterr@@ -> ${configData.value['counter']}');
+
+
+    print('interstitial @@ currentRoute -> ${Get.currentRoute}');
+    print('interstitial @@ previousRoute -> ${Get.previousRoute}');
+    print('interstitial @@ configData -> ${configData.value}');
     Future.delayed(const Duration(milliseconds: 1200), () {
       if(counterInterstitalAd.value == configData.value['counter']) {
         counterInterstitalAd.value = 1;
@@ -211,7 +224,7 @@ class AdService {
                     SizedBox(
                         height: 25.sp,
                         width: 25.sp,
-                        child: const CircularProgressIndicator(color: Colors.white)
+                        child: const CircularProgressIndicator(color: ConstantsColor.backgroundDarkColor)
                     ),
                     const Spacer(),
                     Text('Please Wait...', style: TextStyle(fontSize: 16.5.sp)),

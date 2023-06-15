@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:transaction_viewer_app/app/data/adServices.dart';
 import 'package:transaction_viewer_app/app/data/constants/color_constants.dart';
 import 'package:transaction_viewer_app/app/data/constants/widget_constants.dart';
 
@@ -26,6 +27,7 @@ class HomeLoanCalculatorScreenController extends GetxController {
   List<String> listPeriods = ['Monthly', 'Quarterly', 'Half-Yearly', 'Yearly'];
   RxString selectedPeriod = 'Monthly'.obs;
 
+  AdService adService = AdService();
 
   Widget bottomButtons({required Function() onTapBtn2}) {
     double width = 100.w;
@@ -35,6 +37,7 @@ class HomeLoanCalculatorScreenController extends GetxController {
           highlightColor: Colors.transparent,
           splashColor: Colors.transparent,
           onTap: () {
+            adService.checkCounterAd();
             txtLoanAmount.value.clear();
             txtInterestAmount.value.clear();
             txtLoanPeriod.value.clear();

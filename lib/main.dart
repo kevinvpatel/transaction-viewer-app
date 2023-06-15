@@ -1,13 +1,10 @@
 import 'dart:convert';
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-
 import 'app/routes/app_pages.dart';
 
 
@@ -47,7 +44,7 @@ Future<void> main() async {
 
   initConfig().whenComplete(() {
     configData.value = json.decode(remoteConfig.getString('transaction_viewer'));
-    // initAppOpenAd();
+    initAppOpenAd();
     // print('remoteConfig 22 ->  ${configData}');
   });
 

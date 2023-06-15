@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:transaction_viewer_app/app/data/adServices.dart';
 import 'package:transaction_viewer_app/app/data/constants/color_constants.dart';
 import 'package:transaction_viewer_app/app/data/constants/image_constants.dart';
 import 'package:transaction_viewer_app/app/data/constants/widget_constants.dart';
@@ -10,7 +12,7 @@ import 'package:transaction_viewer_app/app/modules/home_views/banking/ifsc_scree
 
 import '../controllers/ifsc_screen_controller.dart';
 
-class IfscScreenView extends GetView<IfscScreenController> {
+  class IfscScreenView extends GetView<IfscScreenController> {
   const IfscScreenView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -18,103 +20,120 @@ class IfscScreenView extends GetView<IfscScreenController> {
     double height = 100.h;
     double width = 100.w;
 
+    AdService adService = AdService();
 
-    return Scaffold(
-      backgroundColor: ConstantsColor.backgroundDarkColor,
-      appBar: ConstantsWidgets.appBar(title: 'IFSC Code Details', onTapBack: () => Get.back()),
-      body: Container(
-        height: height,
-        width: width,
-        padding: EdgeInsets.only(left: 10.sp, right: 10.sp, top: 15.sp),
-        child: Column(
-          children: [
-            Container(
-              height: height * 0.17,
-              width: width,
-              color: Colors.white,
-            ),
-            SizedBox(height: 17.sp),
-            fields(
-              width: width,
-              height: height,
-              title: 'Bank Name',
-              fieldName: controller.bankName,
-              onTap: () { Get.to(SelectBankScreenView(), arguments: 'Select Bank'); }
-            ),
-            SizedBox(height: 17.sp),
-            fields(
-              width: width,
-              height: height,
-              title: 'State Name',
-              fieldName: controller.stateName,
-              onTap: () {
-                if(controller.bankName.value == 'Select Bank') {
-                  dialog(title: 'Please Select Above Field...');
-                } else {
-                  Get.to(SelectBankScreenView(), arguments: 'Select State');
-                }
-              }
-            ),
-            SizedBox(height: 17.sp),
-            fields(
-              width: width,
-              height: height,
-              title: 'District Name',
-              fieldName: controller.districtName,
-              onTap: () {
-                if(controller.bankName.value != 'Select Bank' && controller.stateName.value != 'Select State') {
-                  Get.to(SelectBankScreenView(), arguments: 'Select District');
-                } else {
-                  dialog(title: 'Please Select Above Field...');
-                }
-              }
-            ),
-            SizedBox(height: 17.sp),
-            fields(
-              width: width,
-              height: height,
-              title: 'Branch Name',
-              fieldName: controller.branchName,
-              onTap: () {
-                if(controller.bankName.value != 'Select Bank' && controller.stateName.value != 'Select State' && controller.districtName.value != 'Select District') {
-                  Get.to(SelectBankScreenView(), arguments: 'Select Branch');
-                } else {
-                  dialog(title: 'Please Select Above Field...');
-                }
-              }
-            ),
-
-            Spacer(),
-            ConstantsWidgets.gradientButton(
-                title: 'DONE',
-                titleSize: 15.5.sp,
-                height: 28.sp,
-                width: width * 0.95,
-                borderRadius: 15.0,
+    return WillPopScope(
+      onWillPop: () async {
+        adService.checkBackCounterAd();
+        return Future.value(true);
+      },
+      child: Scaffold(
+        backgroundColor: ConstantsColor.backgroundDarkColor,
+        appBar: ConstantsWidgets.appBar(title: 'IFSC Code Details', onTapBack: () {
+          adService.checkBackCounterAd();
+          Get.back();
+        }),
+        body: Container(
+          height: height,
+          width: width,
+          padding: EdgeInsets.only(left: 10.sp, right: 10.sp, top: 15.sp),
+          child: Column(
+            children: [
+              Container(
+                height: height * 0.17,
+                width: width,
+                child: AdService.nativeAd(width: width, height: 52.sp, smallAd: true, radius: 15.sp),
+              ),
+              SizedBox(height: 17.sp),
+              fields(
+                width: width,
+                height: height,
+                title: 'Bank Name',
+                fieldName: controller.bankName,
                 onTap: () {
-                  if(controller.bankName.value != 'Select Bank' && controller.stateName.value != 'Select State'
-                      && controller.districtName.value != 'Select District' && controller.branchName.value != 'Select Branch') {
-                    Get.to(IfscCodeBankResultView(), arguments: {
-                      'bank_name' : controller.bankName.value,
-                      'state_name' : controller.stateName.value,
-                      'district_name' : controller.districtName.value,
-                      'branch_name' : controller.branchName.value,
-                      'details' : controller.detailMap,
-                    });
-                  } else {
-                    dialog(title: 'Please Select Above Fields...');
-                  }
-
-                  // print('bankName -> ${controller.bankName.value}');
-                  // print('stateName -> ${controller.stateName.value}');
-                  // print('districtName -> ${controller.districtName.value}');
-                  // print('branchName -> ${controller.branchName.value}');
-                  // print('detailMap -> ${controller.detailMap}');
+                  adService.checkCounterAd();
+                  Get.to(SelectBankScreenView(), arguments: 'Select Bank');
                 }
-            ),
-            SizedBox(height: 12.sp),
+              ),
+              SizedBox(height: 17.sp),
+              fields(
+                width: width,
+                height: height,
+                title: 'State Name',
+                fieldName: controller.stateName,
+                onTap: () {
+                  adService.checkCounterAd();
+                  if(controller.bankName.value == 'Select Bank') {
+                    dialog(title: 'Please Select Above Field...');
+                  } else {
+                    Get.to(SelectBankScreenView(), arguments: 'Select State');
+                  }
+                }
+              ),
+              SizedBox(height: 17.sp),
+              fields(
+                width: width,
+                height: height,
+                title: 'District Name',
+                fieldName: controller.districtName,
+                onTap: () {
+                  adService.checkCounterAd();
+                  if(controller.bankName.value != 'Select Bank' && controller.stateName.value != 'Select State') {
+                    Get.to(SelectBankScreenView(), arguments: 'Select District');
+                  } else {
+                    dialog(title: 'Please Select Above Field...');
+                  }
+                }
+              ),
+              SizedBox(height: 17.sp),
+              fields(
+                width: width,
+                height: height,
+                title: 'Branch Name',
+                fieldName: controller.branchName,
+                onTap: () {
+                  adService.checkCounterAd();
+                  if(controller.bankName.value != 'Select Bank' && controller.stateName.value != 'Select State' && controller.districtName.value != 'Select District') {
+                    Get.to(SelectBankScreenView(), arguments: 'Select Branch');
+                  } else {
+                    dialog(title: 'Please Select Above Field...');
+                  }
+                }
+              ),
 
-          ]
+              Spacer(),
+              ConstantsWidgets.gradientButton(
+                  title: 'DONE',
+                  titleSize: 15.5.sp,
+                  height: 28.sp,
+                  width: width * 0.95,
+                  borderRadius: 15.0,
+                  onTap: () {
+                    adService.checkCounterAd();
+                    if(controller.bankName.value != 'Select Bank' && controller.stateName.value != 'Select State'
+                        && controller.districtName.value != 'Select District' && controller.branchName.value != 'Select Branch') {
+                      Get.to(IfscCodeBankResultView(), arguments: {
+                        'bank_name' : controller.bankName.value,
+                        'state_name' : controller.stateName.value,
+                        'district_name' : controller.districtName.value,
+                        'branch_name' : controller.branchName.value,
+                        'details' : controller.detailMap,
+                      });
+                    } else {
+                      dialog(title: 'Please Select Above Fields...');
+                    }
+
+                    // print('bankName -> ${controller.bankName.value}');
+                    // print('stateName -> ${controller.stateName.value}');
+                    // print('districtName -> ${controller.districtName.value}');
+                    // print('branchName -> ${controller.branchName.value}');
+                    // print('detailMap -> ${controller.detailMap}');
+                  }
+              ),
+              SizedBox(height: 12.sp),
+
+            ]
+          ),
         ),
       ),
     );

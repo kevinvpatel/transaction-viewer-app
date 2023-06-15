@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:transaction_viewer_app/app/data/adServices.dart';
 import 'package:transaction_viewer_app/app/data/constants/color_constants.dart';
 import 'package:transaction_viewer_app/app/data/constants/image_constants.dart';
 import 'package:transaction_viewer_app/app/data/constants/widget_constants.dart';
@@ -16,22 +17,33 @@ class HolidayListScreenView extends GetView<HolidayScreenController> {
     double height = 100.h;
     double width = 100.w;
 
-    return Scaffold(
-        backgroundColor: ConstantsColor.backgroundDarkColor,
-        appBar: ConstantsWidgets.appBar(title: Get.arguments.toString(), onTapBack: () => Get.back()),
-        body: Container(
-          child: ListView.separated(
-              padding: EdgeInsets.only(left: 12.sp, right: 12.sp, top: 15.sp, bottom: 15.sp),
-              physics: BouncingScrollPhysics(),
-              itemCount: controller.listHolidays.length,
-              itemBuilder: (context, index) {
-                String title = controller.listHolidays[index]['HoliDayName'];
-                String subtitle = controller.listHolidays[index]['FulltDate'];
-                return item(title: title, subtitle: subtitle, width: width);
-              },
-              separatorBuilder: (context, index) => SizedBox(height: 14.sp),
-          ),
-        )
+    AdService adService = AdService();
+
+    return WillPopScope(
+      onWillPop: () async {
+        adService.checkBackCounterAd();
+        return Future.value(true);
+      },
+      child: Scaffold(
+          backgroundColor: ConstantsColor.backgroundDarkColor,
+          appBar: ConstantsWidgets.appBar(title: Get.arguments.toString(), onTapBack: () {
+            adService.checkBackCounterAd();
+            Get.back();
+          }),
+          body: Container(
+            child: ListView.separated(
+                padding: EdgeInsets.only(left: 12.sp, right: 12.sp, top: 15.sp, bottom: 15.sp),
+                physics: BouncingScrollPhysics(),
+                itemCount: controller.listHolidays.length,
+                itemBuilder: (context, index) {
+                  String title = controller.listHolidays[index]['HoliDayName'];
+                  String subtitle = controller.listHolidays[index]['FulltDate'];
+                  return item(title: title, subtitle: subtitle, width: width);
+                },
+                separatorBuilder: (context, index) => SizedBox(height: 14.sp),
+            ),
+          )
+      ),
     );
   }
 

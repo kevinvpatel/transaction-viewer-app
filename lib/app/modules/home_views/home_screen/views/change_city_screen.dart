@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:transaction_viewer_app/app/data/adServices.dart';
 import 'package:transaction_viewer_app/app/data/constants/color_constants.dart';
 import 'package:transaction_viewer_app/app/data/constants/widget_constants.dart';
 import 'package:transaction_viewer_app/app/modules/bottom_navigation_screen/views/bottom_navigation_screen_view.dart';
@@ -23,86 +24,98 @@ class ChangeCityScreen extends GetView<HomeScreenController> {
     RxMap<String, dynamic> searchedMap = <String, dynamic>{}.obs;
     RxBool isSearchOn = false.obs;
 
-    return Scaffold(
-      backgroundColor: ConstantsColor.backgroundDarkColor,
-      appBar: ConstantsWidgets.appBar(title: 'Change City', onTapBack: () => Get.back(), isShareButtonEnable: false),
-      body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 15.sp, vertical: 20.sp),
-        child: Column(
-          children: [
-            searchBar(width: width, fieldName: 'Search City....', isSearchOn: isSearchOn, cityData: mapCities, searchedMap: searchedMap),
-            Expanded(
-              child: GetBuilder(
-                  init: HomeScreenController(),
-                  builder: (controller) {
-                    return ListView.separated(
-                        separatorBuilder: (context, index) => SizedBox(height: 16.sp),
-                        padding: EdgeInsets.symmetric(vertical: 20.sp),
-                        physics: BouncingScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: isSearchOn.value == true ? searchedMap.value.keys.length : mapCities.keys.length,
-                        itemBuilder: (context, stateIndex) {
-                          List<String> listStates = isSearchOn.value == true
-                              ? searchedMap.value.keys.toList()
-                              : mapCities.keys.toList();
-                          List listCities = isSearchOn.value == true
-                              ? searchedMap.value.values.toList()[stateIndex]
-                              : mapCities.values.toList()[stateIndex];
+    AdService adService = AdService();
 
-                          return Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(listStates[stateIndex],
-                                style: TextStyle(color: Colors.white60, fontWeight: FontWeight.w500, fontSize: 17.sp),
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 1,
-                              ),
-                              SizedBox(height: 12.sp),
-                              ListView.separated(
-                                physics: ClampingScrollPhysics(),
-                                shrinkWrap: true,
-                                itemCount: listCities.length,
-                                itemBuilder: (context, cityIndex) {
-                                  return InkWell(
-                                    onTap: () {
-                                      controller.stateName = listStates[stateIndex];
-                                      controller.cityName = listCities[cityIndex]['cityName'];
-                                      log('controller.stateName -> ${controller.stateName}');
-                                      log('controller.cityName -> ${controller.cityName}');
-                                      Get.back();
-                                      Future.delayed(Duration(milliseconds: 1200), () {
-                                        controller.update();
-                                      });
-                                    },
-                                    child: Container(
-                                      height: 30.sp,
-                                      width: width,
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(16.sp),
-                                          gradient: ConstantsColor.buttonGradient,
-                                          boxShadow: ConstantsWidgets.boxShadow
+    return WillPopScope(
+      onWillPop: () async {
+        adService.checkBackCounterAd();
+        return Future.value(true);
+      },
+      child: Scaffold(
+        backgroundColor: ConstantsColor.backgroundDarkColor,
+        appBar: ConstantsWidgets.appBar(title: 'Change City', onTapBack: () {
+          adService.checkBackCounterAd();
+          Get.back();
+        }, isShareButtonEnable: false),
+        body: Container(
+          padding: EdgeInsets.symmetric(horizontal: 15.sp, vertical: 20.sp),
+          child: Column(
+            children: [
+              searchBar(width: width, fieldName: 'Search City....', isSearchOn: isSearchOn, cityData: mapCities, searchedMap: searchedMap),
+              Expanded(
+                child: GetBuilder(
+                    init: HomeScreenController(),
+                    builder: (controller) {
+                      return ListView.separated(
+                          separatorBuilder: (context, index) => SizedBox(height: 16.sp),
+                          padding: EdgeInsets.symmetric(vertical: 20.sp),
+                          physics: BouncingScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: isSearchOn.value == true ? searchedMap.value.keys.length : mapCities.keys.length,
+                          itemBuilder: (context, stateIndex) {
+                            List<String> listStates = isSearchOn.value == true
+                                ? searchedMap.value.keys.toList()
+                                : mapCities.keys.toList();
+                            List listCities = isSearchOn.value == true
+                                ? searchedMap.value.values.toList()[stateIndex]
+                                : mapCities.values.toList()[stateIndex];
+
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(listStates[stateIndex],
+                                  style: TextStyle(color: Colors.white60, fontWeight: FontWeight.w500, fontSize: 17.sp),
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                ),
+                                SizedBox(height: 12.sp),
+                                ListView.separated(
+                                  physics: ClampingScrollPhysics(),
+                                  shrinkWrap: true,
+                                  itemCount: listCities.length,
+                                  itemBuilder: (context, cityIndex) {
+                                    return InkWell(
+                                      onTap: () {
+                                        adService.checkCounterAd();
+                                        controller.stateName = listStates[stateIndex];
+                                        controller.cityName = listCities[cityIndex]['cityName'];
+                                        log('controller.stateName -> ${controller.stateName}');
+                                        log('controller.cityName -> ${controller.cityName}');
+                                        Get.back();
+                                        Future.delayed(Duration(milliseconds: 1200), () {
+                                          controller.update();
+                                        });
+                                      },
+                                      child: Container(
+                                        height: 30.sp,
+                                        width: width,
+                                        decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(16.sp),
+                                            gradient: ConstantsColor.buttonGradient,
+                                            boxShadow: ConstantsWidgets.boxShadow
+                                        ),
+                                        padding: EdgeInsets.symmetric(horizontal: 15.sp),
+                                        margin: EdgeInsets.only(right: 3.sp),
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(listCities[cityIndex]['cityName'],
+                                          style: TextStyle(color: Colors.white, fontWeight: FontWeight.w300, fontSize: 15.8.sp),
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 1,
+                                        ),
                                       ),
-                                      padding: EdgeInsets.symmetric(horizontal: 15.sp),
-                                      margin: EdgeInsets.only(right: 3.sp),
-                                      alignment: Alignment.centerLeft,
-                                      child: Text(listCities[cityIndex]['cityName'],
-                                        style: TextStyle(color: Colors.white, fontWeight: FontWeight.w300, fontSize: 15.8.sp),
-                                        overflow: TextOverflow.ellipsis,
-                                        maxLines: 1,
-                                      ),
-                                    ),
-                                  );
-                                },
-                                separatorBuilder: (context, index) => SizedBox(height: 16.sp),
-                              )
-                            ],
-                          );
-                        }
-                    );
-                  }
+                                    );
+                                  },
+                                  separatorBuilder: (context, index) => SizedBox(height: 16.sp),
+                                )
+                              ],
+                            );
+                          }
+                      );
+                    }
+                )
               )
-            )
-          ],
+            ],
+          ),
         ),
       ),
     );

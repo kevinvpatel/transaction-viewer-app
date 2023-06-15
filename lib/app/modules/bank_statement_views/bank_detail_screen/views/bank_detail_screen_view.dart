@@ -1,13 +1,12 @@
-import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:grouped_list/grouped_list.dart';
 import 'package:intl/intl.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:slide_switcher/slide_switcher.dart';
-import 'package:sticky_headers/sticky_headers/widget.dart';
+import 'package:transaction_viewer_app/app/data/adServices.dart';
 import 'package:transaction_viewer_app/app/data/constants/color_constants.dart';
 import 'package:transaction_viewer_app/app/data/constants/image_constants.dart';
 import 'package:transaction_viewer_app/app/data/constants/widget_constants.dart';
@@ -19,10 +18,10 @@ extension UtilListExtension on List{
       List<Map<String, dynamic>> result = [];
       List<String> keys = [];
 
-      this.forEach((f) => keys.add(f[key]));
+      forEach((f) => keys.add(f[key]));
 
       [...keys.toSet()].forEach((k) {
-        List data = [...this.where((e) => e[key] == k)];
+        List data = [...where((e) => e[key] == k)];
         result.add({k: data});
       });
 
@@ -42,164 +41,178 @@ class BankDetailScreenView extends GetView<BankDetailScreenController> {
     BankDetailScreenController controller = Get.put(BankDetailScreenController());
     double height = 100.h;
     double width = 100.w;
+
+    AdService adService = AdService();
+
     controller.loadRegExJson(transactionType: 'ALL');
 
-    return Scaffold(
-      backgroundColor: ConstantsColor.backgroundDarkColor,
-      appBar: ConstantsWidgets.appBar(title: Get.arguments['bank_address'], onTapBack: () {}),
-      body: Container(
-        height: height,
-        width: width,
-        padding: EdgeInsets.symmetric(horizontal: 15.sp),
-        child: Column(
-          children: [
-            Material(
-              borderRadius: BorderRadius.circular(15.sp),
-              elevation: 1,
-              shadowColor: Colors.white70,
-              child: Container(
-                height: 48.sp,
-                width: width,
-                decoration: BoxDecoration(
-                  gradient: ConstantsColor.buttonGradient,
-                  borderRadius: BorderRadius.circular(15.sp)
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Text('A/c No : XXXXXX${Get.arguments['account_number']}', style: TextStyle(color: Colors.white, fontSize: 18.sp, fontWeight: FontWeight.w400),),
-                    Text('Total Balance', style: TextStyle(color: Colors.white, fontSize: 15.sp, fontWeight: FontWeight.w400),),
-                    Text(Get.arguments['total_balance'], style: TextStyle(color: Colors.white, fontSize: 20.sp, fontWeight: FontWeight.w500),),
-                  ],
+    return WillPopScope(
+      onWillPop: () async {
+        adService.checkBackCounterAd();
+        return Future.value(true);
+      },
+      child: Scaffold(
+        backgroundColor: ConstantsColor.backgroundDarkColor,
+        appBar: ConstantsWidgets.appBar(title: Get.arguments['bank_address'], onTapBack: () {
+          adService.checkBackCounterAd();
+          Get.back();
+        }),
+        body: Container(
+          height: height,
+          width: width,
+          padding: EdgeInsets.symmetric(horizontal: 15.sp),
+          child: Column(
+            children: [
+              Material(
+                borderRadius: BorderRadius.circular(15.sp),
+                elevation: 1,
+                shadowColor: Colors.white70,
+                child: Container(
+                  height: 48.sp,
+                  width: width,
+                  decoration: BoxDecoration(
+                    gradient: ConstantsColor.buttonGradient,
+                    borderRadius: BorderRadius.circular(15.sp)
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Text('A/c No : XXXXXX${Get.arguments['account_number']}', style: TextStyle(color: Colors.white, fontSize: 18.sp, fontWeight: FontWeight.w400),),
+                      Text('Total Balance', style: TextStyle(color: Colors.white, fontSize: 15.sp, fontWeight: FontWeight.w400),),
+                      Text(Get.arguments['total_balance'], style: TextStyle(color: Colors.white, fontSize: 20.sp, fontWeight: FontWeight.w500),),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            SizedBox(height: 15.sp),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                SlideSwitcher(
-                  slidersHeight: 27.sp,
-                  slidersWidth: width * 0.27,
-                  sliderContainer: AnimatedContainer(
-                    duration: const Duration(milliseconds: 250),
-                    height: 28.sp,
-                    width: width * 0.27,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(25.sp),
-                      gradient: ConstantsColor.pinkGradient
-                    ),
-                    padding: EdgeInsets.all(5.sp),
-                    child: AnimatedContainer(
+              SizedBox(height: 15.sp),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SlideSwitcher(
+                    slidersHeight: 27.sp,
+                    slidersWidth: width * 0.27,
+                    sliderContainer: AnimatedContainer(
                       duration: const Duration(milliseconds: 250),
+                      height: 28.sp,
+                      width: width * 0.27,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(25.sp),
-                        color: ConstantsColor.backgroundDarkColor,
+                        gradient: ConstantsColor.pinkGradient
+                      ),
+                      padding: EdgeInsets.all(5.sp),
+                      child: AnimatedContainer(
+                        duration: const Duration(milliseconds: 250),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(25.sp),
+                          color: ConstantsColor.backgroundDarkColor,
+                        ),
                       ),
                     ),
+                    initialIndex: 0,
+                    containerHeight: 27.sp,
+                    containerWight: width * 0.815,
+                    containerGradient: ConstantsColor.buttonGradient,
+                    onSelect: (int index) {
+                      adService.checkCounterAd();
+                      controller.scrollController.animateTo(
+                          controller.scrollController.position.minScrollExtent,
+                          duration: const Duration(milliseconds: 200),
+                          curve: Curves.easeInOut
+                      );
+                      controller.loadRegExJson(transactionType: index != 0 ? index == 1 ? 'CREDITED' : 'DEBITED' : 'ALL');
+                      controller.tabIndex.value = index;
+                    },
+                    children: [
+                      Text('ALL', style: TextStyle(fontSize: 15.2.sp, color: Colors.white, fontWeight: FontWeight.w500)),
+                      Text('CREDITED', style: TextStyle(fontSize: 15.2.sp, color: Colors.white, fontWeight: FontWeight.w500)),
+                      Text('DEBITED', style: TextStyle(fontSize: 15.2.sp, color: Colors.white, fontWeight: FontWeight.w500)),
+                    ],
+                    // s
                   ),
-                  initialIndex: 0,
-                  containerHeight: 27.sp,
-                  containerWight: width * 0.815,
-                  containerGradient: ConstantsColor.buttonGradient,
-                  onSelect: (int index) {
-                    controller.scrollController.animateTo(
-                        controller.scrollController.position.minScrollExtent,
-                        duration: const Duration(milliseconds: 200),
-                        curve: Curves.easeInOut
-                    );
-                    controller.loadRegExJson(transactionType: index != 0 ? index == 1 ? 'CREDITED' : 'DEBITED' : 'ALL');
-                    controller.tabIndex.value = index;
-                  },
-                  children: [
-                    Text('ALL', style: TextStyle(fontSize: 15.2.sp, color: Colors.white, fontWeight: FontWeight.w500)),
-                    Text('CREDITED', style: TextStyle(fontSize: 15.2.sp, color: Colors.white, fontWeight: FontWeight.w500)),
-                    Text('DEBITED', style: TextStyle(fontSize: 15.2.sp, color: Colors.white, fontWeight: FontWeight.w500)),
-                  ],
-                  // s
-                ),
-                InkWell(
-                  splashColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  onTap: () {
-                    filterDialoge();
-                  },
-                  child: Image.asset(ConstantsImage.select_month_icon, height: 23.sp, width: 23.sp)
-                )
-              ],
-            ),
-            SizedBox(height: 15.sp),
-            Expanded(
-              child: GetBuilder(
-                init: BankDetailScreenController(),
-                builder: (controller) {
-                  return controller.tabIndex.value == 0 ? allTransaction()
-                          : controller.tabIndex.value == 1 ? creditTransaction()
-                          : debitTransaction();
-
-                  return GroupedListView(
-                    elements: controller.allMessageDetails,
-                    groupBy: (message) => message['group'],
-                    floatingHeader: false,
-                    physics: BouncingScrollPhysics(),
-                    groupSeparatorBuilder: (group) {
-                      return Material(
-                        elevation: 2,
-                        shadowColor: Colors.white54,
-                        borderRadius: BorderRadius.circular(18.sp),
-                        child: Container(
-                          height: 34.sp,
-                          width: width,
-                          decoration: BoxDecoration(
-                            gradient: ConstantsColor.buttonGradient,
-                            borderRadius: BorderRadius.circular(18.sp)
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SizedBox(width: 18.sp),
-                              Text(group.toString().toUpperCase(), style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600, color: ConstantsColor.purpleColor)),
-                              Spacer(),
-                              Text(group, style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600, color: ConstantsColor.purpleColor)),
-                              SizedBox(width: 18.sp),
-                            ],
-                          ),
-                        ),
-                      );
+                  InkWell(
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onTap: () {
+                      adService.checkCounterAd();
+                      filterDialoge();
                     },
-                    separator: const Divider(color: Colors.white, height: 0, thickness: 0.2),
-                    itemBuilder: (context, message) {
-                      return InkWell(
-                        onTap: () {
-                          detailDialoge(message: message);
-                        },
-                        child: Container(
-                          height: 33.sp,
-                          padding: EdgeInsets.symmetric(horizontal: 15.sp),
-                          child: Row(
-                            children: [
-                              Text(DateFormat('dd MMM').format(message['date']), style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600, color: Colors.grey.shade500)),
-                              SizedBox(width: 15.sp),
-                              SizedBox(
-                                  width: width * 0.5,
-                                  child: Text(message['transaction_account'] ?? 'UNKNOWN',
-                                      style: TextStyle(fontSize: 15.5.sp, fontWeight: FontWeight.w600, color: Colors.white), overflow: TextOverflow.ellipsis, maxLines: 1)
-                              ),
-                              const Spacer(),
-                              Text('${message['transaction_type'] == 'credit' ? '+' : '-'}  ₹ ${message['transaction_amount']}', style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.w700, color: message['transaction_type'] == 'credit' ? Colors.green : Colors.red)),
-                            ],
-                          ),
-                        ),
-                      );
-                    },
-                    itemComparator: (item1, item2) => item1['date'].compareTo(item2['date']),
-                    // elementIdentifier: (element) => element.name,
-                    order: GroupedListOrder.DESC,
-                  );
-                }
+                    child: Image.asset(ConstantsImage.select_month_icon, height: 23.sp, width: 23.sp)
+                  )
+                ],
               ),
-            )
-          ],
+              SizedBox(height: 15.sp),
+              Expanded(
+                child: GetBuilder(
+                  init: BankDetailScreenController(),
+                  builder: (controller) {
+                    return controller.tabIndex.value == 0 ? allTransaction()
+                            : controller.tabIndex.value == 1 ? creditTransaction()
+                            : debitTransaction();
+
+                    return GroupedListView(
+                      elements: controller.allMessageDetails,
+                      groupBy: (message) => message['group'],
+                      floatingHeader: false,
+                      physics: BouncingScrollPhysics(),
+                      groupSeparatorBuilder: (group) {
+                        return Material(
+                          elevation: 2,
+                          shadowColor: Colors.white54,
+                          borderRadius: BorderRadius.circular(18.sp),
+                          child: Container(
+                            height: 34.sp,
+                            width: width,
+                            decoration: BoxDecoration(
+                              gradient: ConstantsColor.buttonGradient,
+                              borderRadius: BorderRadius.circular(18.sp)
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SizedBox(width: 18.sp),
+                                Text(group.toString().toUpperCase(), style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600, color: ConstantsColor.purpleColor)),
+                                Spacer(),
+                                Text(group, style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600, color: ConstantsColor.purpleColor)),
+                                SizedBox(width: 18.sp),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                      separator: const Divider(color: Colors.white, height: 0, thickness: 0.2),
+                      itemBuilder: (context, message) {
+                        return InkWell(
+                          onTap: () {
+                            detailDialoge(message: message);
+                          },
+                          child: Container(
+                            height: 33.sp,
+                            padding: EdgeInsets.symmetric(horizontal: 15.sp),
+                            child: Row(
+                              children: [
+                                Text(DateFormat('dd MMM').format(message['date']), style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600, color: Colors.grey.shade500)),
+                                SizedBox(width: 15.sp),
+                                SizedBox(
+                                    width: width * 0.5,
+                                    child: Text(message['transaction_account'] ?? 'UNKNOWN',
+                                        style: TextStyle(fontSize: 15.5.sp, fontWeight: FontWeight.w600, color: Colors.white), overflow: TextOverflow.ellipsis, maxLines: 1)
+                                ),
+                                const Spacer(),
+                                Text('${message['transaction_type'] == 'credit' ? '+' : '-'}  ₹ ${message['transaction_amount']}', style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.w700, color: message['transaction_type'] == 'credit' ? Colors.green : Colors.red)),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                      itemComparator: (item1, item2) => item1['date'].compareTo(item2['date']),
+                      // elementIdentifier: (element) => element.name,
+                      order: GroupedListOrder.DESC,
+                    );
+                  }
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -210,6 +223,7 @@ class BankDetailScreenView extends GetView<BankDetailScreenController> {
     List<Map<String, dynamic>> listMessages = controller.allMessageDetails.groupBy('group');
     List<Map<String, dynamic>> listCredits = controller.creditMessageDetails.groupBy('group');
     List<Map<String, dynamic>> listDebits = controller.debitMessageDetails.groupBy('group');
+    print('listMSG -> ${listMessages}');
     double width = 100.w;
     RxList<double> lstCreditSum = <double>[].obs;
     RxList<double> sumList = <double>[].obs;
@@ -266,42 +280,38 @@ class BankDetailScreenView extends GetView<BankDetailScreenController> {
 
           return Column(
             children: [
-              Material(
-                elevation: 2,
-                shadowColor: Colors.white54,
-                borderRadius: BorderRadius.circular(18.sp),
-                child: Container(
-                  height: 34.sp,
-                  width: width,
-                  margin: EdgeInsets.only(right: 1.5.sp),
-                  decoration: BoxDecoration(
-                      gradient: ConstantsColor.buttonGradient,
-                      borderRadius: BorderRadius.circular(18.sp)
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(width: 18.sp),
-                      Text(listMessages[index].keys.first.toString().toUpperCase(),
-                          style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600, color: ConstantsColor.purpleColor)),
-                      Spacer(),
-                      GetBuilder(
-                          init: BankDetailScreenController(),
-                          builder: (controller) {
-                            return Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text('+ ₹ ${sumList.value[index]}',
-                                    style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600, color: Colors.green)),
-                                Text('- ₹ ${subtractionList.value[index]}',
-                                    style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600, color: Colors.red)),
-                              ],
-                            );
-                          }
-                      ),
-                      SizedBox(width: 18.sp),
-                    ],
-                  ),
+              Container(
+                height: 34.sp,
+                width: width,
+                margin: EdgeInsets.only(right: 1.5.sp),
+                decoration: BoxDecoration(
+                    boxShadow: ConstantsWidgets.boxShadow,
+                    gradient: ConstantsColor.buttonGradient,
+                    borderRadius: BorderRadius.circular(18.sp)
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(width: 18.sp),
+                    Text(listMessages[index].keys.first.toString().toUpperCase(),
+                        style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600, color: ConstantsColor.purpleColor)),
+                    Spacer(),
+                    GetBuilder(
+                        init: BankDetailScreenController(),
+                        builder: (controller) {
+                          return Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text('+ ₹ ${sumList.value[index]}',
+                                  style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600, color: Colors.green)),
+                              Text('- ₹ ${subtractionList.value[index]}',
+                                  style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600, color: Colors.red)),
+                            ],
+                          );
+                        }
+                    ),
+                    SizedBox(width: 18.sp),
+                  ],
                 ),
               ),
               ListView.separated(
@@ -554,8 +564,9 @@ class BankDetailScreenView extends GetView<BankDetailScreenController> {
   }
 
 
-
   detailDialoge({required Map<String, dynamic> message}) {
+    AdService adService = AdService();
+    adService.checkCounterAd();
     Get.dialog(
       AlertDialog(
         backgroundColor: Colors.transparent,
@@ -573,7 +584,10 @@ class BankDetailScreenView extends GetView<BankDetailScreenController> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     IconButton(
-                      onPressed: () => Get.back(),
+                      onPressed: () {
+                        adService.checkBackCounterAd();
+                        Get.back();
+                      },
                       icon: Icon(CupertinoIcons.clear_circled_solid, color: Colors.white)
                     )
                   ],
@@ -659,6 +673,8 @@ class BankDetailScreenView extends GetView<BankDetailScreenController> {
                   highlightColor: Colors.white,
                   splashColor: Colors.white,
                   onTap: () {
+                    AdService adService = AdService();
+                    adService.checkCounterAd();
                     DateTime filtered = DateTime(
                         currentDate.year,
                         controller.selectedFilter.value == 'Last Month' ? currentDate.month - 1
@@ -685,7 +701,7 @@ class BankDetailScreenView extends GetView<BankDetailScreenController> {
                       });
                     });
 
-                    // Get.back();
+                    Get.back();
                   },
                   child: Container(
                     height: 29.sp,

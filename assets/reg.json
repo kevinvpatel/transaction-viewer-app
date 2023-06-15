@@ -11938,13 +11938,6 @@
       "name": "FlipKart",
       "patterns": [
         {
-          "regex": "(?i).*",
-          "pattern_UID": "100001",
-          "sort_UID": "100100",
-          "account_type": "generic",
-          "sms_type": "generic"
-        },
-        {
           "regex": "(?i)Flipkart Pay Later (?:due|bill).*?(?:are|for|is) (?:INR|RS)[\\.:,\\s]*([\\d,]+\\.?\\d{0,2}).*?pay by (\\d{2} [a-z]* \\d{4})",
           "account_type": "loan",
           "account_name_override": "Flipkart Pay Later",

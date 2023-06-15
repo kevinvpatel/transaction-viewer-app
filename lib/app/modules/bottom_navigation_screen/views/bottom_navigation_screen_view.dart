@@ -18,27 +18,32 @@ class BottomNavigationScreenView
     double height = 100.h;
     double width = 100.w;
 
-    return Scaffold(
-      backgroundColor: ConstantsColor.backgroundDarkColor,
-      body: Column(
-        children: [
-          Expanded(
-            child: PageView.builder(
-                physics: NeverScrollableScrollPhysics(  ),
-                itemCount: controller.lstScreens.length,
-                controller: controller.pageController,
-                onPageChanged: (page) {
-                  controller.tabIndex.value = page;
-                },
-                itemBuilder: (context, index) {
-                  return controller.lstScreens[index];
-                }
+    return WillPopScope(
+      onWillPop: () async {
+        return Future.value(false);
+      },
+      child: Scaffold(
+        backgroundColor: ConstantsColor.backgroundDarkColor,
+        body: Column(
+          children: [
+            Expanded(
+              child: PageView.builder(
+                  physics: NeverScrollableScrollPhysics(  ),
+                  itemCount: controller.lstScreens.length,
+                  controller: controller.pageController,
+                  onPageChanged: (page) {
+                    controller.tabIndex.value = page;
+                  },
+                  itemBuilder: (context, index) {
+                    return controller.lstScreens[index];
+                  }
+              ),
             ),
-          ),
-          _bottomNavigationBar(width: width)
-        ],
+            _bottomNavigationBar(width: width)
+          ],
+        ),
+        // bottomNavigationBar: _bottomNavigationBar(width: width),
       ),
-      // bottomNavigationBar: _bottomNavigationBar(width: width),
     );
   }
 
@@ -71,13 +76,13 @@ class BottomNavigationScreenView
           cornerRadius: BorderRadius.circular(24.sp),
           onTap: (index) {
             controller.tabIndex.value = index;
-            controller.pageController.animateToPage(index, duration: const Duration(milliseconds: 500), curve: Curves.linearToEaseOut);
+            controller.pageController.animateToPage(index, duration: const Duration(milliseconds: 10), curve: Curves.linearToEaseOut);
 
             print('controller.tabIndex.value -> ${controller.tabIndex.value}');
           },
 
         ),
-        AdService.isBannerAdLoaded.value == true ? AdService.bannerAd(width: width) : SizedBox.shrink(),
+        AdService.bannerAd(width: width),
       ],
     ));
   }

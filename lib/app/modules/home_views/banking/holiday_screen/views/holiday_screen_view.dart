@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:transaction_viewer_app/app/data/adServices.dart';
 import 'package:transaction_viewer_app/app/data/constants/color_constants.dart';
 import 'package:transaction_viewer_app/app/data/constants/image_constants.dart';
 import 'package:transaction_viewer_app/app/data/constants/widget_constants.dart';
@@ -17,64 +18,79 @@ class HolidayScreenView extends GetView<HolidayScreenController> {
     double height = 100.h;
     double width = 100.w;
 
-    return Scaffold(
-      backgroundColor: ConstantsColor.backgroundDarkColor,
-      appBar: ConstantsWidgets.appBar(title: 'Holidays', onTapBack: () => Get.back()),
-      body: Container(
-        padding: EdgeInsets.only(left: 12.sp, right: 12.sp, top: 10.sp),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              color: Colors.green,
-              width: width,
-              height: height * 0.15,
-            ),
-            SizedBox(height: 18.sp),
-            Text('Holidays Option', style: TextStyle(fontSize: 17.5.sp, fontWeight: FontWeight.w600, color: Colors.white),),
-            SizedBox(height: 18.sp),
-            item(
-              width: width,
-              imagePath: ConstantsImage.bank_holiday_icon,
-              title: 'Bank Holidays',
-              subtitle: 'Check 2023 bank holidays in india.',
-              onTap: () {
-                Get.to(HolidayListScreenView(), arguments: 'Bank Holidays');
-              }
-            ),
-            SizedBox(height: 17.sp),
-            item(
-              width: width,
-              imagePath: ConstantsImage.stock_exchange_icon,
-              title: 'Stock Exchange Holidays',
-              subtitle: 'Stock Market holiday calendar.',
-              onTap: () {
-                Get.to(HolidayListScreenView(), arguments: 'Stock Exchange Holidays');
-              }
-            ),
-            SizedBox(height: 17.sp),
-            item(
-              width: width,
-              imagePath: ConstantsImage.international_holiday_icon,
-              title: 'International Holidays',
-              subtitle: 'Best deals on International holidays.',
-              onTap: () {
-                Get.to(HolidayListScreenView(), arguments: 'International Holidays');
-              }
-            ),
-            SizedBox(height: 17.sp),
-            item(
-              width: width,
-              imagePath: ConstantsImage.public_holiday_icon,
-              title: 'Public Holiday',
-              subtitle: 'List of Public and Government Holidays.',
-              onTap: () {
-                Get.to(HolidayListScreenView(), arguments: 'Public Holiday');
-              }
-            ),
-          ],
-        ),
-      )
+    AdService adService = AdService();
+
+    return WillPopScope(
+      onWillPop: () async {
+        adService.checkBackCounterAd();
+        return Future.value(true);
+      },
+      child: Scaffold(
+        backgroundColor: ConstantsColor.backgroundDarkColor,
+        appBar: ConstantsWidgets.appBar(title: 'Holidays', onTapBack: () {
+          adService.checkBackCounterAd();
+          Get.back();
+        }),
+        body: Container(
+          padding: EdgeInsets.only(left: 12.sp, right: 12.sp, top: 10.sp),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: width,
+                height: height * 0.15,
+                child: AdService.nativeAd(width: width, height: 52.sp, smallAd: true, radius: 15.sp),
+              ),
+              SizedBox(height: 18.sp),
+              Text('Holidays Option', style: TextStyle(fontSize: 17.5.sp, fontWeight: FontWeight.w600, color: Colors.white),),
+              SizedBox(height: 18.sp),
+              item(
+                width: width,
+                imagePath: ConstantsImage.bank_holiday_icon,
+                title: 'Bank Holidays',
+                subtitle: 'Check 2023 bank holidays in india.',
+                onTap: () {
+                  adService.checkCounterAd();
+                  Get.to(HolidayListScreenView(), arguments: 'Bank Holidays');
+                }
+              ),
+              SizedBox(height: 17.sp),
+              item(
+                width: width,
+                imagePath: ConstantsImage.stock_exchange_icon,
+                title: 'Stock Exchange Holidays',
+                subtitle: 'Stock Market holiday calendar.',
+                onTap: () {
+                  adService.checkCounterAd();
+                  Get.to(HolidayListScreenView(), arguments: 'Stock Exchange Holidays');
+                }
+              ),
+              SizedBox(height: 17.sp),
+              item(
+                width: width,
+                imagePath: ConstantsImage.international_holiday_icon,
+                title: 'International Holidays',
+                subtitle: 'Best deals on International holidays.',
+                onTap: () {
+                  adService.checkCounterAd();
+                  Get.to(HolidayListScreenView(), arguments: 'International Holidays');
+                }
+              ),
+              SizedBox(height: 17.sp),
+              item(
+                width: width,
+                imagePath: ConstantsImage.public_holiday_icon,
+                title: 'Public Holiday',
+                subtitle: 'List of Public and Government Holidays.',
+                onTap: () {
+                  adService.checkCounterAd();
+                  Get.to(HolidayListScreenView(), arguments: 'Public Holiday');
+                }
+              ),
+            ],
+          ),
+        )
+      ),
     );
   }
 

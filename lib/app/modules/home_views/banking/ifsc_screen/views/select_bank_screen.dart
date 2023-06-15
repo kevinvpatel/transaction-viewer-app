@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:transaction_viewer_app/app/data/adServices.dart';
 import 'package:transaction_viewer_app/app/data/constants.dart';
 import 'package:transaction_viewer_app/app/data/constants/color_constants.dart';
 import 'package:transaction_viewer_app/app/data/constants/image_constants.dart';
@@ -23,35 +24,45 @@ class SelectBankScreenView extends GetView<IfscScreenController> {
     double width = 100.w;
 
     controller.searchedList.value.clear();
+    AdService adService = AdService();
 
-    return Scaffold(
-      backgroundColor: ConstantsColor.backgroundDarkColor,
-      appBar: ConstantsWidgets.appBar(title: Get.arguments, onTapBack: () => Get.back()),
-      body: Container(
-        height: height,
-        width: width,
-        padding: EdgeInsets.only(left: 10.sp, right: 10.sp, top: 15.sp),
-        child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(height: 20.sp),
-              searchBar(
-                width: width,
-                fieldName: 'Search ${Get.arguments.toString().split(' ').last}'
-              ),
-              SizedBox(height: 15.sp),
-              Expanded(
-                  child: Container(
-                    child: bankList(controller: controller),
-                  )
-              )
-            ]
+    return WillPopScope(
+      onWillPop: () async {
+        adService.checkBackCounterAd();
+        return Future.value(true);
+      },
+      child: Scaffold(
+        backgroundColor: ConstantsColor.backgroundDarkColor,
+        appBar: ConstantsWidgets.appBar(title: Get.arguments, onTapBack: () {
+          adService.checkBackCounterAd();
+          Get.back();
+        }),
+        body: Container(
+          height: height,
+          width: width,
+          padding: EdgeInsets.only(left: 10.sp, right: 10.sp, top: 15.sp),
+          child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(height: 20.sp),
+                searchBar(
+                  width: width,
+                  fieldName: 'Search ${Get.arguments.toString().split(' ').last}'
+                ),
+                SizedBox(height: 15.sp),
+                Expanded(
+                    child: Container(
+                      child: bankList(controller: controller, adService: adService),
+                    )
+                )
+              ]
+          ),
         ),
       ),
     );
   }
 
-  bankList({required IfscScreenController controller}) {
+  bankList({required IfscScreenController controller, required AdService adService}) {
     double width = 100.w;
     double containerHeight = 33.sp;
 
@@ -76,6 +87,7 @@ class SelectBankScreenView extends GetView<IfscScreenController> {
 
         return InkWell(
           onTap: () async {
+            adService.checkCounterAd();
 
             if(controller.bankName.value == 'Select Bank') {
               log('controller.bankName.value 11 -> ${ifsc_list[index].split('.').first}');

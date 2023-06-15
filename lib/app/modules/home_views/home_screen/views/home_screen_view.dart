@@ -163,8 +163,8 @@ class HomeScreenView extends GetView<HomeScreenController> {
                               Text('Today’s Fuel Price', style: TextStyle(color: Colors.white, fontSize: 16.5.sp, fontWeight: FontWeight.w600)),
                               IconButton(
                                   onPressed: () {
-                                    Get.to(const ChangeCityScreen(), arguments: controller.allCitiesMap);
                                     adService.checkCounterAd();
+                                    Get.to(const ChangeCityScreen(), arguments: controller.allCitiesMap);
                                   },
                                   icon: Image.asset(ConstantsImage.more_circle_icon, height: 20.sp)
                               )
@@ -209,8 +209,8 @@ class HomeScreenView extends GetView<HomeScreenController> {
                               InkWell(
                                 onTap: () {
                                   print('controller.allCitiesMap -> ${controller.allCitiesMap}');
-                                  Get.to(const ChangeCityScreen(), arguments: controller.allCitiesMap);
                                   adService.checkCounterAd();
+                                  Get.to(const ChangeCityScreen(), arguments: controller.allCitiesMap);
                                 },
                                 child: Row(
                                   children: [
@@ -381,11 +381,11 @@ class HomeScreenView extends GetView<HomeScreenController> {
                     onTap: () {
                       if(isBanking == true) {
                         if(index == 0) {
+                          adService.checkCounterAd();
                           Get.to(BalanceScreenView());
-                          adService.checkCounterAd();
                         } else if(index == 1) {
-                          Get.to(IfscScreenView());
                           adService.checkCounterAd();
+                          Get.to(IfscScreenView());
                         } else if(index == 2) {
                           Get.to(HolidayScreenView());
                           adService.checkCounterAd();

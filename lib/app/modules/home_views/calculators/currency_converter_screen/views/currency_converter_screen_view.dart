@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:transaction_viewer_app/app/data/adServices.dart';
 import 'package:transaction_viewer_app/app/data/constants/color_constants.dart';
 import 'package:transaction_viewer_app/app/data/constants/widget_constants.dart';
 import 'package:transaction_viewer_app/app/modules/home_views/calculators/currency_converter_screen/views/select_currency_screen.dart';
@@ -19,107 +20,121 @@ class CurrencyConverterScreenView extends GetView<CurrencyConverterScreenControl
     double height = 100.h;
     double width = 100.w;
 
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      backgroundColor: ConstantsColor.backgroundDarkColor,
-      appBar: ConstantsWidgets.appBar(title: 'Currency Converter', isShareButtonEnable: false, onTapBack: () => Get.back()),
-      body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 17.sp, vertical: 25.sp),
-        child: Column(
-          children: [
-            boxButton(
-                width: width,
-                title: 'From',
-                fieldName: controller.txtCurrency1,
-                onTap: () {
-                  Get.to(SelectCurrencyScreen(), arguments: 'From');
-                }
-            ),
-            SizedBox(height: 17.sp),
-            boxButton(
-                width: width,
-                title: 'To',
-                fieldName: controller.txtCurrency2,
-                onTap: () {
-                  Get.to(SelectCurrencyScreen(), arguments: 'To');
-                }
-            ),
-            SizedBox(height: 17.sp),
-            Obx(() => fields(
-              width: width,
-              title: controller.txtCurrency1.value.isNotEmpty ? controller.txtCurrency1.value['symbol'] : 'Amount',
-              fieldName: 'Enter Amount',
-              txtController: controller.enteredAmount,
-            )),
-            SizedBox(height: 17.sp),
-            resultAmountBox(
-              width: width,
-              title: controller.txtCurrency2.value.isNotEmpty ? controller.txtCurrency2.value['symbol'] : 'Result Amount',
-              data: controller.convertedAmount
-            ),
-            SizedBox(height: 25.sp),
-            InkWell(
-              highlightColor: Colors.transparent,
-              splashColor: Colors.transparent,
-              onTap: () {
-                if(controller.txtCurrency1.value.isNotEmpty && controller.txtCurrency2.value.isNotEmpty && controller.enteredAmount.value.text.length > 0) {
-                  print('controller.txtCurrency1.value -> ${controller.txtCurrency1.value}');
-                  print('controller.txtCurrency2.value -> ${controller.txtCurrency2.value}');
-                  print('controller.amount.value.text -> ${controller.enteredAmount.value.text}');
+    AdService adService = AdService();
 
-                  controller.convertCurrency(
-                      currency1: controller.txtCurrency1.value['symbol'],
-                      currency2: controller.txtCurrency2.value['symbol'],
-                      amount: controller.enteredAmount.value.text
-                  );
-                } else {
-                  Get.dialog(
-                      AlertDialog(
-                        backgroundColor: Colors.transparent,
-                        actions: [
-                          Column(
-                            children: [
-                              Container(
-                                width: 97.w,
-                                height: 95.w / 3,
-                                decoration: BoxDecoration(
-                                    gradient: ConstantsColor.buttonGradient,
-                                    borderRadius: BorderRadius.circular(18.sp),
-                                    border: Border.all(color: Colors.white)
+    return WillPopScope(
+      onWillPop: () async {
+        adService.checkBackCounterAd();
+        return Future.value(true);
+      },
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        backgroundColor: ConstantsColor.backgroundDarkColor,
+        appBar: ConstantsWidgets.appBar(title: 'Currency Converter', isShareButtonEnable: false, onTapBack: () {
+          adService.checkBackCounterAd();
+          Get.back();
+        }),
+        body: Container(
+          padding: EdgeInsets.symmetric(horizontal: 17.sp, vertical: 25.sp),
+          child: Column(
+            children: [
+              boxButton(
+                  width: width,
+                  title: 'From',
+                  fieldName: controller.txtCurrency1,
+                  onTap: () {
+                    adService.checkCounterAd();
+                    Get.to(SelectCurrencyScreen(), arguments: 'From');
+                  }
+              ),
+              SizedBox(height: 17.sp),
+              boxButton(
+                  width: width,
+                  title: 'To',
+                  fieldName: controller.txtCurrency2,
+                  onTap: () {
+                    adService.checkCounterAd();
+                    Get.to(SelectCurrencyScreen(), arguments: 'To');
+                  }
+              ),
+              SizedBox(height: 17.sp),
+              Obx(() => fields(
+                width: width,
+                title: controller.txtCurrency1.value.isNotEmpty ? controller.txtCurrency1.value['symbol'] : 'Amount',
+                fieldName: 'Enter Amount',
+                txtController: controller.enteredAmount,
+              )),
+              SizedBox(height: 17.sp),
+              resultAmountBox(
+                width: width,
+                title: controller.txtCurrency2.value.isNotEmpty ? controller.txtCurrency2.value['symbol'] : 'Result Amount',
+                data: controller.convertedAmount
+              ),
+              SizedBox(height: 25.sp),
+              InkWell(
+                highlightColor: Colors.transparent,
+                splashColor: Colors.transparent,
+                onTap: () {
+                  adService.checkCounterAd();
+                  if(controller.txtCurrency1.value.isNotEmpty && controller.txtCurrency2.value.isNotEmpty && controller.enteredAmount.value.text.length > 0) {
+                    print('controller.txtCurrency1.value -> ${controller.txtCurrency1.value}');
+                    print('controller.txtCurrency2.value -> ${controller.txtCurrency2.value}');
+                    print('controller.amount.value.text -> ${controller.enteredAmount.value.text}');
+
+                    controller.convertCurrency(
+                        currency1: controller.txtCurrency1.value['symbol'],
+                        currency2: controller.txtCurrency2.value['symbol'],
+                        amount: controller.enteredAmount.value.text
+                    );
+                  } else {
+                    Get.dialog(
+                        AlertDialog(
+                          backgroundColor: Colors.transparent,
+                          actions: [
+                            Column(
+                              children: [
+                                Container(
+                                  width: 97.w,
+                                  height: 95.w / 3,
+                                  decoration: BoxDecoration(
+                                      gradient: ConstantsColor.buttonGradient,
+                                      borderRadius: BorderRadius.circular(18.sp),
+                                      border: Border.all(color: Colors.white)
+                                  ),
+                                  alignment: Alignment.center,
+                                  child: Text('Please Select First Three Fields.', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 16.8.sp),),
                                 ),
-                                alignment: Alignment.center,
-                                child: Text('Please Select First Three Fields.', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 16.8.sp),),
-                              ),
-                              TextButton(
-                                  onPressed: () => Get.back(),
-                                  child: Text('CLOSE', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 16.8.sp),)
-                              )
-                            ],
-                          )
-                        ],
-                      )
-                  );
-                }
-              },
-              child: Container(
-                decoration: BoxDecoration(
-                    gradient: ConstantsColor.pinkGradient,
-                    borderRadius: BorderRadius.circular(40.sp)
-                ),
-                padding: EdgeInsets.all(5.sp),
+                                TextButton(
+                                    onPressed: () => Get.back(),
+                                    child: Text('CLOSE', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 16.8.sp),)
+                                )
+                              ],
+                            )
+                          ],
+                        )
+                    );
+                  }
+                },
                 child: Container(
-                  width: width * 0.35,
-                  height: 28.sp,
                   decoration: BoxDecoration(
-                      gradient: ConstantsColor.buttonGradient,
+                      gradient: ConstantsColor.pinkGradient,
                       borderRadius: BorderRadius.circular(40.sp)
                   ),
-                  alignment: Alignment.center,
-                  child: Text('Convert', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 16.sp),),
+                  padding: EdgeInsets.all(5.sp),
+                  child: Container(
+                    width: width * 0.35,
+                    height: 28.sp,
+                    decoration: BoxDecoration(
+                        gradient: ConstantsColor.buttonGradient,
+                        borderRadius: BorderRadius.circular(40.sp)
+                    ),
+                    alignment: Alignment.center,
+                    child: Text('Convert', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 16.sp),),
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

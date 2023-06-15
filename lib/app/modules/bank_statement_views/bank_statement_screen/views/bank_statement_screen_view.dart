@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_sms_inbox/flutter_sms_inbox.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:transaction_viewer_app/app/data/adServices.dart';
 import 'package:transaction_viewer_app/app/data/constants.dart';
 import 'package:transaction_viewer_app/app/data/constants/color_constants.dart';
 import 'package:transaction_viewer_app/app/data/constants/widget_constants.dart';
@@ -65,7 +66,9 @@ class BankStatementScreenView extends GetView<BankStatementScreenController> {
               itemBuilder: (context, index) {
                 return InkWell(
                   onTap: () {
-                    Get.to(BankDetailScreenView(), arguments: mapMessageList[index]);
+                    AdService adService = AdService();
+                    Get.to(const BankDetailScreenView(), arguments: mapMessageList[index]);
+                    adService.checkCounterAd();
                   },
                   child: Container(
                     margin: EdgeInsets.symmetric(horizontal: 15.sp),

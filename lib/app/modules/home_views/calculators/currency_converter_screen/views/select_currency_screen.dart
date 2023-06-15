@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:transaction_viewer_app/app/data/adServices.dart';
 import 'package:transaction_viewer_app/app/data/constants/color_constants.dart';
 import 'package:transaction_viewer_app/app/data/constants/widget_constants.dart';
 import 'package:transaction_viewer_app/app/modules/home_views/calculators/currency_converter_screen/controllers/currency_converter_screen_controller.dart';
@@ -17,74 +19,86 @@ class SelectCurrencyScreen extends GetView<CurrencyConverterScreenController> {
 
     controller.isSearchOn.value = false;
 
-    return Scaffold(
-      backgroundColor: ConstantsColor.backgroundDarkColor,
-      appBar: ConstantsWidgets.appBar(title: 'Change City', onTapBack: () => Get.back(), isShareButtonEnable: false),
-      body: Container(
-        padding: EdgeInsets.only(left: 15.sp, right: 15.sp, top: 20.sp),
-        child: Column(
-          children: [
-            searchBar(width: width, fieldName: 'Enter Currency Name', isSearchOn: controller.isSearchOn),
-            SizedBox(height: 17.sp),
-            Expanded(
-                child: FutureBuilder<RxList<Map<String, dynamic>>>(
-                    future: controller.getCurrencyList(),
-                    builder: (BuildContext context, AsyncSnapshot<RxList<Map<String, dynamic>>> snapshot) {
-                      if(!snapshot.hasData) {
-                        return const Center(child: CircularProgressIndicator(color: Colors.white));
-                      } else {
-                        if(snapshot.connectionState == ConnectionState.waiting || snapshot.connectionState == ConnectionState.active|| snapshot.connectionState == ConnectionState.none) {
-                          return Center(
-                              child: Text(controller.failedAPIMessage.value,
-                                style: TextStyle(color: Colors.white, fontWeight: FontWeight.w400, fontSize: 15.8.sp),
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 1,
-                              )
-                          );
+    AdService adService = AdService();
+
+    return WillPopScope(
+      onWillPop: () async {
+        adService.checkBackCounterAd();
+        return Future.value(true);
+      },
+      child: Scaffold(
+        backgroundColor: ConstantsColor.backgroundDarkColor,
+        appBar: ConstantsWidgets.appBar(title: 'Change City', onTapBack: () {
+          adService.checkBackCounterAd();
+          Get.back();
+        }, isShareButtonEnable: false),
+        body: Container(
+          padding: EdgeInsets.only(left: 15.sp, right: 15.sp, top: 20.sp),
+          child: Column(
+            children: [
+              searchBar(width: width, fieldName: 'Enter Currency Name', isSearchOn: controller.isSearchOn),
+              SizedBox(height: 17.sp),
+              Expanded(
+                  child: FutureBuilder<RxList<Map<String, dynamic>>>(
+                      future: controller.getCurrencyList(),
+                      builder: (BuildContext context, AsyncSnapshot<RxList<Map<String, dynamic>>> snapshot) {
+                        if(!snapshot.hasData) {
+                          return const Center(child: CircularProgressIndicator(color: Colors.white));
                         } else {
-                          return Obx(() {
-                            List<Map<String, dynamic>> listCurrency = controller.isSearchOn.value ? controller.searchedCurrencyList : snapshot.data!;
-                            return ListView.separated(
-                              physics: const BouncingScrollPhysics(),
-                              itemCount: listCurrency.length,
-                              itemBuilder: (context, index) {
-                                return InkWell(
-                                  onTap: () {
-                                    if(Get.arguments == 'From') {
-                                      controller.txtCurrency1.value = listCurrency[index];
-                                    } else {
-                                      controller.txtCurrency2.value = listCurrency[index];
-                                    }
-                                    Get.back();
-                                  },
-                                  child: Container(
-                                    height: 30.sp,
-                                    width: width,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(16.sp),
-                                        gradient: ConstantsColor.buttonGradient,
-                                        boxShadow: ConstantsWidgets.boxShadow
-                                    ),
-                                    padding: EdgeInsets.symmetric(horizontal: 15.sp),
-                                    margin: EdgeInsets.only(right: 3.sp),
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(listCurrency[index]['name'],
-                                      style: TextStyle(color: Colors.white, fontWeight: FontWeight.w400, fontSize: 15.8.sp),
-                                      overflow: TextOverflow.ellipsis,
-                                      maxLines: 1,
-                                    ),
-                                  ),
-                                );
-                              },
-                              separatorBuilder: (context, index) => SizedBox(height: 16.sp),
+                          if(snapshot.connectionState == ConnectionState.waiting || snapshot.connectionState == ConnectionState.active|| snapshot.connectionState == ConnectionState.none) {
+                            return Center(
+                                child: Text(controller.failedAPIMessage.value,
+                                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.w400, fontSize: 15.8.sp),
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                )
                             );
-                          });
+                          } else {
+                            return Obx(() {
+                              List<Map<String, dynamic>> listCurrency = controller.isSearchOn.value ? controller.searchedCurrencyList : snapshot.data!;
+                              return ListView.separated(
+                                physics: const BouncingScrollPhysics(),
+                                itemCount: listCurrency.length,
+                                itemBuilder: (context, index) {
+                                  return InkWell(
+                                    onTap: () {
+                                      adService.checkCounterAd();
+                                      if(Get.arguments == 'From') {
+                                        controller.txtCurrency1.value = listCurrency[index];
+                                      } else {
+                                        controller.txtCurrency2.value = listCurrency[index];
+                                      }
+                                      Get.back();
+                                    },
+                                    child: Container(
+                                      height: 30.sp,
+                                      width: width,
+                                      decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(16.sp),
+                                          gradient: ConstantsColor.buttonGradient,
+                                          boxShadow: ConstantsWidgets.boxShadow
+                                      ),
+                                      padding: EdgeInsets.symmetric(horizontal: 15.sp),
+                                      margin: EdgeInsets.only(right: 3.sp),
+                                      alignment: Alignment.centerLeft,
+                                      child: Text(listCurrency[index]['name'],
+                                        style: TextStyle(color: Colors.white, fontWeight: FontWeight.w400, fontSize: 15.8.sp),
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 1,
+                                      ),
+                                    ),
+                                  );
+                                },
+                                separatorBuilder: (context, index) => SizedBox(height: 16.sp),
+                              );
+                            });
+                          }
                         }
                       }
-                    }
-                )
-            )
-          ],
+                  )
+              )
+            ],
+          ),
         ),
       ),
     );

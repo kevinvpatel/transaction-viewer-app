@@ -7,6 +7,7 @@ import 'package:flutter_sms_inbox/flutter_sms_inbox.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:transaction_viewer_app/app/data/Reg_Model.dart';
+import 'package:transaction_viewer_app/app/data/adServices.dart';
 import 'package:transaction_viewer_app/app/data/constants.dart';
 
 class BankDetailScreenController extends GetxController with GetSingleTickerProviderStateMixin  {
@@ -145,6 +146,8 @@ class BankDetailScreenController extends GetxController with GetSingleTickerProv
   }
 
   onClickRadio(value) {
+    // AdService adService = AdService();
+    // adService.checkCounterAd();
     selectedFilter.value = value!;
     print('controller.selectedFilter.value -> ${selectedFilter.value}');
     update();

@@ -5,6 +5,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:transaction_viewer_app/app/data/constants/color_constants.dart';
 import 'package:transaction_viewer_app/app/data/constants/image_constants.dart';
 import 'package:transaction_viewer_app/app/data/constants/widget_constants.dart';
+import 'package:transaction_viewer_app/app/modules/bill_payment_screen/views/bills_and_emi_screen.dart';
 import 'package:transaction_viewer_app/app/modules/bill_payment_screen/views/cash_money_screen_view.dart';
 import '../controllers/bill_payment_screen_controller.dart';
 
@@ -16,6 +17,7 @@ class BillPaymentScreenView extends GetView<BillPaymentScreenController> {
     BillPaymentScreenController controller = Get.put(BillPaymentScreenController());
     double height = 100.h;
     double width = 100.w;
+
 
     return Scaffold(
       backgroundColor: ConstantsColor.backgroundDarkColor,
@@ -41,19 +43,62 @@ class BillPaymentScreenView extends GetView<BillPaymentScreenController> {
                     Text('Bills', style: TextStyle(fontSize: 18.5.sp, fontWeight: FontWeight.w600, color: Colors.white),),
                     SizedBox(height: 18.sp),
                     element(
-                      title: 'Cash Money',
-                      subTitle: 'Bills & Invoice',
-                      imagePath: ConstantsImage.cash_money_icon,
-                      onTap: () {
-                        Get.to(CashMoneyScreenView());
-                      }
+                        title: 'Cash Money',
+                        subTitle: 'Bills & Invoice',
+                        imagePath: ConstantsImage.cash_money_icon,
+                        percentage: controller.cashMoneyPercentage,
+                        onTap: () {
+                          Get.to(CashMoneyScreenView());
+                        }
                     ),
+                    // Obx(() {
+                    //   if(controller.cashMoneyPercentage.value.toStringAsFixed(0) != '100') {
+                    //     return Row(
+                    //       mainAxisAlignment: MainAxisAlignment.center,
+                    //       children: [
+                    //         Container(
+                    //           height: 8.sp,
+                    //           width: width * 0.6,
+                    //           child: ClipRRect(
+                    //             borderRadius: BorderRadius.circular(12.sp),
+                    //             child: LinearProgressIndicator(
+                    //               minHeight: 6.sp,
+                    //               value: controller.cashMoneyPercentage.value / 100,
+                    //               color: ConstantsColor.purpleColor,
+                    //               backgroundColor: Colors.white38,
+                    //             ),
+                    //           ),
+                    //         ),
+                    //
+                    //         SizedBox(width: 20.sp),
+                    //         Container(
+                    //           width: width * 0.17,
+                    //           child: Text('${controller.cashMoneyPercentage.value.toStringAsFixed(2)} %',
+                    //               style: TextStyle(color: Colors.white, fontWeight: FontWeight.w400, fontSize: 15.5.sp)),
+                    //         ),
+                    //       ],
+                    //     );
+                    //   } else {
+                    //     return element(
+                    //         title: 'Cash Money',
+                    //         subTitle: 'Bills & Invoice',
+                    //         imagePath: ConstantsImage.cash_money_icon,
+                    //         percentage: controller.cashMoneyPercentage,
+                    //         onTap: () {
+                    //           Get.to(CashMoneyScreenView());
+                    //         }
+                    //     );
+                    //   }
+                    // }),
                     SizedBox(height: 20.sp),
                     element(
-                      title: 'Bills & EMIs',
-                      subTitle: 'Bills & Invoice',
-                      imagePath: ConstantsImage.bills_emis_icon,
-                      onTap: () {}
+                        title: 'Bills & EMIs',
+                        subTitle: 'Bills & Invoice',
+                        imagePath: ConstantsImage.bills_emis_icon,
+                        percentage: controller.billsEmiPercentage,
+                        onTap: () {
+                          Get.to(BillsAndEmiScreenView());
+                        }
                     ),
                   ],
                 ),
@@ -65,7 +110,13 @@ class BillPaymentScreenView extends GetView<BillPaymentScreenController> {
     );
   }
 
-  Widget element({required String title, required String subTitle, required String imagePath, required Function() onTap}) {
+  Widget element({
+    required String title,
+    required String subTitle,
+    required String imagePath,
+    required RxDouble percentage,
+    required Function() onTap
+  }) {
     double width = 100.w;
     double height = 40.sp;
     double sideSpace = 19.sp;
@@ -81,7 +132,7 @@ class BillPaymentScreenView extends GetView<BillPaymentScreenController> {
             boxShadow: ConstantsWidgets.boxShadow,
         ),
         padding: EdgeInsets.only(left: sideSpace, right: sideSpace * 0.5),
-        child: Row(
+        child: Obx(() => Row(
           children: [
             Container(
               decoration: BoxDecoration(
@@ -107,13 +158,39 @@ class BillPaymentScreenView extends GetView<BillPaymentScreenController> {
               children: [
                 Text(title, style: TextStyle(color: Colors.white, fontWeight: FontWeight.w400, fontSize: 18.2.sp),),
                 SizedBox(height: 8.sp),
-                Text(subTitle, style: TextStyle(color: Colors.white60, fontWeight: FontWeight.w300, fontSize: 15.2.sp),),
+                if(percentage.value.toStringAsFixed(0) != '100')
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        height: 8.sp,
+                        width: width * 0.46,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(12.sp),
+                          child: LinearProgressIndicator(
+                            minHeight: 6.sp,
+                            value: percentage.value / 100,
+                            color: ConstantsColor.purpleColor,
+                            backgroundColor: Colors.white38,
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: 20.sp),
+                      Container(
+                        width: width * 0.17,
+                        child: Text('${percentage.value.toStringAsFixed(2)} %',
+                            style: TextStyle(color: Colors.white, fontWeight: FontWeight.w400, fontSize: 15.sp)),
+                      ),
+                    ],
+                  )
+                else
+                  Text(subTitle, style: TextStyle(color: Colors.white60, fontWeight: FontWeight.w300, fontSize: 15.2.sp),),
               ],
             ),
             Spacer(),
-            Icon(CupertinoIcons.chevron_right, color: Colors.white, size: 25.sp)
+            if(percentage.value.toStringAsFixed(0) != '100') SizedBox.shrink() else Icon(CupertinoIcons.chevron_right, color: Colors.white, size: 25.sp)
           ],
-        ),
+        )),
       ),
     );
   }

@@ -3,6 +3,7 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:transaction_viewer_app/app/data/adServices.dart';
 import 'package:transaction_viewer_app/app/data/constants/color_constants.dart';
 import 'package:transaction_viewer_app/app/data/constants/widget_constants.dart';
 
@@ -21,36 +22,44 @@ class AtmMapScreenViewView extends GetView<AtmMapScreenViewController> {
     String googleUrl = "https://www.google.com/maps/search/?api=1&query=$query";
     // controller.openGoogleMap(search: 'atm near me');
 
-    return Scaffold(
-      // backgroundColor: ConstantsColor.backgroundDarkColor,
-      // appBar: ConstantsWidgets.appBar(title: 'ATM LIST'),
-      body: Container(
-        height: height,
-        width: width,
-        child: InAppWebView(
-          key: controller.webViewKey,
-          initialUrlRequest: URLRequest(url: Uri.parse(googleUrl)),
-          initialOptions: controller.options,
-          onWebViewCreated: (ctrl) {
-            controller.webViewController?.value = ctrl;
-            controller.update();
-          },
-          androidOnPermissionRequest: (controller, origin, resources) async {
-            return PermissionRequestResponse(resources: resources, action: PermissionRequestResponseAction.GRANT);
-          },
-          onLoadStop: (controller, url) async {
+    AdService adService = AdService();
 
-          },
-          onLoadError: (controller, url, code, message) {
+    return WillPopScope(
+      onWillPop: () async {
+        adService.checkBackCounterAd();
+        return Future.value(true);
+      },
+      child: Scaffold(
+        // backgroundColor: ConstantsColor.backgroundDarkColor,
+        // appBar: ConstantsWidgets.appBar(title: 'ATM LIST'),
+        body: Container(
+          height: height,
+          width: width,
+          child: InAppWebView(
+            key: controller.webViewKey,
+            initialUrlRequest: URLRequest(url: Uri.parse(googleUrl)),
+            initialOptions: controller.options,
+            onWebViewCreated: (ctrl) {
+              controller.webViewController?.value = ctrl;
+              controller.update();
+            },
+            androidOnPermissionRequest: (controller, origin, resources) async {
+              return PermissionRequestResponse(resources: resources, action: PermissionRequestResponseAction.GRANT);
+            },
+            onLoadStop: (controller, url) async {
 
-          },
-          onProgressChanged: (controller, progress) {
-            if (progress == 100) {
-            }
-          },
-          onConsoleMessage: (controller, consoleMessage) {
-            // print(consoleMessage);
-          },
+            },
+            onLoadError: (controller, url, code, message) {
+
+            },
+            onProgressChanged: (controller, progress) {
+              if (progress == 100) {
+              }
+            },
+            onConsoleMessage: (controller, consoleMessage) {
+              // print(consoleMessage);
+            },
+          ),
         ),
       ),
     );
