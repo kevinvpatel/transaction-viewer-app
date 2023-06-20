@@ -21,14 +21,14 @@ class CreditCardScreenView extends GetView<CreditCardScreenController> {
 
     return WillPopScope(
       onWillPop: () async {
-        adService.checkBackCounterAd();
+        adService.checkBackCounterAd(currentScreen: '/CreditCardScreenView');
         return Future.value(true);
       },
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: ConstantsColor.backgroundDarkColor,
         appBar: ConstantsWidgets.appBar(title: 'Credit Card Apply', isShareButtonEnable: true, onTapBack: () {
-          adService.checkBackCounterAd();
+          adService.checkBackCounterAd(currentScreen: '/CreditCardScreenView');
           Get.back();
         }),
         body: Obx(() => ListView.separated(
@@ -71,7 +71,7 @@ class CreditCardScreenView extends GetView<CreditCardScreenController> {
                     highlightColor: Colors.transparent,
                     splashColor: Colors.transparent,
                     onTap: () {
-                      adService.checkCounterAd();
+                      adService.checkCounterAd(currentScreen: '/CreditCardScreenView');
                       Get.to(const CreditCardApplyScreenView(), arguments: list[index]);
                     },
                     child: Container(

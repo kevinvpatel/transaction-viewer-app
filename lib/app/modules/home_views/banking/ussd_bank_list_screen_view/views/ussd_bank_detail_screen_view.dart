@@ -27,13 +27,13 @@ class UssdBankDetailScreenViewView extends GetView<UssdBankListScreenViewControl
 
     return WillPopScope(
       onWillPop: () async {
-        adService.checkBackCounterAd();
+        adService.checkBackCounterAd(currentScreen: '/UssdBankDetailScreenViewView');
         return Future.value(true);
       },
       child: Scaffold(
         backgroundColor: ConstantsColor.backgroundDarkColor,
         appBar: ConstantsWidgets.appBar(title: mapData['vName'], onTapBack: () {
-          adService.checkBackCounterAd();
+          adService.checkBackCounterAd(currentScreen: '/UssdBankDetailScreenViewView');
           Get.back();
         }),
         body: Container(
@@ -84,7 +84,7 @@ class UssdBankDetailScreenViewView extends GetView<UssdBankListScreenViewControl
                                 ),
                                 bankKeyDetail[index] != 'vName' ? InkWell(
                                   onTap: () {
-                                    adService.checkCounterAd();
+                                    adService.checkCounterAd(currentScreen: '/UssdBankDetailScreenViewView');
                                     Fluttertoast.showToast(msg: "${bankValueDetail[index].toString()}  Copied Successfully");
                                     Clipboard.setData(ClipboardData(text: bankValueDetail[index].toString()));
                                   },

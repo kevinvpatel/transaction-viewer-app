@@ -20,6 +20,12 @@ class BankStatementScreenController extends GetxController {
   RxList<String?> regExList = <String?>[].obs;
   final SmsQuery query = SmsQuery();
 
+  saveSms() async {
+    List<SmsMessage> listSms = await SMSServices.getSmsData();
+    messageBox.addAll(listSms);
+    print('messageBox -> ${messageBox.values}');
+  }
+
   Future loadBankCategory() async {
     messageList.clear();
     // await Permission.sms.request();
@@ -75,11 +81,12 @@ class BankStatementScreenController extends GetxController {
                 // if(account_balance != null || transaction_amount != null) {
                 if(account_balance != null) {
                   messageList.add(messages[i]);
-                  if(!bankList.value.contains(messages[i].address?.split('-').last)) {
-                    bankList.value.add(messages[i].address?.split('-').last);
+
+                  if(!bankList.contains(messages[i].address?.split('-').last)) {
+                    bankList.add(messages[i].address?.split('-').last);
                     Map<String, dynamic> tempBankMap = {};
-                    print('result -> ${result}');
-                    print('account_balance -> ${account_balance}');
+                    print('result -> $result');
+                    print('account_balance -> $account_balance');
                     bankData.add(messages[i]);
                     tempBankMap['bank_address'] = messages[i].address?.split('-').last;
                     tempBankMap['bank_name'] = regData.rules![j].fullName;

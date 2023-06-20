@@ -28,13 +28,13 @@ class IfscCodeBankResultView extends GetView<IfscScreenController> {
 
     return WillPopScope(
       onWillPop: () async {
-        adService.checkBackCounterAd();
+        adService.checkBackCounterAd(currentScreen: '/IfscCodeBankResultView');
         return Future.value(true);
       },
       child: Scaffold(
         backgroundColor: ConstantsColor.backgroundDarkColor,
         appBar: ConstantsWidgets.appBar(title: '', onTapBack: () {
-          adService.checkBackCounterAd();
+          adService.checkBackCounterAd(currentScreen: '/IfscCodeBankResultView');
           Get.back();
         }, isShareButtonEnable: false),
         body: Container(
@@ -164,7 +164,7 @@ class IfscCodeBankResultView extends GetView<IfscScreenController> {
           button(
             height: height,
             onTap: () async {
-              adService.checkCounterAd();
+              adService.checkCounterAd(currentScreen: '/IfscCodeBankResultView');
               await Clipboard.setData(ClipboardData(text: data));
               Fluttertoast.showToast(msg: 'Copied ${title} : $data');
             },
@@ -172,7 +172,7 @@ class IfscCodeBankResultView extends GetView<IfscScreenController> {
           ),
           SizedBox(width: 17.sp),
           button(height: height, onTap: () {
-            adService.checkCounterAd();
+            adService.checkCounterAd(currentScreen: '/IfscCodeBankResultView');
             Share.share(data);
           }, imagePath: ConstantsImage.sharecode_icon)
         ],

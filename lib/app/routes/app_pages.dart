@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-
 import '../modules/bank_statement_views/bank_detail_screen/bindings/bank_detail_screen_binding.dart';
 import '../modules/bank_statement_views/bank_detail_screen/views/bank_detail_screen_view.dart';
 import '../modules/bank_statement_views/bank_statement_screen/bindings/bank_statement_screen_binding.dart';
@@ -8,8 +7,6 @@ import '../modules/bill_payment_screen/bindings/bill_payment_screen_binding.dart
 import '../modules/bill_payment_screen/views/bill_payment_screen_view.dart';
 import '../modules/bottom_navigation_screen/bindings/bottom_navigation_screen_binding.dart';
 import '../modules/bottom_navigation_screen/views/bottom_navigation_screen_view.dart';
-import '../modules/home_views/banking/atm_map_screen_view/bindings/atm_map_screen_view_binding.dart';
-import '../modules/home_views/banking/atm_map_screen_view/views/atm_map_screen_view_view.dart';
 import '../modules/home_views/banking/balance_screen/bindings/balance_screen_binding.dart';
 import '../modules/home_views/banking/balance_screen/views/balance_screen_view.dart';
 import '../modules/home_views/banking/holiday_screen/bindings/holiday_screen_binding.dart';
@@ -129,11 +126,6 @@ class AppPages {
       name: _Paths.USSD_BANK_LIST_SCREEN_VIEW,
       page: () => const UssdBankListScreenViewView(),
       binding: UssdBankListScreenViewBinding(),
-    ),
-    GetPage(
-      name: _Paths.ATM_MAP_SCREEN_VIEW,
-      page: () => const AtmMapScreenViewView(),
-      binding: AtmMapScreenViewBinding(),
     ),
   ];
 }

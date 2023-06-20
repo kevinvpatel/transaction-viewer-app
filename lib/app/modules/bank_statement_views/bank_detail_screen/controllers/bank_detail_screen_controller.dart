@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_sms_inbox/flutter_sms_inbox.dart';
 import 'package:get/get.dart';
+import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 import 'package:transaction_viewer_app/app/data/Reg_Model.dart';
 import 'package:transaction_viewer_app/app/data/adServices.dart';
@@ -26,6 +27,7 @@ class BankDetailScreenController extends GetxController with GetSingleTickerProv
   Rules? rulesData;
   final SmsQuery query = SmsQuery();
 
+
   loadRegExJson({required String transactionType}) async {
     allMessageDetails.clear();
     creditMessageDetails.clear();
@@ -44,7 +46,6 @@ class BankDetailScreenController extends GetxController with GetSingleTickerProv
 
     try {
       rulesData = Rules.fromJson(lstPatterns.first);
-
       messageList.value = messageList.toSet().toList();
 
       messageList.forEach((sms) {

@@ -20,14 +20,14 @@ class WelcomeScreenView extends GetView<WelcomeScreenController> {
 
     return Scaffold(
       backgroundColor: ConstantsColor.backgroundDarkColor,
-      body: Container(
+      body: SizedBox(
         height: height,
         width: width,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Spacer(flex: 4),
+            const Spacer(flex: 4),
             Container(padding: EdgeInsets.symmetric(horizontal: 10.sp) ,child: Image.asset(ConstantsImage.welcome_image, width: width * 0.52)),
             SizedBox(height: 18.sp),
             Text('Welcome!', textAlign: TextAlign.center ,style: TextStyle(fontSize: 23.sp, color: Colors.white, fontWeight: FontWeight.w700),),
@@ -46,8 +46,8 @@ class WelcomeScreenView extends GetView<WelcomeScreenController> {
                 height: 28.sp,
                 width: width * 0.42,
                 onTap: () {
-                  Get.to(BottomNavigationScreenView());
-                  adService.checkCounterAd();
+                  Get.to(const BottomNavigationScreenView());
+                  adService.checkCounterAd(currentScreen: '/BottomNavigationScreenView');
                 }
             ),
             SizedBox(height: 28.sp),
@@ -60,7 +60,7 @@ class WelcomeScreenView extends GetView<WelcomeScreenController> {
                     height: 28.sp,
                     width: width * 0.22,
                     onTap: () {
-                      adService.checkCounterAd();
+                      adService.checkCounterAd(currentScreen: '/WelcomeScreenView');
                     }
                 ),
                 SizedBox(width: 25.sp),
@@ -71,7 +71,7 @@ class WelcomeScreenView extends GetView<WelcomeScreenController> {
                     width: width * 0.22,
                     onTap: () {
 
-                      adService.checkCounterAd();
+                      adService.checkCounterAd(currentScreen: '/WelcomeScreenView');
                     }
                 ),
               ],
@@ -84,10 +84,10 @@ class WelcomeScreenView extends GetView<WelcomeScreenController> {
                 width: width * 0.34,
                 onTap: () {
 
-                  adService.checkCounterAd();
+                  adService.checkCounterAd(currentScreen: '/WelcomeScreenView');
                 }
             ),
-            Spacer(flex: 2),
+            const Spacer(flex: 2),
             Text.rich(
               textAlign: TextAlign.center,
               TextSpan(
@@ -105,7 +105,7 @@ class WelcomeScreenView extends GetView<WelcomeScreenController> {
                   ]
               ),
             ),
-            Spacer(),
+            const Spacer(),
           ],
         ),
       ),

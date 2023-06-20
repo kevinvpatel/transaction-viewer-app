@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sms_inbox/flutter_sms_inbox.dart';
 import 'package:get/get.dart';
+import 'package:hive/hive.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:transaction_viewer_app/app/data/constants/image_constants.dart';
 
 RxList<SmsMessage?> messageList = <SmsMessage?>[].obs;
 RxList<Map<String, dynamic>> mapMessageList = <Map<String, dynamic>>[].obs;
-
+Box messageBox = Hive.box('messageBox');
 
 
 Widget convertBankAddressToBankIcon({required String bankName, required Map<String, dynamic> bankBundleData, double? padding, double? height}) {

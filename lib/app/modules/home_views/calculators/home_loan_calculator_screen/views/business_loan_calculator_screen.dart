@@ -20,14 +20,14 @@ class BusinessLoanCalculatorScreenView extends GetView<HomeLoanCalculatorScreenC
 
     return WillPopScope(
       onWillPop: () async {
-        adService.checkBackCounterAd();
+        adService.checkBackCounterAd(currentScreen: '/BusinessLoanCalculatorScreenView');
         return Future.value(true);
       },
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: ConstantsColor.backgroundDarkColor,
         appBar: ConstantsWidgets.appBar(title: 'Business Loan Calculator', isShareButtonEnable: false, onTapBack: () {
-          adService.checkBackCounterAd();
+          adService.checkBackCounterAd(currentScreen: '/BusinessLoanCalculatorScreenView');
           Get.back();
         }),
         body: Container(
@@ -57,7 +57,7 @@ class BusinessLoanCalculatorScreenView extends GetView<HomeLoanCalculatorScreenC
               SizedBox(height: 20.sp),
               controller.bottomButtons(
                   onTapBtn2: () {
-                    adService.checkCounterAd();
+                    adService.checkCounterAd(currentScreen: '/BusinessLoanCalculatorScreenView');
                     double loanAmount = double.parse(controller.txtLoanAmount.value.text);
                     int loanMonth = int.parse(controller.txtLoanPeriod.value.text);
                     double interestRate = double.parse(controller.txtInterestAmount.value.text) / 12 / 100;

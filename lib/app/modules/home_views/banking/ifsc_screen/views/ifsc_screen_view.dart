@@ -24,13 +24,13 @@ import '../controllers/ifsc_screen_controller.dart';
 
     return WillPopScope(
       onWillPop: () async {
-        adService.checkBackCounterAd();
+        adService.checkBackCounterAd(currentScreen: '/IfscScreenView');
         return Future.value(true);
       },
       child: Scaffold(
         backgroundColor: ConstantsColor.backgroundDarkColor,
         appBar: ConstantsWidgets.appBar(title: 'IFSC Code Details', onTapBack: () {
-          adService.checkBackCounterAd();
+          adService.checkBackCounterAd(currentScreen: '/IfscScreenView');
           Get.back();
         }),
         body: Container(
@@ -42,7 +42,7 @@ import '../controllers/ifsc_screen_controller.dart';
               Container(
                 height: height * 0.17,
                 width: width,
-                child: AdService.nativeAd(width: width, height: 52.sp, smallAd: true, radius: 15.sp),
+                child: AdService.nativeAd(width: width, height: 52.sp, smallAd: true, radius: 15.sp, currentScreen: '/IfscScreenView'),
               ),
               SizedBox(height: 17.sp),
               fields(
@@ -51,7 +51,7 @@ import '../controllers/ifsc_screen_controller.dart';
                 title: 'Bank Name',
                 fieldName: controller.bankName,
                 onTap: () {
-                  adService.checkCounterAd();
+                  adService.checkCounterAd(currentScreen: '/IfscScreenView');
                   Get.to(SelectBankScreenView(), arguments: 'Select Bank');
                 }
               ),
@@ -62,7 +62,7 @@ import '../controllers/ifsc_screen_controller.dart';
                 title: 'State Name',
                 fieldName: controller.stateName,
                 onTap: () {
-                  adService.checkCounterAd();
+                  adService.checkCounterAd(currentScreen: '/IfscScreenView');
                   if(controller.bankName.value == 'Select Bank') {
                     dialog(title: 'Please Select Above Field...');
                   } else {
@@ -77,7 +77,7 @@ import '../controllers/ifsc_screen_controller.dart';
                 title: 'District Name',
                 fieldName: controller.districtName,
                 onTap: () {
-                  adService.checkCounterAd();
+                  adService.checkCounterAd(currentScreen: '/IfscScreenView');
                   if(controller.bankName.value != 'Select Bank' && controller.stateName.value != 'Select State') {
                     Get.to(SelectBankScreenView(), arguments: 'Select District');
                   } else {
@@ -92,7 +92,7 @@ import '../controllers/ifsc_screen_controller.dart';
                 title: 'Branch Name',
                 fieldName: controller.branchName,
                 onTap: () {
-                  adService.checkCounterAd();
+                  adService.checkCounterAd(currentScreen: '/IfscScreenView');
                   if(controller.bankName.value != 'Select Bank' && controller.stateName.value != 'Select State' && controller.districtName.value != 'Select District') {
                     Get.to(SelectBankScreenView(), arguments: 'Select Branch');
                   } else {
@@ -109,7 +109,7 @@ import '../controllers/ifsc_screen_controller.dart';
                   width: width * 0.95,
                   borderRadius: 15.0,
                   onTap: () {
-                    adService.checkCounterAd();
+                    adService.checkCounterAd(currentScreen: '/IfscScreenView');
                     if(controller.bankName.value != 'Select Bank' && controller.stateName.value != 'Select State'
                         && controller.districtName.value != 'Select District' && controller.branchName.value != 'Select Branch') {
                       Get.to(IfscCodeBankResultView(), arguments: {

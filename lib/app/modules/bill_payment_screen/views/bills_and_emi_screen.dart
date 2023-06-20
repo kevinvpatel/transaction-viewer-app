@@ -71,64 +71,89 @@ class BillsAndEmiScreenView extends GetView<BillPaymentScreenController> {
 
   Widget transactionList({required String title, required double width, required BillPaymentScreenController controller}) {
     List<Map<String, dynamic>> listTransactions = controller.billsEmiList.groupBy('group');
+    // List<Map<String, dynamic>> listTransactionsCategory = controller.billsEmiList.groupBy('category');
+    // List transactions = <Map<String, dynamic>>[];
+    //
+    // print('listTransactionsCategory -> ${listTransactionsCategory}');
+    // listTransactionsCategory.forEach((element) {
+    //   print('@@@ -> ${element.keys.first}');
+    //   print('@@@111 -> ${element.values.first}');
+    //   print('title -> ${title}');
+    //   if(element.keys.first == title) {
+    //     transactions.add(element.values.first);
+    //   }
+    //   print('transactions -> ${transactions}');
+    //
+    // });
+
+
     // controller.getBillsTransactionType().then((listPattern) {
     //   controller.getData(listPattern: listPattern, percentage: controller.billsEmiPercentage, listData: controller.billsEmiList);
     // });
 
-    return listTransactions.length > 0 ? SingleChildScrollView(
-      physics: BouncingScrollPhysics(),
-      controller: controller.scrollController,
-      child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 12.sp, horizontal: 12.sp),
-        child: Column(
-          children: List.generate(listTransactions.length, (index) {
-            return Column(
-              children: [
-                Container(
-                  height: 34.sp,
-                  width: width,
-                  padding: EdgeInsets.only(left: 12.5.sp),
-                  alignment: Alignment.centerLeft,
-                  decoration: BoxDecoration(
-                      boxShadow: ConstantsWidgets.boxShadow,
-                      gradient: ConstantsColor.buttonGradient,
-                      borderRadius: BorderRadius.circular(18.sp)
-                  ),
-                  child: Text(listTransactions[index].keys.first.toString().toUpperCase(),
-                      style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600, color: ConstantsColor.purpleColor)),
-                ),
-                ListView.separated(
-                  shrinkWrap: true,
-                  physics: const ClampingScrollPhysics(),
-                  itemCount: listTransactions[index].values.first.length,
-                  itemBuilder: (context, groupedIndex) {
-                    List listGroupedMessages = listTransactions[index].values.first.toList();
-                    return Container(
-                      height: 33.sp,
-                      padding: EdgeInsets.symmetric(horizontal: 15.sp),
-                      child: Row(
-                        children: [
-                          Text(DateFormat('dd MMM').format(listGroupedMessages[groupedIndex]['date']), style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600, color: Colors.grey.shade500)),
-                          SizedBox(width: 15.sp),
-                          SizedBox(
-                              width: width * 0.5,
-                              child: Text(listGroupedMessages[groupedIndex]['transaction_account'] ?? 'UNKNOWN',
-                                  style: TextStyle(fontSize: 15.5.sp, fontWeight: FontWeight.w600, color: Colors.white), overflow: TextOverflow.ellipsis, maxLines: 1)
-                          ),
-                        ],
+
+    return listTransactions.length > 0
+        ? SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
+          controller: controller.scrollController,
+          child: Padding(
+            padding: EdgeInsets.symmetric(vertical: 12.sp, horizontal: 12.sp),
+            child: Column(
+              children: List.generate(listTransactions.length, (index) {
+                return Column(
+                  children: [
+                    Container(
+                      height: 34.sp,
+                      width: width,
+                      padding: EdgeInsets.only(left: 12.5.sp),
+                      alignment: Alignment.centerLeft,
+                      decoration: BoxDecoration(
+                          boxShadow: ConstantsWidgets.boxShadow,
+                          gradient: ConstantsColor.buttonGradient,
+                          borderRadius: BorderRadius.circular(18.sp)
                       ),
-                    );
-                  },
-                  separatorBuilder: (context, index) => const Divider(color: Colors.white, height: 0, thickness: 0.2),
-                )
-              ],
-            );
-          }),
-        ),
-      ),
-    ) : Center(child: Text('$title list is empty',
-      style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 16.sp),)
-    );
+                      child: Text(listTransactions[index].keys.first.toString().toUpperCase(),
+                          style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600, color: ConstantsColor.purpleColor)),
+                    ),
+                    ListView.separated(
+                      shrinkWrap: true,
+                      physics: const ClampingScrollPhysics(),
+                      itemCount: listTransactions[index].values.first.length,
+                      itemBuilder: (context, groupedIndex) {
+                        List listGroupedMessages = listTransactions[index].values.first.toList();
+                        if(listGroupedMessages[groupedIndex]['category'] == title) {
+                          return Container(
+                            height: 33.sp,
+                            padding: EdgeInsets.symmetric(horizontal: 15.sp),
+                            child: Row(
+                              children: [
+                                Text(DateFormat('dd MMM').format(listGroupedMessages[groupedIndex]['date']), style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600, color: Colors.grey.shade500)),
+                                SizedBox(width: 15.sp),
+                                SizedBox(
+                                    width: width * 0.5,
+                                    child: Text(listGroupedMessages[groupedIndex]['transaction_account'] ?? 'UNKNOWN',
+                                        style: TextStyle(fontSize: 15.5.sp, fontWeight: FontWeight.w600, color: Colors.white), overflow: TextOverflow.ellipsis, maxLines: 1)
+                                ),
+                              ],
+                            ),
+                          );
+                        } else {
+                          return SizedBox.shrink();
+                        }
+                      },
+                      separatorBuilder: (context, index) => const Divider(color: Colors.white, height: 0, thickness: 0.2),
+                    )
+                  ],
+                );
+              }),
+            ),
+          ),
+        )
+        : Center(
+          child: Text('$title list is empty',
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 16.sp),
+          )
+        );
   }
 
 }

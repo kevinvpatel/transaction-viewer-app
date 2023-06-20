@@ -22,14 +22,14 @@ class HomeLoanCalculatorScreenView extends GetView<HomeLoanCalculatorScreenContr
 
     return WillPopScope(
       onWillPop: () async {
-        adService.checkBackCounterAd();
+        adService.checkBackCounterAd(currentScreen: '/HomeLoanCalculatorScreenView');
         return Future.value(true);
       },
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: ConstantsColor.backgroundDarkColor,
         appBar: ConstantsWidgets.appBar(title: 'Home Loan Calculator', isShareButtonEnable: false, onTapBack: () {
-          adService.checkBackCounterAd();
+          adService.checkBackCounterAd(currentScreen: '/HomeLoanCalculatorScreenView');
           Get.back();
         }),
         body: Container(
@@ -62,7 +62,7 @@ class HomeLoanCalculatorScreenView extends GetView<HomeLoanCalculatorScreenContr
               SizedBox(height: 20.sp),
               controller.bottomButtons(
                 onTapBtn2: () {
-                  adService.checkCounterAd();
+                  adService.checkCounterAd(currentScreen: '/HomeLoanCalculatorScreenView');
                   double loanAmount = double.parse(controller.txtLoanAmount.value.text);
                   int loanMonth;
                   if(controller.isYear.value == true) {

@@ -28,13 +28,13 @@ class ChangeCityScreen extends GetView<HomeScreenController> {
 
     return WillPopScope(
       onWillPop: () async {
-        adService.checkBackCounterAd();
+        adService.checkBackCounterAd(currentScreen: '/ChangeCityScreen');
         return Future.value(true);
       },
       child: Scaffold(
         backgroundColor: ConstantsColor.backgroundDarkColor,
         appBar: ConstantsWidgets.appBar(title: 'Change City', onTapBack: () {
-          adService.checkBackCounterAd();
+          adService.checkBackCounterAd(currentScreen: '/ChangeCityScreen');
           Get.back();
         }, isShareButtonEnable: false),
         body: Container(
@@ -51,13 +51,13 @@ class ChangeCityScreen extends GetView<HomeScreenController> {
                           padding: EdgeInsets.symmetric(vertical: 20.sp),
                           physics: BouncingScrollPhysics(),
                           shrinkWrap: true,
-                          itemCount: isSearchOn.value == true ? searchedMap.value.keys.length : mapCities.keys.length,
+                          itemCount: isSearchOn.value == true ? searchedMap.keys.length : mapCities.keys.length,
                           itemBuilder: (context, stateIndex) {
                             List<String> listStates = isSearchOn.value == true
-                                ? searchedMap.value.keys.toList()
+                                ? searchedMap.keys.toList()
                                 : mapCities.keys.toList();
                             List listCities = isSearchOn.value == true
-                                ? searchedMap.value.values.toList()[stateIndex]
+                                ? searchedMap.values.toList()[stateIndex]
                                 : mapCities.values.toList()[stateIndex];
 
                             return Column(
@@ -76,7 +76,7 @@ class ChangeCityScreen extends GetView<HomeScreenController> {
                                   itemBuilder: (context, cityIndex) {
                                     return InkWell(
                                       onTap: () {
-                                        adService.checkCounterAd();
+                                        adService.checkCounterAd(currentScreen: '/ChangeCityScreen');
                                         controller.stateName = listStates[stateIndex];
                                         controller.cityName = listCities[cityIndex]['cityName'];
                                         log('controller.stateName -> ${controller.stateName}');
@@ -159,14 +159,14 @@ class ChangeCityScreen extends GetView<HomeScreenController> {
                   isSearchOn.value = false;
                 }
 
-                searchedMap.value.clear();
+                searchedMap.clear();
                 cityData.forEach((key, value) {
                   List lst = value.toList();
                   lst.forEach((element) {
                     if(element['cityName'].toString().toLowerCase().contains(str.toLowerCase())) {
-                      searchedMap.value.addAll({key: [element]});
+                      searchedMap.addAll({key: [element]});
                     } else if(key.toLowerCase().contains(str.toLowerCase())) {
-                      searchedMap.value.addAll({key: value});
+                      searchedMap.addAll({key: value});
                     }
                   });
                 });

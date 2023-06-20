@@ -23,7 +23,7 @@ class CarLoanScreenView extends GetView<CarLoanScreenController> {
 
     return WillPopScope(
       onWillPop: () async {
-        adService.checkBackCounterAd();
+        adService.checkBackCounterAd(currentScreen: '/CarLoanScreenView');
         return Future.value(true);
       },
       child: Scaffold(
@@ -33,7 +33,7 @@ class CarLoanScreenView extends GetView<CarLoanScreenController> {
           title: Text(Get.arguments['title']),
           leading: IconButton(
               onPressed: () {
-                adService.checkBackCounterAd();
+                adService.checkBackCounterAd(currentScreen: '/CarLoanScreenView');
                 Get.back();
               },
               icon: const Icon(CupertinoIcons.arrow_left)

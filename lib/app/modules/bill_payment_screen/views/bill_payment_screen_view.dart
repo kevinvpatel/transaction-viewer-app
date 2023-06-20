@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:transaction_viewer_app/app/data/adServices.dart';
 import 'package:transaction_viewer_app/app/data/constants/color_constants.dart';
 import 'package:transaction_viewer_app/app/data/constants/image_constants.dart';
 import 'package:transaction_viewer_app/app/data/constants/widget_constants.dart';
@@ -32,7 +33,9 @@ class BillPaymentScreenView extends GetView<BillPaymentScreenController> {
             Container(
               height: height * 0.18,
               width: width,
-              color: Colors.white,
+              child: AdService.nativeAd(
+                  width: width, height: 52.sp, smallAd: true, radius: 15.sp, currentScreen: '/BillPaymentScreenView'
+              ),
             ),
             Expanded(
               child: Padding(

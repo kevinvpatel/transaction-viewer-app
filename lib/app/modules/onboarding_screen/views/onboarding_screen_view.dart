@@ -58,11 +58,12 @@ class OnboardingScreenView extends GetView<OnboardingScreenController> {
                     width: 19.w,
                     onTap: () {
                       AdService adService = AdService();
-                      adService.checkCounterAd();
                       if(controller.selectedPage.value == controller.lstScreens.length - 1) {
                         Get.to(WelcomeScreenView());
+                        adService.checkCounterAd(currentScreen: '/WelcomeScreenView');
                       } else {
                         Screens.pageController.nextPage(duration: const Duration(milliseconds: 500), curve: Curves.linearToEaseOut);
+                        adService.checkCounterAd(currentScreen: '/OnboardingScreenView');
                       }
                     }
                   ),

@@ -66,7 +66,6 @@ abstract class ConstantsWidgets {
         isShareButtonEnable ? InkWell(
           onTap: () {
             AdService adService = AdService();
-            adService.checkCounterAd();
             Share.share('Look what i found') ;
           },
           child: Image.asset(ConstantsImage.share_icon1, width: 20.sp),

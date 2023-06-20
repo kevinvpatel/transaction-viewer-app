@@ -26,7 +26,7 @@ class BalanceDetailScreenView extends GetView<BalanceScreenController> {
 
     return WillPopScope(
       onWillPop: () async {
-        adService.checkBackCounterAd();
+        adService.checkBackCounterAd(currentScreen: '/BalanceDetailScreenView');
         return Future.value(true);
       },
       child: Scaffold(
@@ -69,7 +69,7 @@ class BalanceDetailScreenView extends GetView<BalanceScreenController> {
                   title: 'Bank Balance',
                   data: detail['balance_check'],
                   onTap: () async {
-                    adService.checkCounterAd();
+                    adService.checkCounterAd(currentScreen: '/BalanceDetailScreenView');
                     Uri phoneno = Uri.parse('tel:${detail['balance_check']}');
                     if(await launchUrl(phoneno)) {
                       //dialer opened
@@ -86,7 +86,7 @@ class BalanceDetailScreenView extends GetView<BalanceScreenController> {
                   title: 'Mini Statement',
                   data: detail['mini_statement'],
                   onTap: () async {
-                    adService.checkCounterAd();
+                    adService.checkCounterAd(currentScreen: '/BalanceDetailScreenView');
                     Uri phoneno = Uri.parse('tel:${detail['mini_statement']}');
                     if(await launchUrl(phoneno)) {
                     //dialer opened
@@ -103,7 +103,7 @@ class BalanceDetailScreenView extends GetView<BalanceScreenController> {
                   title: 'Customer Care Number',
                   data: detail['customer_care'],
                   onTap: () async {
-                    adService.checkCounterAd();
+                    adService.checkCounterAd(currentScreen: '/BalanceDetailScreenView');
                     Uri phoneno = Uri.parse('tel:${detail['customer_care']}');
                     if(await launchUrl(phoneno)) {
                     //dialer opened

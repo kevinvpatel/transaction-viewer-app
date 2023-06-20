@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:transaction_viewer_app/app/data/constants/color_constants.dart';
+import 'package:transaction_viewer_app/app/modules/home_views/banking/balance_screen/views/balance_screen_view.dart';
 import 'package:transaction_viewer_app/main.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -18,13 +19,12 @@ class AdService {
   static BannerAd? bannerAdAdMob;
   static RxBool isBannerAdLoaded = false.obs;
 
-  static Widget bannerAd({required double width}) {
-    debugPrint('Get.previousRoute -> ${Get.previousRoute}');
-    debugPrint('Get.currentRoute -> ${Get.currentRoute}');
+  static Widget bannerAd({required double width, required String currentScreen}) {
+    debugPrint('currentScreen bannerAd -> ${currentScreen}');
     debugPrint('configData.value -> ${configData.value}');
-    debugPrint('data -> ${configData.value[Get.currentRoute]['banner-type']}');
+    debugPrint('data -> ${configData.value[currentScreen]['banner-type']}');
 
-    if(configData.value[Get.currentRoute]['banner-type'] == 'admob') {
+    if(configData.value[currentScreen]['banner-type'] == 'admob') {
       bannerAdAdMob = BannerAd(
           size: AdSize.banner,
           // adUnitId: data['banner-admob'],
@@ -45,7 +45,7 @@ class AdService {
       bannerAdAdMob?.load();
     }
 
-    return configData.value[Get.currentRoute]['banner-type'] == 'admob' ?
+    return configData.value[currentScreen]['banner-type'] == 'admob' ?
     SizedBox(
       height: 50,
       width: width * 0.8,
@@ -76,15 +76,20 @@ class AdService {
 
 
   ///NATIVE AD
-  static Widget nativeAd({required double width, required double height, required bool smallAd, required double radius}) {
-    debugPrint('Get.previousRoute11 -> ${Get.previousRoute}');
-    debugPrint('Get.currentRoute11 -> ${Get.currentRoute}');
-    debugPrint('configData.value11 -> ${configData.value}');
+  static Widget nativeAd({
+    required double width,
+    required double height,
+    required bool smallAd,
+    required double radius,
+    required String currentScreen
+  }) {
+    debugPrint('currentScreen nativeAd -> ${currentScreen}');
+    debugPrint('configData.value nativeAd -> ${configData}');
     NativeAd? nativeMediumAd;
     RxBool isNativeAdLoaded = false.obs;
-    if(configData.value[Get.currentRoute]['native-type'] == 'admob') {
+    if(configData[currentScreen]['native-type'] == 'admob') {
       nativeMediumAd = NativeAd(
-          adUnitId: configData.value[Get.currentRoute]['native-admob'],
+          adUnitId: configData[currentScreen]['native-admob'],
           factoryId: smallAd ? 'listTile' : 'listTileMedium',   // listTile = small Ad , listTileMedium = medium Ad
           listener: NativeAdListener(
               onAdLoaded: (ad) {
@@ -101,19 +106,16 @@ class AdService {
       nativeMediumAd.load();
     }
 
-    print('isNativeAdLoaded.value ##-> ${Get.currentRoute}');
-    print('isNativeAdLoaded.value -> ${configData.value[Get.currentRoute]}');
-    print('isNativeAdLoaded.value 22-> ${configData.value[Get.currentRoute]['native-type']}');
     return Obx(() {
-      return configData.value[Get.currentRoute]['native-type'] == 'admob' ?
+      return configData[currentScreen]['native-type'] == 'admob' ?
       ///GOOGLE AD
       isNativeAdLoaded.value == true
           ? AdWidget(ad: nativeMediumAd!)
       // : const Center(child: CircularProgressIndicator(color: ConstantsColor.themeColor))
           : const Center(child: CupertinoActivityIndicator())
       ///FACEBOOK AD
-          : configData.value[Get.currentRoute]['native-type'] == 'facebook' ? FacebookNativeAd(
-        placementId: configData.value['native-facebook'],
+          : configData[currentScreen]['native-type'] == 'facebook' ? FacebookNativeAd(
+        placementId: configData['native-facebook'],
         adType: NativeAdType.NATIVE_AD,
         height: height,
         // bannerAdSize: NativeBannerAdSize.HEIGHT_120,
@@ -132,10 +134,10 @@ class AdService {
         focusColor: Colors.transparent,
         splashColor: Colors.transparent,
         onTap: () async {
-          if(await canLaunchUrl(Uri.parse(configData.value[Get.currentRoute]['link']))){
-            await launchUrl(Uri.parse(configData.value[Get.currentRoute]['link']));
+          if(await canLaunchUrl(Uri.parse(configData[currentScreen]['link']))){
+            await launchUrl(Uri.parse(configData[currentScreen]['link']));
           } else {
-            Fluttertoast.showToast(msg: 'Could not launch url: ${configData.value[Get.currentRoute]['link']}');
+            Fluttertoast.showToast(msg: 'Could not launch url: ${configData[currentScreen]['link']}');
           }
         },
         child: SizedBox(
@@ -143,7 +145,7 @@ class AdService {
           width: smallAd ? width * 0.6 : width,
           child: ClipRRect(
               borderRadius: BorderRadius.circular(radius),
-              child: Image.network(configData.value[Get.currentRoute]['image-link'], fit: BoxFit.cover)
+              child: Image.network(configData[currentScreen]['image-link'], fit: BoxFit.cover)
           ),
         ),
       );
@@ -153,18 +155,22 @@ class AdService {
 
   ///INTERSTITIAL AD
   InterstitialAd? interstitialAdMob;
-  Future interstitialAd({String? adId, required Function(LoadAdError) onAdFailedToLoad, bool isBack = false}) async {
+  Future interstitialAd({
+    String? adId,
+    required Function(LoadAdError) onAdFailedToLoad,
+    bool isBack = false,
+    String? currentScreen
+  }) async {
     ///isBack is here to prevent to take previousRoute name
     ///isBack = true "PreviousRoute"   isBack = false "CurrentRoute"
-    print('interstitial currentRoute -> ${Get.currentRoute}');
-    print('interstitial previousRoute -> ${Get.previousRoute}');
+    print('interstitial currentScreen -> ${currentScreen}');
     print('interstitial isBack -> ${isBack}');
-    print('interstitial configData -> ${configData.value[Get.currentRoute]}');
-    print('interstitial  -> ${configData.value}');
+    print('interstitial configData -> ${configData[currentScreen]}');
+    print('interstitial  -> ${configData}');
 
-    if(configData[isBack ? Get.previousRoute : Get.currentRoute]['interstitial-type'] == 'admob') {
+    if(configData[isBack ? Get.previousRoute : currentScreen]['interstitial-type'] == 'admob') {
       await InterstitialAd.load(
-          adUnitId: adId ?? configData[isBack ? Get.previousRoute : Get.currentRoute]['interstitial-admob'],
+          adUnitId: adId ?? configData[isBack ? Get.previousRoute : currentScreen]['interstitial-admob'],
           request: const AdRequest(),
           adLoadCallback: InterstitialAdLoadCallback(onAdLoaded: (ad) {
             interstitialAdMob = ad;
@@ -180,18 +186,18 @@ class AdService {
           }, onAdFailedToLoad: onAdFailedToLoad
           )
       ).catchError((err) => print('InterstitialAd err -> $err'));
-    } else if(configData.value[isBack ? Get.previousRoute : Get.currentRoute]['interstitial-type'] == 'url') {
+    } else if(configData[isBack ? Get.previousRoute : currentScreen]['interstitial-type'] == 'url') {
 
-      if(await canLaunchUrl(Uri.parse(configData.value[isBack ? Get.previousRoute : Get.currentRoute]['link']))) {
-        await launchUrl(Uri.parse(configData.value[isBack ? Get.previousRoute : Get.currentRoute]['link']));
+      if(await canLaunchUrl(Uri.parse(configData[isBack ? Get.previousRoute : currentScreen]['link']))) {
+        await launchUrl(Uri.parse(configData[isBack ? Get.previousRoute : currentScreen]['link']));
       } else {
-        Fluttertoast.showToast(msg: 'Could not launch url: ${configData.value[isBack ? Get.previousRoute : Get.currentRoute]['link']}');
+        Fluttertoast.showToast(msg: 'Could not launch url: ${configData[isBack ? Get.previousRoute : currentScreen]['link']}');
       }
       Future.delayed(const Duration(milliseconds: 1000), () => Get.back());
 
     } else {
       FacebookInterstitialAd.loadInterstitialAd(
-          placementId: configData.value['interstitial-facebook'],
+          placementId: configData['interstitial-facebook'],
           listener: (result, value) {
             if(result == InterstitialAdResult.LOADED) {
               FacebookInterstitialAd.showInterstitialAd(delay: 2000).then((value) =>
@@ -203,17 +209,18 @@ class AdService {
   }
 
 
-  checkCounterAd() {
+  checkCounterAd({required String currentScreen}) {
     print('counterr -> $counterInterstitalAd');
-    print('counterr@@ -> ${configData.value['counter']}');
+    print('@@ -> ${configData['counter']}');
 
 
-    print('interstitial @@ currentRoute -> ${Get.currentRoute}');
-    print('interstitial @@ previousRoute -> ${Get.previousRoute}');
-    print('interstitial @@ configData -> ${configData.value}');
-    Future.delayed(const Duration(milliseconds: 1200), () {
-      if(counterInterstitalAd.value == configData.value['counter']) {
+    print('interstitial @@ currentScreen -> ${currentScreen}');
+    print('interstitial @@ configData -> ${configData}');
+
+    return Future.delayed(const Duration(milliseconds: 1200), () {
+      if(counterInterstitalAd.value == configData['counter']) {
         counterInterstitalAd.value = 1;
+
         Get.dialog(
             barrierDismissible: false,
             WillPopScope(
@@ -238,7 +245,7 @@ class AdService {
           interstitialAd(onAdFailedToLoad: (error) {
             interstitialAdMob = null;
             interstitialAd(
-                adId: configData.value['interstitial-admob'],
+                adId: configData['interstitial-admob'],
                 onAdFailedToLoad: (loadAdError) {
                   counterInterstitalAd.value = 1;
                   Future.delayed(const Duration(milliseconds: 1000), () => Get.back());
@@ -252,11 +259,11 @@ class AdService {
     });
   }
 
-  checkBackCounterAd() {
+  checkBackCounterAd({required String currentScreen}) {
     print('backCounter -> $backCounterInterstitalAd');
-    print('backCounter@@ -> ${configData.value['back_counter']}');
+    print('backCounter@@ -> ${configData['back_counter']}');
     Future.delayed(const Duration(milliseconds: 1200), () {
-      if(backCounterInterstitalAd.value == configData.value['back_counter']) {
+      if(backCounterInterstitalAd.value == configData['back_counter']) {
         backCounterInterstitalAd.value = 1;
         Get.dialog(
             barrierDismissible: false,
@@ -280,12 +287,12 @@ class AdService {
         );
         Future.delayed(const Duration(milliseconds: 1000), () {
           interstitialAd(
-              isBack: Get.currentRoute == '/HomeScreenView' ? false : true,
+              isBack: currentScreen == '/HomeScreenView' ? false : true,
               onAdFailedToLoad: (error) {
                 interstitialAdMob = null;
                 interstitialAd(
-                  isBack: Get.currentRoute == '/HomeScreenView' ? false : true,
-                  adId: configData.value['interstitial-admob'],
+                  isBack: currentScreen == '/HomeScreenView' ? false : true,
+                  adId: configData['interstitial-admob'],
                   onAdFailedToLoad: (loadAdError ) {
                     backCounterInterstitalAd.value = 1;
                     Future.delayed(const Duration(milliseconds: 1000), () => Get.back());

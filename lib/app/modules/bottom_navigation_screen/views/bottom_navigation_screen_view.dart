@@ -82,7 +82,7 @@ class BottomNavigationScreenView
           },
 
         ),
-        AdService.bannerAd(width: width),
+        AdService.bannerAd(width: width, currentScreen: '/BottomNavigationScreenView'),
       ],
     ));
   }

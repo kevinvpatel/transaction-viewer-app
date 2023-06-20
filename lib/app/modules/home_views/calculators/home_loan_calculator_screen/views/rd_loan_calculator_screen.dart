@@ -20,14 +20,14 @@ import 'package:transaction_viewer_app/app/modules/home_views/calculators/home_l
 
     return WillPopScope(
       onWillPop: () async {
-        adService.checkBackCounterAd();
+        adService.checkBackCounterAd(currentScreen: '/RDLoanCalculatorScreenView');
         return Future.value(true);
       },
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: ConstantsColor.backgroundDarkColor,
         appBar: ConstantsWidgets.appBar(title: 'FD Calculator', isShareButtonEnable: false, onTapBack: () {
-          adService.checkBackCounterAd();
+          adService.checkBackCounterAd(currentScreen: '/RDLoanCalculatorScreenView');
           Get.back();
         }),
         body: Container(
@@ -59,7 +59,7 @@ import 'package:transaction_viewer_app/app/modules/home_views/calculators/home_l
               SizedBox(height: 20.sp),
               controller.bottomButtons(
                   onTapBtn2: () {
-                    adService.checkCounterAd();
+                    adService.checkCounterAd(currentScreen: '/RDLoanCalculatorScreenView');
                     double depositAmount = double.parse(controller.txtDepositAmount.value.text);
                     int loanMonth = int.parse(controller.txtPeriodInMonth.value.text);
                     int period;

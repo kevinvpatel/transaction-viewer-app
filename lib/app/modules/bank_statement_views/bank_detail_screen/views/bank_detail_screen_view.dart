@@ -48,13 +48,13 @@ class BankDetailScreenView extends GetView<BankDetailScreenController> {
 
     return WillPopScope(
       onWillPop: () async {
-        adService.checkBackCounterAd();
+        adService.checkBackCounterAd(currentScreen: '/BankDetailScreenView');
         return Future.value(true);
       },
       child: Scaffold(
         backgroundColor: ConstantsColor.backgroundDarkColor,
         appBar: ConstantsWidgets.appBar(title: Get.arguments['bank_address'], onTapBack: () {
-          adService.checkBackCounterAd();
+          adService.checkBackCounterAd(currentScreen: '/BankDetailScreenView');
           Get.back();
         }),
         body: Container(
@@ -113,7 +113,7 @@ class BankDetailScreenView extends GetView<BankDetailScreenController> {
                     containerWight: width * 0.815,
                     containerGradient: ConstantsColor.buttonGradient,
                     onSelect: (int index) {
-                      adService.checkCounterAd();
+                      adService.checkCounterAd(currentScreen: '/BankDetailScreenView');
                       controller.scrollController.animateTo(
                           controller.scrollController.position.minScrollExtent,
                           duration: const Duration(milliseconds: 200),
@@ -133,7 +133,7 @@ class BankDetailScreenView extends GetView<BankDetailScreenController> {
                     splashColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     onTap: () {
-                      adService.checkCounterAd();
+                      adService.checkCounterAd(currentScreen: '/BankDetailScreenView');
                       filterDialoge();
                     },
                     child: Image.asset(ConstantsImage.select_month_icon, height: 23.sp, width: 23.sp)
@@ -153,7 +153,7 @@ class BankDetailScreenView extends GetView<BankDetailScreenController> {
                       elements: controller.allMessageDetails,
                       groupBy: (message) => message['group'],
                       floatingHeader: false,
-                      physics: BouncingScrollPhysics(),
+                      physics: const BouncingScrollPhysics(),
                       groupSeparatorBuilder: (group) {
                         return Material(
                           elevation: 2,
@@ -171,7 +171,7 @@ class BankDetailScreenView extends GetView<BankDetailScreenController> {
                               children: [
                                 SizedBox(width: 18.sp),
                                 Text(group.toString().toUpperCase(), style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600, color: ConstantsColor.purpleColor)),
-                                Spacer(),
+                                const Spacer(),
                                 Text(group, style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600, color: ConstantsColor.purpleColor)),
                                 SizedBox(width: 18.sp),
                               ],
@@ -223,7 +223,7 @@ class BankDetailScreenView extends GetView<BankDetailScreenController> {
     List<Map<String, dynamic>> listMessages = controller.allMessageDetails.groupBy('group');
     List<Map<String, dynamic>> listCredits = controller.creditMessageDetails.groupBy('group');
     List<Map<String, dynamic>> listDebits = controller.debitMessageDetails.groupBy('group');
-    print('listMSG -> ${listMessages}');
+    print('listMSG -> $listMessages');
     double width = 100.w;
     RxList<double> lstCreditSum = <double>[].obs;
     RxList<double> sumList = <double>[].obs;
@@ -231,7 +231,7 @@ class BankDetailScreenView extends GetView<BankDetailScreenController> {
     RxList<double> subtractionList = <double>[].obs;
 
     return SingleChildScrollView(
-      physics: BouncingScrollPhysics(),
+      physics: const BouncingScrollPhysics(),
       controller: controller.scrollController,
       child: Column(
         children: List.generate(listMessages.length, (index) {
@@ -243,8 +243,8 @@ class BankDetailScreenView extends GetView<BankDetailScreenController> {
             subtractionList.add(0);
           });
 
-          print('listMessages.length -> ${listMessages}');
-          print('listCredits.length -> ${listCredits}');
+          print('listMessages.length -> $listMessages');
+          print('listCredits.length -> $listCredits');
 
           if(listCredits.isNotEmpty) {
             listMessages[index].values.first.forEach((valCredit) {
@@ -254,8 +254,8 @@ class BankDetailScreenView extends GetView<BankDetailScreenController> {
               }
               listCredits.forEach((credit) {
                 if(lstCreditSum.length == credit.values.first.length) {
-                  sumList.value[index] = 0;
-                  sumList.value[index] = lstCreditSum.reduce((value, element) => value + element);
+                  sumList[index] = 0;
+                  sumList[index] = lstCreditSum.reduce((value, element) => value + element);
                   lstCreditSum.clear();
                 }
               });
@@ -270,7 +270,7 @@ class BankDetailScreenView extends GetView<BankDetailScreenController> {
               }
               listDebits.forEach((debit) {
                 if(lstDebitSubtraction.length == debit.values.first.length) {
-                  subtractionList.value[index] = lstDebitSubtraction.reduce((value, element) => value + element);
+                  subtractionList[index] = lstDebitSubtraction.reduce((value, element) => value + element);
                   lstDebitSubtraction.clear();
                 }
               });
@@ -295,16 +295,16 @@ class BankDetailScreenView extends GetView<BankDetailScreenController> {
                     SizedBox(width: 18.sp),
                     Text(listMessages[index].keys.first.toString().toUpperCase(),
                         style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600, color: ConstantsColor.purpleColor)),
-                    Spacer(),
+                    const Spacer(),
                     GetBuilder(
                         init: BankDetailScreenController(),
                         builder: (controller) {
                           return Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text('+ ₹ ${sumList.value[index]}',
+                              Text('+ ₹ ${sumList[index]}',
                                   style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600, color: Colors.green)),
-                              Text('- ₹ ${subtractionList.value[index]}',
+                              Text('- ₹ ${subtractionList[index]}',
                                   style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600, color: Colors.red)),
                             ],
                           );
@@ -387,7 +387,7 @@ class BankDetailScreenView extends GetView<BankDetailScreenController> {
     RxList<double> lstCreditSum = <double>[].obs;
     RxList<double> sumList = <double>[].obs;
     return SingleChildScrollView(
-      physics: BouncingScrollPhysics(),
+      physics: const BouncingScrollPhysics(),
       controller: controller.scrollController,
       child: Column(
         children: List.generate(listMessages.length, (index) {
@@ -395,7 +395,7 @@ class BankDetailScreenView extends GetView<BankDetailScreenController> {
           listMessages[index].values.first.forEach((val) {
             lstCreditSum.add(double.parse(val['transaction_amount']));
             if(lstCreditSum.length == listMessages[index].values.first.length) {
-              sumList.value[index] = lstCreditSum.reduce((value, element) => value + element);
+              sumList[index] = lstCreditSum.reduce((value, element) => value + element);
               lstCreditSum.clear();
             }
           });
@@ -419,11 +419,11 @@ class BankDetailScreenView extends GetView<BankDetailScreenController> {
                       SizedBox(width: 18.sp),
                       Text(listMessages[index].keys.first.toString().toUpperCase(),
                           style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600, color: ConstantsColor.purpleColor)),
-                      Spacer(),
+                      const Spacer(),
                       GetBuilder(
                           init: BankDetailScreenController(),
                           builder: (controller) {
-                            return Text('+ ₹ ${sumList.value[index]}',
+                            return Text('+ ₹ ${sumList[index]}',
                                 style: TextStyle(fontSize: 16.5.sp, fontWeight: FontWeight.w600, color: Colors.green));
                           }
                       ),
@@ -478,7 +478,7 @@ class BankDetailScreenView extends GetView<BankDetailScreenController> {
     RxList<double> lstDebitSubtraction = <double>[].obs;
     RxList<double> subtractionList = <double>[].obs;
     return SingleChildScrollView(
-      physics: BouncingScrollPhysics(),
+      physics: const BouncingScrollPhysics(),
       controller: controller.scrollController,
       child: Column(
         children: List.generate(listMessages.length, (index) {
@@ -486,7 +486,7 @@ class BankDetailScreenView extends GetView<BankDetailScreenController> {
           listMessages[index].values.first.forEach((val) {
             lstDebitSubtraction.add(double.parse(val['transaction_amount']));
             if(lstDebitSubtraction.length == listMessages[index].values.first.length) {
-              subtractionList.value[index] = lstDebitSubtraction.reduce((value, element) => value + element);
+              subtractionList[index] = lstDebitSubtraction.reduce((value, element) => value + element);
               lstDebitSubtraction.clear();
             }
           });
@@ -510,12 +510,12 @@ class BankDetailScreenView extends GetView<BankDetailScreenController> {
                       SizedBox(width: 18.sp),
                       Text(listMessages[index].keys.first.toString().toUpperCase(),
                           style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600, color: ConstantsColor.purpleColor)),
-                      Spacer(),
+                      const Spacer(),
 
                       GetBuilder(
                           init: BankDetailScreenController(),
                           builder: (controller) {
-                            return Text('- ₹ ${subtractionList.value[index]}',
+                            return Text('- ₹ ${subtractionList[index]}',
                                 style: TextStyle(fontSize: 16.5.sp, fontWeight: FontWeight.w600, color: Colors.red));
                           }
                       ),
@@ -566,7 +566,7 @@ class BankDetailScreenView extends GetView<BankDetailScreenController> {
 
   detailDialoge({required Map<String, dynamic> message}) {
     AdService adService = AdService();
-    adService.checkCounterAd();
+    adService.checkCounterAd(currentScreen: '/BankDetailScreenView');
     Get.dialog(
       AlertDialog(
         backgroundColor: Colors.transparent,
@@ -585,10 +585,10 @@ class BankDetailScreenView extends GetView<BankDetailScreenController> {
                   children: [
                     IconButton(
                       onPressed: () {
-                        adService.checkBackCounterAd();
+                        adService.checkBackCounterAd(currentScreen: '/BankDetailScreenView');
                         Get.back();
                       },
-                      icon: Icon(CupertinoIcons.clear_circled_solid, color: Colors.white)
+                      icon: const Icon(CupertinoIcons.clear_circled_solid, color: Colors.white)
                     )
                   ],
                 ),
@@ -674,7 +674,7 @@ class BankDetailScreenView extends GetView<BankDetailScreenController> {
                   splashColor: Colors.white,
                   onTap: () {
                     AdService adService = AdService();
-                    adService.checkCounterAd();
+                    adService.checkCounterAd(currentScreen: '/BankDetailScreenView');
                     DateTime filtered = DateTime(
                         currentDate.year,
                         controller.selectedFilter.value == 'Last Month' ? currentDate.month - 1
@@ -696,7 +696,7 @@ class BankDetailScreenView extends GetView<BankDetailScreenController> {
                     days.forEach((date) {
                       listMessages.forEach((msg) {
                         String dateResult = DateFormat('MMM yyyy').format(date);
-                        print('dateResult@@ -> ${dateResult}');
+                        print('dateResult@@ -> $dateResult');
                         print('msg@@ -> ${msg[dateResult]}');
                       });
                     });

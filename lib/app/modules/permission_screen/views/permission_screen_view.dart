@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_sms_inbox/flutter_sms_inbox.dart';
 import 'package:get/get.dart';
+import 'package:hive/hive.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:transaction_viewer_app/app/data/constants.dart';
 import 'package:transaction_viewer_app/app/data/constants/color_constants.dart';
 import 'package:transaction_viewer_app/app/data/constants/image_constants.dart';
+import 'package:transaction_viewer_app/app/data/services.dart';
 import 'package:transaction_viewer_app/app/modules/onboarding_screen/views/onboarding_screen_view.dart';
 import '../controllers/permission_screen_controller.dart';
 
@@ -33,7 +37,7 @@ class PermissionScreenView extends GetView<PermissionScreenController> {
             const Spacer(),
             InkWell(
               onTap: () async {
-                await Permission.sms.request().then((permission) {
+                await Permission.sms.request().then((permission) async {
                   print('val per -> ${permission.isGranted}');
                   if(permission.isGranted) {
                     Get.to(const OnboardingScreenView());

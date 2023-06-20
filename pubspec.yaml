@@ -69,6 +69,13 @@ dependencies:
   firebase_core: ^2.4.1
   firebase_remote_config: ^3.0.9
 
+#  open map
+  map_launcher: ^2.5.0+1
+  geolocator: ^9.0.2
+
+#  local database
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
 
   get: 4.6.5
 

@@ -24,14 +24,14 @@ class CurrencyConverterScreenView extends GetView<CurrencyConverterScreenControl
 
     return WillPopScope(
       onWillPop: () async {
-        adService.checkBackCounterAd();
+        adService.checkBackCounterAd(currentScreen: '/CurrencyConverterScreenView');
         return Future.value(true);
       },
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: ConstantsColor.backgroundDarkColor,
         appBar: ConstantsWidgets.appBar(title: 'Currency Converter', isShareButtonEnable: false, onTapBack: () {
-          adService.checkBackCounterAd();
+          adService.checkBackCounterAd(currentScreen: '/CurrencyConverterScreenView');
           Get.back();
         }),
         body: Container(
@@ -43,7 +43,7 @@ class CurrencyConverterScreenView extends GetView<CurrencyConverterScreenControl
                   title: 'From',
                   fieldName: controller.txtCurrency1,
                   onTap: () {
-                    adService.checkCounterAd();
+                    adService.checkCounterAd(currentScreen: '/CurrencyConverterScreenView');
                     Get.to(SelectCurrencyScreen(), arguments: 'From');
                   }
               ),
@@ -53,21 +53,21 @@ class CurrencyConverterScreenView extends GetView<CurrencyConverterScreenControl
                   title: 'To',
                   fieldName: controller.txtCurrency2,
                   onTap: () {
-                    adService.checkCounterAd();
+                    adService.checkCounterAd(currentScreen: '/CurrencyConverterScreenView');
                     Get.to(SelectCurrencyScreen(), arguments: 'To');
                   }
               ),
               SizedBox(height: 17.sp),
               Obx(() => fields(
                 width: width,
-                title: controller.txtCurrency1.value.isNotEmpty ? controller.txtCurrency1.value['symbol'] : 'Amount',
+                title: controller.txtCurrency1.isNotEmpty ? controller.txtCurrency1['symbol'] : 'Amount',
                 fieldName: 'Enter Amount',
                 txtController: controller.enteredAmount,
               )),
               SizedBox(height: 17.sp),
               resultAmountBox(
                 width: width,
-                title: controller.txtCurrency2.value.isNotEmpty ? controller.txtCurrency2.value['symbol'] : 'Result Amount',
+                title: controller.txtCurrency2.isNotEmpty ? controller.txtCurrency2['symbol'] : 'Result Amount',
                 data: controller.convertedAmount
               ),
               SizedBox(height: 25.sp),
@@ -75,15 +75,15 @@ class CurrencyConverterScreenView extends GetView<CurrencyConverterScreenControl
                 highlightColor: Colors.transparent,
                 splashColor: Colors.transparent,
                 onTap: () {
-                  adService.checkCounterAd();
-                  if(controller.txtCurrency1.value.isNotEmpty && controller.txtCurrency2.value.isNotEmpty && controller.enteredAmount.value.text.length > 0) {
-                    print('controller.txtCurrency1.value -> ${controller.txtCurrency1.value}');
-                    print('controller.txtCurrency2.value -> ${controller.txtCurrency2.value}');
+                  adService.checkCounterAd(currentScreen: '/CurrencyConverterScreenView');
+                  if(controller.txtCurrency1.isNotEmpty && controller.txtCurrency2.isNotEmpty && controller.enteredAmount.value.text.length > 0) {
+                    print('controller.txtCurrency1.value -> ${controller.txtCurrency1}');
+                    print('controller.txtCurrency2.value -> ${controller.txtCurrency2}');
                     print('controller.amount.value.text -> ${controller.enteredAmount.value.text}');
 
                     controller.convertCurrency(
-                        currency1: controller.txtCurrency1.value['symbol'],
-                        currency2: controller.txtCurrency2.value['symbol'],
+                        currency1: controller.txtCurrency1['symbol'],
+                        currency2: controller.txtCurrency2['symbol'],
                         amount: controller.enteredAmount.value.text
                     );
                   } else {

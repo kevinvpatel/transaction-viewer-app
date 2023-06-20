@@ -20,14 +20,14 @@ class FDLoanCalculatorScreenView extends GetView<HomeLoanCalculatorScreenControl
 
     return WillPopScope(
       onWillPop: () async {
-        adService.checkBackCounterAd();
+        adService.checkBackCounterAd(currentScreen: '/FDLoanCalculatorScreenView');
         return Future.value(true);
       },
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: ConstantsColor.backgroundDarkColor,
         appBar: ConstantsWidgets.appBar(title: 'FD Calculator', isShareButtonEnable: false, onTapBack: () {
-          adService.checkBackCounterAd();
+          adService.checkBackCounterAd(currentScreen: '/FDLoanCalculatorScreenView');
           Get.back();
         }),
         body: Container(
@@ -59,7 +59,7 @@ class FDLoanCalculatorScreenView extends GetView<HomeLoanCalculatorScreenControl
               SizedBox(height: 20.sp),
               controller.bottomButtons(
                   onTapBtn2: () {
-                    adService.checkCounterAd();
+                    adService.checkCounterAd(currentScreen: '/FDLoanCalculatorScreenView');
                     double depositAmount = double.parse(controller.txtDepositAmount.value.text);
                     int loanMonth = int.parse(controller.txtPeriodInMonth.value.text);
                     double interestRate = double.parse(controller.txtInterestRate.value.text) / 100;

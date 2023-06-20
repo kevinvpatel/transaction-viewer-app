@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:transaction_viewer_app/app/data/adServices.dart';
@@ -7,7 +6,6 @@ import 'package:transaction_viewer_app/app/data/constants/color_constants.dart';
 import 'package:transaction_viewer_app/app/data/constants/image_constants.dart';
 import 'package:transaction_viewer_app/app/data/constants/widget_constants.dart';
 import 'package:transaction_viewer_app/app/modules/home_views/banking/holiday_screen/views/holiday_list_screen_view.dart';
-
 import '../controllers/holiday_screen_controller.dart';
 
 class HolidayScreenView extends GetView<HolidayScreenController> {
@@ -22,13 +20,13 @@ class HolidayScreenView extends GetView<HolidayScreenController> {
 
     return WillPopScope(
       onWillPop: () async {
-        adService.checkBackCounterAd();
+        adService.checkBackCounterAd(currentScreen: '/HolidayScreenView');
         return Future.value(true);
       },
       child: Scaffold(
         backgroundColor: ConstantsColor.backgroundDarkColor,
         appBar: ConstantsWidgets.appBar(title: 'Holidays', onTapBack: () {
-          adService.checkBackCounterAd();
+          adService.checkBackCounterAd(currentScreen: '/HolidayScreenView');
           Get.back();
         }),
         body: Container(
@@ -39,7 +37,9 @@ class HolidayScreenView extends GetView<HolidayScreenController> {
               Container(
                 width: width,
                 height: height * 0.15,
-                child: AdService.nativeAd(width: width, height: 52.sp, smallAd: true, radius: 15.sp),
+                child: AdService.nativeAd(
+                    width: width, height: 52.sp, smallAd: true, radius: 15.sp, currentScreen: '/HolidayScreenView'
+                ),
               ),
               SizedBox(height: 18.sp),
               Text('Holidays Option', style: TextStyle(fontSize: 17.5.sp, fontWeight: FontWeight.w600, color: Colors.white),),
@@ -50,7 +50,7 @@ class HolidayScreenView extends GetView<HolidayScreenController> {
                 title: 'Bank Holidays',
                 subtitle: 'Check 2023 bank holidays in india.',
                 onTap: () {
-                  adService.checkCounterAd();
+                  adService.checkCounterAd(currentScreen: '/HolidayScreenView');
                   Get.to(HolidayListScreenView(), arguments: 'Bank Holidays');
                 }
               ),
@@ -61,7 +61,7 @@ class HolidayScreenView extends GetView<HolidayScreenController> {
                 title: 'Stock Exchange Holidays',
                 subtitle: 'Stock Market holiday calendar.',
                 onTap: () {
-                  adService.checkCounterAd();
+                  adService.checkCounterAd(currentScreen: '/HolidayScreenView');
                   Get.to(HolidayListScreenView(), arguments: 'Stock Exchange Holidays');
                 }
               ),
@@ -72,7 +72,7 @@ class HolidayScreenView extends GetView<HolidayScreenController> {
                 title: 'International Holidays',
                 subtitle: 'Best deals on International holidays.',
                 onTap: () {
-                  adService.checkCounterAd();
+                  adService.checkCounterAd(currentScreen: '/HolidayScreenView');
                   Get.to(HolidayListScreenView(), arguments: 'International Holidays');
                 }
               ),
@@ -83,7 +83,7 @@ class HolidayScreenView extends GetView<HolidayScreenController> {
                 title: 'Public Holiday',
                 subtitle: 'List of Public and Government Holidays.',
                 onTap: () {
-                  adService.checkCounterAd();
+                  adService.checkCounterAd(currentScreen: '/HolidayScreenView');
                   Get.to(HolidayListScreenView(), arguments: 'Public Holiday');
                 }
               ),

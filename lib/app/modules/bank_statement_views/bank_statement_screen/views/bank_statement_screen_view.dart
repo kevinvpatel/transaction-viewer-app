@@ -1,8 +1,5 @@
-import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_sms_inbox/flutter_sms_inbox.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:transaction_viewer_app/app/data/adServices.dart';
@@ -20,6 +17,7 @@ class BankStatementScreenView extends GetView<BankStatementScreenController> {
     double height = 100.h;
     double width = 100.w;
 
+    controller.saveSms();
 
     return Scaffold(
       backgroundColor: ConstantsColor.backgroundDarkColor,
@@ -68,7 +66,7 @@ class BankStatementScreenView extends GetView<BankStatementScreenController> {
                   onTap: () {
                     AdService adService = AdService();
                     Get.to(const BankDetailScreenView(), arguments: mapMessageList[index]);
-                    adService.checkCounterAd();
+                    adService.checkCounterAd(currentScreen: '/BankStatementScreenView');
                   },
                   child: Container(
                     margin: EdgeInsets.symmetric(horizontal: 15.sp),

@@ -25,7 +25,7 @@ class CreditCardApplyScreenView extends GetView<CreditCardScreenController> {
 
     return WillPopScope(
       onWillPop: () async {
-        adService.checkBackCounterAd();
+        adService.checkBackCounterAd(currentScreen: '/CreditCardApplyScreenView');
         return Future.value(true);
       },
       child: Scaffold(

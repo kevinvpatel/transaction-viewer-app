@@ -23,18 +23,18 @@ class SelectBankScreenView extends GetView<IfscScreenController> {
     double height = 100.h;
     double width = 100.w;
 
-    controller.searchedList.value.clear();
+    controller.searchedList.clear();
     AdService adService = AdService();
 
     return WillPopScope(
       onWillPop: () async {
-        adService.checkBackCounterAd();
+        adService.checkBackCounterAd(currentScreen: '/SelectBankScreenView');
         return Future.value(true);
       },
       child: Scaffold(
         backgroundColor: ConstantsColor.backgroundDarkColor,
         appBar: ConstantsWidgets.appBar(title: Get.arguments, onTapBack: () {
-          adService.checkBackCounterAd();
+          adService.checkBackCounterAd(currentScreen: '/SelectBankScreenView');
           Get.back();
         }),
         body: Container(
@@ -70,7 +70,7 @@ class SelectBankScreenView extends GetView<IfscScreenController> {
       physics: BouncingScrollPhysics(),
       padding: EdgeInsets.all(10.sp),
       separatorBuilder: (context, index) => SizedBox(height: 15.sp),
-      itemCount: controller.isSearchOn.value == true ? controller.searchedList.value.length : Get.arguments == 'Select Bank' ? ifsc_list.length
+      itemCount: controller.isSearchOn.value == true ? controller.searchedList.length : Get.arguments == 'Select Bank' ? ifsc_list.length
           : Get.arguments == 'Select State' ? controller.stateList.length
           : Get.arguments == 'Select District' ? controller.cityList.length
           : controller.areaList.length,
@@ -87,7 +87,7 @@ class SelectBankScreenView extends GetView<IfscScreenController> {
 
         return InkWell(
           onTap: () async {
-            adService.checkCounterAd();
+            adService.checkCounterAd(currentScreen: '/SelectBankScreenView');
 
             if(controller.bankName.value == 'Select Bank') {
               log('controller.bankName.value 11 -> ${ifsc_list[index].split('.').first}');

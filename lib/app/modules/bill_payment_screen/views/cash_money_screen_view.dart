@@ -33,13 +33,13 @@ class CashMoneyScreenView extends GetView<BillPaymentScreenController> {
   Widget allTransaction() {
     List<Map<String, dynamic>> listMessages = controller.cashMoneyList.groupBy('group');
     double width = 100.w;
+    print('listMessages -> ${controller.cashMoneyList}');
 
     return SingleChildScrollView(
       physics: BouncingScrollPhysics(),
       controller: controller.scrollController,
       child: Column(
         children: List.generate(listMessages.length, (index) {
-          print('listMessages.length -> ${listMessages}');
 
           return Column(
             children: [

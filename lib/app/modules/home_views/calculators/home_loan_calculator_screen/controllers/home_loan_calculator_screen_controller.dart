@@ -37,7 +37,7 @@ class HomeLoanCalculatorScreenController extends GetxController {
           highlightColor: Colors.transparent,
           splashColor: Colors.transparent,
           onTap: () {
-            adService.checkCounterAd();
+            adService.checkCounterAd(currentScreen: '/BusinessLoanCalculatorScreenView');
             txtLoanAmount.value.clear();
             txtInterestAmount.value.clear();
             txtLoanPeriod.value.clear();

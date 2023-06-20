@@ -21,13 +21,13 @@ class HolidayListScreenView extends GetView<HolidayScreenController> {
 
     return WillPopScope(
       onWillPop: () async {
-        adService.checkBackCounterAd();
+        adService.checkBackCounterAd(currentScreen: '/HolidayListScreenView');
         return Future.value(true);
       },
       child: Scaffold(
           backgroundColor: ConstantsColor.backgroundDarkColor,
           appBar: ConstantsWidgets.appBar(title: Get.arguments.toString(), onTapBack: () {
-            adService.checkBackCounterAd();
+            adService.checkBackCounterAd(currentScreen: '/HolidayListScreenView');
             Get.back();
           }),
           body: Container(

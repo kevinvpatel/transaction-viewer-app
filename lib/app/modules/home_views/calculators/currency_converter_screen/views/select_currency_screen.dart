@@ -23,13 +23,13 @@ class SelectCurrencyScreen extends GetView<CurrencyConverterScreenController> {
 
     return WillPopScope(
       onWillPop: () async {
-        adService.checkBackCounterAd();
+        adService.checkBackCounterAd(currentScreen: '/SelectCurrencyScreen');
         return Future.value(true);
       },
       child: Scaffold(
         backgroundColor: ConstantsColor.backgroundDarkColor,
         appBar: ConstantsWidgets.appBar(title: 'Change City', onTapBack: () {
-          adService.checkBackCounterAd();
+          adService.checkBackCounterAd(currentScreen: '/SelectCurrencyScreen');
           Get.back();
         }, isShareButtonEnable: false),
         body: Container(
@@ -62,7 +62,7 @@ class SelectCurrencyScreen extends GetView<CurrencyConverterScreenController> {
                                 itemBuilder: (context, index) {
                                   return InkWell(
                                     onTap: () {
-                                      adService.checkCounterAd();
+                                      adService.checkCounterAd(currentScreen: '/SelectCurrencyScreen');
                                       if(Get.arguments == 'From') {
                                         controller.txtCurrency1.value = listCurrency[index];
                                       } else {
