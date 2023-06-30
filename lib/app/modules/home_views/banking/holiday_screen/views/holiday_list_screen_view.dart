@@ -21,14 +21,14 @@ class HolidayListScreenView extends GetView<HolidayScreenController> {
 
     return WillPopScope(
       onWillPop: () async {
-        adService.checkBackCounterAd(currentScreen: '/HolidayListScreenView');
-        return Future.value(true);
+        adService.checkBackCounterAd(currentScreen: '/HolidayListScreenView', context: context);
+        return Future.value(false);
       },
       child: Scaffold(
           backgroundColor: ConstantsColor.backgroundDarkColor,
           appBar: ConstantsWidgets.appBar(title: Get.arguments.toString(), onTapBack: () {
-            adService.checkBackCounterAd(currentScreen: '/HolidayListScreenView');
-            Get.back();
+            adService.checkBackCounterAd(currentScreen: '/HolidayListScreenView', context: context);
+            // Get.back();
           }),
           body: Container(
             child: ListView.separated(
@@ -50,7 +50,7 @@ class HolidayListScreenView extends GetView<HolidayScreenController> {
   Widget item({required double width, required String title, required String subtitle}) {
     double itemHeight = 24.sp;
     return Container(
-      height: itemHeight.sp,
+      // height: itemHeight.sp,
       width: width,
       decoration: BoxDecoration(
           gradient: ConstantsColor.buttonGradient,
@@ -62,11 +62,11 @@ class HolidayListScreenView extends GetView<HolidayScreenController> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Spacer(),
+          SizedBox(height: 15.sp),
           Container(
               width: width * 0.68,
               child: Text(title,
-                style: TextStyle(fontSize: 16.5.sp, fontWeight: FontWeight.w400, color: Colors.white),
+                style: TextStyle(fontSize: 17.5.sp, fontWeight: FontWeight.w400, color: Colors.white),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               )),
@@ -74,11 +74,11 @@ class HolidayListScreenView extends GetView<HolidayScreenController> {
           Container(
               width: width * 0.68,
               child: Text(subtitle,
-                style: TextStyle(fontSize: 14.5.sp, fontWeight: FontWeight.w300, color: Colors.white60),
+                style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.w300, color: Colors.white60),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               )),
-          Spacer(),
+          SizedBox(height: 15.sp),
         ],
       ),
     );

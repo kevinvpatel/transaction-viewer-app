@@ -10,6 +10,7 @@ import 'package:transaction_viewer_app/app/data/adServices.dart';
 import 'package:transaction_viewer_app/app/data/constants/color_constants.dart';
 import 'package:transaction_viewer_app/app/data/constants/image_constants.dart';
 import 'package:transaction_viewer_app/app/data/constants/widget_constants.dart';
+import 'package:transaction_viewer_app/app/modules/bank_statement_views/bank_statement_screen/controllers/bank_statement_screen_controller.dart';
 import '../controllers/bank_detail_screen_controller.dart';
 
 extension UtilListExtension on List{
@@ -34,28 +35,29 @@ extension UtilListExtension on List{
 }
 
 
-class BankDetailScreenView extends GetView<BankDetailScreenController> {
+class BankDetailScreenView extends GetView<BankStatementScreenController> {
   const BankDetailScreenView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    BankDetailScreenController controller = Get.put(BankDetailScreenController());
+    BankDetailScreenController bankDetailScreenController = Get.put(BankDetailScreenController());
+    BankStatementScreenController controller = Get.put(BankStatementScreenController());
     double height = 100.h;
     double width = 100.w;
 
     AdService adService = AdService();
 
-    controller.loadRegExJson(transactionType: 'ALL');
+    // controller.loadRegExJson();
 
     return WillPopScope(
       onWillPop: () async {
-        adService.checkBackCounterAd(currentScreen: '/BankDetailScreenView');
-        return Future.value(true);
+        adService.checkBackCounterAd(currentScreen: '/BankDetailScreenView', context: context);
+        return Future.value(false);
       },
       child: Scaffold(
         backgroundColor: ConstantsColor.backgroundDarkColor,
         appBar: ConstantsWidgets.appBar(title: Get.arguments['bank_address'], onTapBack: () {
-          adService.checkBackCounterAd(currentScreen: '/BankDetailScreenView');
-          Get.back();
+          adService.checkBackCounterAd(currentScreen: '/BankDetailScreenView', context: context);
+          // Get.back();
         }),
         body: Container(
           height: height,
@@ -63,25 +65,21 @@ class BankDetailScreenView extends GetView<BankDetailScreenController> {
           padding: EdgeInsets.symmetric(horizontal: 15.sp),
           child: Column(
             children: [
-              Material(
-                borderRadius: BorderRadius.circular(15.sp),
-                elevation: 1,
-                shadowColor: Colors.white70,
-                child: Container(
-                  height: 48.sp,
-                  width: width,
-                  decoration: BoxDecoration(
-                    gradient: ConstantsColor.buttonGradient,
-                    borderRadius: BorderRadius.circular(15.sp)
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Text('A/c No : XXXXXX${Get.arguments['account_number']}', style: TextStyle(color: Colors.white, fontSize: 18.sp, fontWeight: FontWeight.w400),),
-                      Text('Total Balance', style: TextStyle(color: Colors.white, fontSize: 15.sp, fontWeight: FontWeight.w400),),
-                      Text(Get.arguments['total_balance'], style: TextStyle(color: Colors.white, fontSize: 20.sp, fontWeight: FontWeight.w500),),
-                    ],
-                  ),
+              Container(
+                height: 48.sp,
+                width: width,
+                decoration: BoxDecoration(
+                  gradient: ConstantsColor.buttonGradient,
+                  borderRadius: BorderRadius.circular(15.sp),
+                  boxShadow: ConstantsWidgets.boxShadow
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Text('A/c No : XXXXXX${Get.arguments['account_number']}', style: TextStyle(color: Colors.white, fontSize: 18.sp, fontWeight: FontWeight.w400),),
+                    Text('Total Balance', style: TextStyle(color: Colors.white, fontSize: 15.sp, fontWeight: FontWeight.w400),),
+                    Text(Get.arguments['total_balance'], style: TextStyle(color: Colors.white, fontSize: 20.sp, fontWeight: FontWeight.w500),),
+                  ],
                 ),
               ),
               SizedBox(height: 15.sp),
@@ -113,14 +111,15 @@ class BankDetailScreenView extends GetView<BankDetailScreenController> {
                     containerWight: width * 0.815,
                     containerGradient: ConstantsColor.buttonGradient,
                     onSelect: (int index) {
-                      adService.checkCounterAd(currentScreen: '/BankDetailScreenView');
+                      adService.checkCounterAd(currentScreen: '/BankDetailScreenView', context: context);
                       controller.scrollController.animateTo(
                           controller.scrollController.position.minScrollExtent,
                           duration: const Duration(milliseconds: 200),
                           curve: Curves.easeInOut
                       );
-                      controller.loadRegExJson(transactionType: index != 0 ? index == 1 ? 'CREDITED' : 'DEBITED' : 'ALL');
+                      // controller.loadRegExJson();
                       controller.tabIndex.value = index;
+                      controller.update();
                     },
                     children: [
                       Text('ALL', style: TextStyle(fontSize: 15.2.sp, color: Colors.white, fontWeight: FontWeight.w500)),
@@ -133,8 +132,8 @@ class BankDetailScreenView extends GetView<BankDetailScreenController> {
                     splashColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     onTap: () {
-                      adService.checkCounterAd(currentScreen: '/BankDetailScreenView');
-                      filterDialoge();
+                      adService.checkCounterAd(currentScreen: '/BankDetailScreenView', context: context);
+                      filterDialoge(bankDetailScreenController: bankDetailScreenController, context: context);
                     },
                     child: Image.asset(ConstantsImage.select_month_icon, height: 23.sp, width: 23.sp)
                   )
@@ -143,71 +142,11 @@ class BankDetailScreenView extends GetView<BankDetailScreenController> {
               SizedBox(height: 15.sp),
               Expanded(
                 child: GetBuilder(
-                  init: BankDetailScreenController(),
+                  init: BankStatementScreenController(),
                   builder: (controller) {
                     return controller.tabIndex.value == 0 ? allTransaction()
                             : controller.tabIndex.value == 1 ? creditTransaction()
                             : debitTransaction();
-
-                    return GroupedListView(
-                      elements: controller.allMessageDetails,
-                      groupBy: (message) => message['group'],
-                      floatingHeader: false,
-                      physics: const BouncingScrollPhysics(),
-                      groupSeparatorBuilder: (group) {
-                        return Material(
-                          elevation: 2,
-                          shadowColor: Colors.white54,
-                          borderRadius: BorderRadius.circular(18.sp),
-                          child: Container(
-                            height: 34.sp,
-                            width: width,
-                            decoration: BoxDecoration(
-                              gradient: ConstantsColor.buttonGradient,
-                              borderRadius: BorderRadius.circular(18.sp)
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                SizedBox(width: 18.sp),
-                                Text(group.toString().toUpperCase(), style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600, color: ConstantsColor.purpleColor)),
-                                const Spacer(),
-                                Text(group, style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600, color: ConstantsColor.purpleColor)),
-                                SizedBox(width: 18.sp),
-                              ],
-                            ),
-                          ),
-                        );
-                      },
-                      separator: const Divider(color: Colors.white, height: 0, thickness: 0.2),
-                      itemBuilder: (context, message) {
-                        return InkWell(
-                          onTap: () {
-                            detailDialoge(message: message);
-                          },
-                          child: Container(
-                            height: 33.sp,
-                            padding: EdgeInsets.symmetric(horizontal: 15.sp),
-                            child: Row(
-                              children: [
-                                Text(DateFormat('dd MMM').format(message['date']), style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600, color: Colors.grey.shade500)),
-                                SizedBox(width: 15.sp),
-                                SizedBox(
-                                    width: width * 0.5,
-                                    child: Text(message['transaction_account'] ?? 'UNKNOWN',
-                                        style: TextStyle(fontSize: 15.5.sp, fontWeight: FontWeight.w600, color: Colors.white), overflow: TextOverflow.ellipsis, maxLines: 1)
-                                ),
-                                const Spacer(),
-                                Text('${message['transaction_type'] == 'credit' ? '+' : '-'}  ₹ ${message['transaction_amount']}', style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.w700, color: message['transaction_type'] == 'credit' ? Colors.green : Colors.red)),
-                              ],
-                            ),
-                          ),
-                        );
-                      },
-                      itemComparator: (item1, item2) => item1['date'].compareTo(item2['date']),
-                      // elementIdentifier: (element) => element.name,
-                      order: GroupedListOrder.DESC,
-                    );
                   }
                 ),
               )
@@ -223,7 +162,7 @@ class BankDetailScreenView extends GetView<BankDetailScreenController> {
     List<Map<String, dynamic>> listMessages = controller.allMessageDetails.groupBy('group');
     List<Map<String, dynamic>> listCredits = controller.creditMessageDetails.groupBy('group');
     List<Map<String, dynamic>> listDebits = controller.debitMessageDetails.groupBy('group');
-    print('listMSG -> $listMessages');
+
     double width = 100.w;
     RxList<double> lstCreditSum = <double>[].obs;
     RxList<double> sumList = <double>[].obs;
@@ -263,12 +202,14 @@ class BankDetailScreenView extends GetView<BankDetailScreenController> {
           }
 
 
+          print('listDebits -> $listDebits');
           if(listDebits != []) {
             listMessages[index].values.first.forEach((valDebit) {
               if(valDebit['transaction_type'] == 'debit' && valDebit['transaction_amount'] != null) {
                 lstDebitSubtraction.add(double.parse(valDebit['transaction_amount'].replaceAll(',','')));
               }
               listDebits.forEach((debit) {
+                print('debit.values.first -> ${debit.values.first.length}');
                 if(lstDebitSubtraction.length == debit.values.first.length) {
                   subtractionList[index] = lstDebitSubtraction.reduce((value, element) => value + element);
                   lstDebitSubtraction.clear();
@@ -277,13 +218,12 @@ class BankDetailScreenView extends GetView<BankDetailScreenController> {
             });
           }
 
-
           return Column(
             children: [
               Container(
                 height: 34.sp,
                 width: width,
-                margin: EdgeInsets.only(right: 1.5.sp),
+                margin: EdgeInsets.only(right: 3.5.sp),
                 decoration: BoxDecoration(
                     boxShadow: ConstantsWidgets.boxShadow,
                     gradient: ConstantsColor.buttonGradient,
@@ -296,19 +236,14 @@ class BankDetailScreenView extends GetView<BankDetailScreenController> {
                     Text(listMessages[index].keys.first.toString().toUpperCase(),
                         style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600, color: ConstantsColor.purpleColor)),
                     const Spacer(),
-                    GetBuilder(
-                        init: BankDetailScreenController(),
-                        builder: (controller) {
-                          return Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text('+ ₹ ${sumList[index]}',
-                                  style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600, color: Colors.green)),
-                              Text('- ₹ ${subtractionList[index]}',
-                                  style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600, color: Colors.red)),
-                            ],
-                          );
-                        }
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text('+ ₹ ${sumList.isEmpty ? '00' : sumList[index]}',
+                            style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600, color: Colors.green)),
+                        Text('- ₹ ${subtractionList.isEmpty ? '00' : subtractionList[index]}',
+                            style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600, color: Colors.red)),
+                      ],
                     ),
                     SizedBox(width: 18.sp),
                   ],
@@ -322,7 +257,9 @@ class BankDetailScreenView extends GetView<BankDetailScreenController> {
                   List listGroupedMessages = listMessages[index].values.first.toList();
                   return InkWell(
                     onTap: () {
-                      detailDialoge(message: listGroupedMessages[groupedIndex]);
+                      AdService adService = AdService();
+                      adService.checkCounterAd(currentScreen: '/BankDetailScreenView', context: context);
+                      detailDialoge(message: listGroupedMessages[groupedIndex], context: context);
                     },
                     child: Container(
                       height: 33.sp,
@@ -383,6 +320,22 @@ class BankDetailScreenView extends GetView<BankDetailScreenController> {
 
   Widget creditTransaction() {
     List<Map<String, dynamic>> listMessages = controller.creditMessageDetails.groupBy('group');
+    // List<Map<String, dynamic>> listMessages = controller.allMessageDetails.groupBy('group');
+    //
+    //
+    // List<Map<String, dynamic>> listCredits = controller.allMessageDetails.groupBy('transaction_type');
+    // print('listCredits -> ${listCredits}');
+    // listCredits.removeWhere((element) => element.keys.first != 'credit');
+    // print('listCredits22 -> ${listCredits}');
+    //
+    // listMessages.addAll(listCredits);
+    // listMessages = listMessages.toSet().toList();
+    // listMessages.forEach((element) {
+    //   print('listMessages -> ${element}');
+    //
+    // });
+
+
     double width = 100.w;
     RxList<double> lstCreditSum = <double>[].obs;
     RxList<double> sumList = <double>[].obs;
@@ -393,7 +346,8 @@ class BankDetailScreenView extends GetView<BankDetailScreenController> {
         children: List.generate(listMessages.length, (index) {
           List.generate(listMessages.length, (index) => sumList.add(0));
           listMessages[index].values.first.forEach((val) {
-            lstCreditSum.add(double.parse(val['transaction_amount']));
+            String transaction_amt = val['transaction_amount'].toString().replaceAll(',', '');
+            lstCreditSum.add(double.parse(transaction_amt));
             if(lstCreditSum.length == listMessages[index].values.first.length) {
               sumList[index] = lstCreditSum.reduce((value, element) => value + element);
               lstCreditSum.clear();
@@ -420,13 +374,15 @@ class BankDetailScreenView extends GetView<BankDetailScreenController> {
                       Text(listMessages[index].keys.first.toString().toUpperCase(),
                           style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600, color: ConstantsColor.purpleColor)),
                       const Spacer(),
-                      GetBuilder(
-                          init: BankDetailScreenController(),
-                          builder: (controller) {
-                            return Text('+ ₹ ${sumList[index]}',
-                                style: TextStyle(fontSize: 16.5.sp, fontWeight: FontWeight.w600, color: Colors.green));
-                          }
-                      ),
+                      Text('+ ₹ ${sumList[index]}',
+                          style: TextStyle(fontSize: 16.5.sp, fontWeight: FontWeight.w600, color: Colors.green)),
+                      // GetBuilder(
+                      //     init: BankDetailScreenController(),
+                      //     builder: (controller) {
+                      //       return Text('+ ₹ ${sumList[index]}',
+                      //           style: TextStyle(fontSize: 16.5.sp, fontWeight: FontWeight.w600, color: Colors.green));
+                      //     }
+                      // ),
                       SizedBox(width: 18.sp),
                     ],
                   ),
@@ -438,10 +394,12 @@ class BankDetailScreenView extends GetView<BankDetailScreenController> {
                 itemCount: listMessages[index].values.first.length,
                 itemBuilder: (context, groupedIndex) {
                   List listGroupedMessages = listMessages[index].values.first.toList();
-                  lstCreditSum.add(double.parse(listGroupedMessages[groupedIndex]['transaction_amount']));
+                  String transaction_amt = listGroupedMessages[groupedIndex]['transaction_amount'].toString().replaceAll(',', '');
+                  print('transaction_amt -> ${transaction_amt}');
+                  lstCreditSum.add(double.parse(transaction_amt));
                   return InkWell(
                     onTap: () {
-                      detailDialoge(message: listGroupedMessages[groupedIndex]);
+                      detailDialoge(message: listGroupedMessages[groupedIndex], context: context);
                     },
                     child: Container(
                       height: 33.sp,
@@ -484,7 +442,9 @@ class BankDetailScreenView extends GetView<BankDetailScreenController> {
         children: List.generate(listMessages.length, (index) {
           List.generate(listMessages.length, (index) => subtractionList.add(0));
           listMessages[index].values.first.forEach((val) {
-            lstDebitSubtraction.add(double.parse(val['transaction_amount']));
+            String transaction_amt = val['transaction_amount'].toString().replaceAll(',', '');
+            print('transaction_amt@# -> ${transaction_amt}');
+            lstDebitSubtraction.add(double.tryParse(transaction_amt) == null ? 0.0 : double.parse(transaction_amt));
             if(lstDebitSubtraction.length == listMessages[index].values.first.length) {
               subtractionList[index] = lstDebitSubtraction.reduce((value, element) => value + element);
               lstDebitSubtraction.clear();
@@ -511,14 +471,15 @@ class BankDetailScreenView extends GetView<BankDetailScreenController> {
                       Text(listMessages[index].keys.first.toString().toUpperCase(),
                           style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600, color: ConstantsColor.purpleColor)),
                       const Spacer(),
-
-                      GetBuilder(
-                          init: BankDetailScreenController(),
-                          builder: (controller) {
-                            return Text('- ₹ ${subtractionList[index]}',
-                                style: TextStyle(fontSize: 16.5.sp, fontWeight: FontWeight.w600, color: Colors.red));
-                          }
-                      ),
+                      Text('- ₹ ${subtractionList[index]}',
+                          style: TextStyle(fontSize: 16.5.sp, fontWeight: FontWeight.w600, color: Colors.red)),
+                      // GetBuilder(
+                      //     init: BankDetailScreenController(),
+                      //     builder: (controller) {
+                      //       return Text('- ₹ ${subtractionList[index]}',
+                      //           style: TextStyle(fontSize: 16.5.sp, fontWeight: FontWeight.w600, color: Colors.red));
+                      //     }
+                      // ),
                       SizedBox(width: 18.sp),
                     ],
                   ),
@@ -532,7 +493,7 @@ class BankDetailScreenView extends GetView<BankDetailScreenController> {
                   List listGroupedMessages = listMessages[index].values.first.toList();
                   return InkWell(
                     onTap: () {
-                      detailDialoge(message: listGroupedMessages[groupedIndex]);
+                      detailDialoge(message: listGroupedMessages[groupedIndex], context: context);
                     },
                     child: Container(
                       height: 33.sp,
@@ -564,10 +525,11 @@ class BankDetailScreenView extends GetView<BankDetailScreenController> {
   }
 
 
-  detailDialoge({required Map<String, dynamic> message}) {
+  detailDialoge({required Map<dynamic, dynamic> message, required BuildContext context}) {
     AdService adService = AdService();
-    adService.checkCounterAd(currentScreen: '/BankDetailScreenView');
+    adService.checkCounterAd(currentScreen: '/BankDetailScreenView', context: context);
     Get.dialog(
+      barrierDismissible: false,
       AlertDialog(
         backgroundColor: Colors.transparent,
         actions: [
@@ -585,8 +547,8 @@ class BankDetailScreenView extends GetView<BankDetailScreenController> {
                   children: [
                     IconButton(
                       onPressed: () {
-                        adService.checkBackCounterAd(currentScreen: '/BankDetailScreenView');
-                        Get.back();
+                        adService.checkBackCounterAd(currentScreen: '/BankDetailScreenView', context: context);
+                        // Get.back();
                       },
                       icon: const Icon(CupertinoIcons.clear_circled_solid, color: Colors.white)
                     )
@@ -611,7 +573,7 @@ class BankDetailScreenView extends GetView<BankDetailScreenController> {
     );
   }
 
-  filterDialoge() {
+  filterDialoge({required BankDetailScreenController bankDetailScreenController, required BuildContext context}) {
     List<String> listFilter = ['Last Month', 'Last 2 Months', 'Last 3 Months', 'Last 6 Months'];
     DateTime currentDate = DateTime.now();
     Get.dialog(
@@ -674,17 +636,15 @@ class BankDetailScreenView extends GetView<BankDetailScreenController> {
                   splashColor: Colors.white,
                   onTap: () {
                     AdService adService = AdService();
-                    adService.checkCounterAd(currentScreen: '/BankDetailScreenView');
+                    adService.checkBackCounterAd(currentScreen: '/BankDetailScreenView', context: context);
                     DateTime filtered = DateTime(
                         currentDate.year,
-                        controller.selectedFilter.value == 'Last Month' ? currentDate.month - 1
-                            : controller.selectedFilter.value == 'Last 2 Months' ? currentDate.month - 2
-                            : controller.selectedFilter.value == 'Last 3 Months' ? currentDate.month - 3
+                        bankDetailScreenController.selectedFilter.value == 'Last Month' ? currentDate.month - 1
+                            : bankDetailScreenController.selectedFilter.value == 'Last 2 Months' ? currentDate.month - 2
+                            : bankDetailScreenController.selectedFilter.value == 'Last 3 Months' ? currentDate.month - 3
                             : currentDate.month - 6,
                         currentDate.day
                     );
-                    // print('currentDate.month -> ${currentDate}');
-                    // print('filtered.month -> ${filtered}');
 
                     List<Map<String, dynamic>> listMessages = controller.allMessageDetails.groupBy('group');
                     List<DateTime> days = [];
@@ -701,7 +661,7 @@ class BankDetailScreenView extends GetView<BankDetailScreenController> {
                       });
                     });
 
-                    Get.back();
+                    // Get.back();
                   },
                   child: Container(
                     height: 29.sp,

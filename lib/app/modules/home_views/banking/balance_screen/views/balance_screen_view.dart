@@ -25,14 +25,14 @@ class BalanceScreenView extends GetView<BalanceScreenController> {
 
     return WillPopScope(
       onWillPop: () async {
-        adService.checkBackCounterAd(currentScreen: '/BalanceDetailScreenView');
-        return Future.value(true);
+        adService.checkBackCounterAd(currentScreen: '/BalanceDetailScreenView', context: context);
+        return Future.value(false);
       },
       child: Scaffold(
         backgroundColor: ConstantsColor.backgroundDarkColor,
         appBar: ConstantsWidgets.appBar(title: 'Select Bank', onTapBack: () {
-          adService.checkBackCounterAd(currentScreen: '/BalanceDetailScreenView');
-          Get.back();
+          adService.checkBackCounterAd(currentScreen: '/BalanceDetailScreenView', context: context);
+          // Get.back();
         }),
         body: Container(
           margin: EdgeInsets.only(top: 15.sp),
@@ -56,10 +56,12 @@ class BalanceScreenView extends GetView<BalanceScreenController> {
                       itemBuilder: (context, index) {
                         return InkWell(
                           onTap: () {
-                            Get.to(const BalanceDetailScreenView(),
-                                arguments: isSearchOn.value == true ? searchedData[index] : controller.bankData[index]
+                            adService.checkCounterAd(
+                              currentScreen: '/BalanceDetailScreenView',
+                              context: context,
+                              pageToNavigate: const BalanceDetailScreenView(),
+                              argument: isSearchOn.value == true ? searchedData[index] : controller.bankData[index]
                             );
-                            adService.checkCounterAd(currentScreen: '/BalanceDetailScreenView');
                           },
                           child: bankItems(
                               width: width,

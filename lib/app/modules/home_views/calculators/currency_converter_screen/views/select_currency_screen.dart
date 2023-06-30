@@ -1,13 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:transaction_viewer_app/app/data/adServices.dart';
 import 'package:transaction_viewer_app/app/data/constants/color_constants.dart';
 import 'package:transaction_viewer_app/app/data/constants/widget_constants.dart';
 import 'package:transaction_viewer_app/app/modules/home_views/calculators/currency_converter_screen/controllers/currency_converter_screen_controller.dart';
-import 'package:transaction_viewer_app/app/modules/home_views/home_screen/controllers/home_screen_controller.dart';
+
 
 class SelectCurrencyScreen extends GetView<CurrencyConverterScreenController> {
   const SelectCurrencyScreen({Key? key}) : super(key: key);
@@ -23,14 +22,14 @@ class SelectCurrencyScreen extends GetView<CurrencyConverterScreenController> {
 
     return WillPopScope(
       onWillPop: () async {
-        adService.checkBackCounterAd(currentScreen: '/SelectCurrencyScreen');
-        return Future.value(true);
+        adService.checkBackCounterAd(currentScreen: '/SelectCurrencyScreen', context: context);
+        return Future.value(false);
       },
       child: Scaffold(
         backgroundColor: ConstantsColor.backgroundDarkColor,
         appBar: ConstantsWidgets.appBar(title: 'Change City', onTapBack: () {
-          adService.checkBackCounterAd(currentScreen: '/SelectCurrencyScreen');
-          Get.back();
+          adService.checkBackCounterAd(currentScreen: '/SelectCurrencyScreen', context: context);
+          // Get.back();
         }, isShareButtonEnable: false),
         body: Container(
           padding: EdgeInsets.only(left: 15.sp, right: 15.sp, top: 20.sp),
@@ -62,7 +61,7 @@ class SelectCurrencyScreen extends GetView<CurrencyConverterScreenController> {
                                 itemBuilder: (context, index) {
                                   return InkWell(
                                     onTap: () {
-                                      adService.checkCounterAd(currentScreen: '/SelectCurrencyScreen');
+                                      adService.checkCounterAd(currentScreen: '/SelectCurrencyScreen', context: context);
                                       if(Get.arguments == 'From') {
                                         controller.txtCurrency1.value = listCurrency[index];
                                       } else {

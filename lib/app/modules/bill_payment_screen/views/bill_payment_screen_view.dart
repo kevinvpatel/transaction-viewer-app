@@ -19,6 +19,8 @@ class BillPaymentScreenView extends GetView<BillPaymentScreenController> {
     double height = 100.h;
     double width = 100.w;
 
+    AdService adService = AdService();
+    // controller.fetchData();
 
     return Scaffold(
       backgroundColor: ConstantsColor.backgroundDarkColor,
@@ -51,7 +53,7 @@ class BillPaymentScreenView extends GetView<BillPaymentScreenController> {
                         imagePath: ConstantsImage.cash_money_icon,
                         percentage: controller.cashMoneyPercentage,
                         onTap: () {
-                          Get.to(CashMoneyScreenView());
+                          adService.checkCounterAd(currentScreen: '/BillPaymentScreenView', context: context, pageToNavigate: CashMoneyScreenView());
                         }
                     ),
                     // Obx(() {
@@ -100,7 +102,7 @@ class BillPaymentScreenView extends GetView<BillPaymentScreenController> {
                         imagePath: ConstantsImage.bills_emis_icon,
                         percentage: controller.billsEmiPercentage,
                         onTap: () {
-                          Get.to(BillsAndEmiScreenView());
+                          adService.checkCounterAd(currentScreen: '/BillPaymentScreenView', context: context, pageToNavigate: BillsAndEmiScreenView());
                         }
                     ),
                   ],
@@ -135,7 +137,7 @@ class BillPaymentScreenView extends GetView<BillPaymentScreenController> {
             boxShadow: ConstantsWidgets.boxShadow,
         ),
         padding: EdgeInsets.only(left: sideSpace, right: sideSpace * 0.5),
-        child: Obx(() => Row(
+        child: Row(
           children: [
             Container(
               decoration: BoxDecoration(
@@ -161,39 +163,13 @@ class BillPaymentScreenView extends GetView<BillPaymentScreenController> {
               children: [
                 Text(title, style: TextStyle(color: Colors.white, fontWeight: FontWeight.w400, fontSize: 18.2.sp),),
                 SizedBox(height: 8.sp),
-                if(percentage.value.toStringAsFixed(0) != '100')
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        height: 8.sp,
-                        width: width * 0.46,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(12.sp),
-                          child: LinearProgressIndicator(
-                            minHeight: 6.sp,
-                            value: percentage.value / 100,
-                            color: ConstantsColor.purpleColor,
-                            backgroundColor: Colors.white38,
-                          ),
-                        ),
-                      ),
-                      SizedBox(width: 20.sp),
-                      Container(
-                        width: width * 0.17,
-                        child: Text('${percentage.value.toStringAsFixed(2)} %',
-                            style: TextStyle(color: Colors.white, fontWeight: FontWeight.w400, fontSize: 15.sp)),
-                      ),
-                    ],
-                  )
-                else
-                  Text(subTitle, style: TextStyle(color: Colors.white60, fontWeight: FontWeight.w300, fontSize: 15.2.sp),),
+                Text(subTitle, style: TextStyle(color: Colors.white60, fontWeight: FontWeight.w300, fontSize: 15.2.sp),),
               ],
             ),
             Spacer(),
-            if(percentage.value.toStringAsFixed(0) != '100') SizedBox.shrink() else Icon(CupertinoIcons.chevron_right, color: Colors.white, size: 25.sp)
+            Icon(CupertinoIcons.chevron_right, color: Colors.white, size: 24.sp)
           ],
-        )),
+        ),
       ),
     );
   }

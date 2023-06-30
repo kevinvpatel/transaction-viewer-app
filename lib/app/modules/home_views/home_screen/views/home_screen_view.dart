@@ -60,15 +60,15 @@ class HomeScreenView extends GetView<HomeScreenController> {
               ),
             ),
             ///Banking
-            gradientCard(height: height, adService: adService, width: width, title: 'Banking', mapData: controller.listBanking, isBanking: true),
+            gradientCard(height: height, context: context,adService: adService, width: width, title: 'Banking', mapData: controller.listBanking, isBanking: true),
             SizedBox(height: 22.sp),
             dailyPriceList(height: height, width: width, adService: adService),
             SizedBox(height: 22.sp),
-            simpleCard(width: width, title: 'Credit & Loan Products', data: controller.listCreditAndLoan, isCreditAndLoan: true, adService: adService),
+            simpleCard(width: width, context: context, title: 'Credit & Loan Products', data: controller.listCreditAndLoan, isCreditAndLoan: true, adService: adService),
             ///Calculators
-            gradientCard(height: height, width: width, title: 'Calculators', mapData: controller.listCalculators, isBanking: false, adService: adService),
+            gradientCard(height: height, context: context, width: width, title: 'Calculators', mapData: controller.listCalculators, isBanking: false, adService: adService),
             SizedBox(height: 22.sp),
-            simpleCard(width: width, title: 'Schemes  ', data: controller.listSchemes, isCreditAndLoan: false, adService: adService),
+            simpleCard(width: width, context: context, title: 'Schemes  ', data: controller.listSchemes, isCreditAndLoan: false, adService: adService),
             SizedBox(height: 30.sp),
           ],
         ),
@@ -164,8 +164,12 @@ class HomeScreenView extends GetView<HomeScreenController> {
                               Text('Today’s Fuel Price', style: TextStyle(color: Colors.white, fontSize: 16.5.sp, fontWeight: FontWeight.w600)),
                               IconButton(
                                   onPressed: () {
-                                    adService.checkCounterAd(currentScreen: '/HomeScreenView');
-                                    Get.to(const ChangeCityScreen(), arguments: controller.allCitiesMap);
+                                    adService.checkCounterAd(
+                                        currentScreen: '/HomeScreenView',
+                                        context: context,
+                                        pageToNavigate: const ChangeCityScreen(),
+                                        argument: controller.allCitiesMap
+                                    );
                                   },
                                   icon: Image.asset(ConstantsImage.more_circle_icon, height: 20.sp)
                               )
@@ -210,8 +214,12 @@ class HomeScreenView extends GetView<HomeScreenController> {
                               InkWell(
                                 onTap: () {
                                   print('controller.allCitiesMap -> ${controller.allCitiesMap}');
-                                  adService.checkCounterAd(currentScreen: '/HomeScreenView');
-                                  Get.to(const ChangeCityScreen(), arguments: controller.allCitiesMap);
+                                  adService.checkCounterAd(
+                                      currentScreen: '/HomeScreenView',
+                                      context: context,
+                                      pageToNavigate: const ChangeCityScreen(),
+                                      argument: controller.allCitiesMap
+                                  );
                                 },
                                 child: Row(
                                   children: [
@@ -256,7 +264,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
   }
 
 
-  simpleCard({required double width, required AdService adService, required String title, required List<Map<String, dynamic>> data, required bool isCreditAndLoan}) {
+  simpleCard({required double width, required BuildContext context, required AdService adService, required String title, required List<Map<String, dynamic>> data, required bool isCreditAndLoan}) {
     return Column(
       children: [
         Container(
@@ -276,46 +284,93 @@ class HomeScreenView extends GetView<HomeScreenController> {
                 onTap: () {
                   if(isCreditAndLoan) {
                     if(index == 0) {
-                      Get.to(const CreditCardScreenView());
-                      adService.checkCounterAd(currentScreen: '/HomeScreenView');
+                      adService.checkCounterAd(currentScreen: '/HomeScreenView', context: context, pageToNavigate: const CreditCardScreenView());
                     } else if(index == 1) {
-                      Get.to(const CarLoanScreenView(), arguments: {'title' : 'Car Loan', 'path' : 'assets/credit & loan files/carloan.html'});
-                      adService.checkCounterAd(currentScreen: '/HomeScreenView');
+                      adService.checkCounterAd(
+                          currentScreen: '/HomeScreenView',
+                          context: context,
+                          pageToNavigate: const CarLoanScreenView(),
+                          argument: {'title' : 'Car Loan', 'path' : 'assets/credit & loan files/carloan.html'}
+                      );
                     } else if(index == 2) {
-                      Get.to(const CarLoanScreenView(), arguments: {'title' : 'Home Loan', 'path' : 'assets/credit & loan files/homeloan.html'});
-                      adService.checkCounterAd(currentScreen: '/HomeScreenView');
+                      adService.checkCounterAd(
+                          currentScreen: '/HomeScreenView',
+                          context: context,
+                          pageToNavigate: const CarLoanScreenView(),
+                          argument: {'title' : 'Home Loan', 'path' : 'assets/credit & loan files/homeloan.html'}
+                      );
                     } else if(index == 3) {
-                      Get.to(const CarLoanScreenView(), arguments: {'title' : 'Business Loan', 'path' : 'assets/credit & loan files/bussiness.html'});
-                      adService.checkCounterAd(currentScreen: '/HomeScreenView');
+                      adService.checkCounterAd(
+                          currentScreen: '/HomeScreenView',
+                          context: context,
+                          pageToNavigate: const CarLoanScreenView(),
+                          argument: {'title' : 'Business Loan', 'path' : 'assets/credit & loan files/bussiness.html'}
+                      );
                     } else {
-                      Get.to(const CarLoanScreenView(), arguments: {'title' : 'Micro Loan', 'path' : 'assets/credit & loan files/personal.html'});
-                      adService.checkCounterAd(currentScreen: '/HomeScreenView');
+                      adService.checkCounterAd(
+                          currentScreen: '/HomeScreenView',
+                          context: context,
+                          pageToNavigate: const CarLoanScreenView(),
+                          argument: {'title' : 'Micro Loan', 'path' : 'assets/credit & loan files/personal.html'}
+                      );
                     }
                   } else {
                     if(index == 0) {
-                      Get.to(const CarLoanScreenView(), arguments: {'title' : 'Employee PF', 'path' : 'assets/schemes files/employee pf.html'});
-                      adService.checkCounterAd(currentScreen: '/HomeScreenView');
+                      adService.checkCounterAd(
+                          currentScreen: '/HomeScreenView',
+                          context: context,
+                          pageToNavigate: const CarLoanScreenView(),
+                          argument: {'title' : 'Employee PF', 'path' : 'assets/schemes files/employee pf.html'}
+                      );
                     } else if(index == 1) {
-                      Get.to(const CarLoanScreenView(), arguments: {'title' : 'National PS', 'path' : 'assets/schemes files/national ps.html'});
-                      adService.checkCounterAd(currentScreen: '/HomeScreenView');
+                      adService.checkCounterAd(
+                          currentScreen: '/HomeScreenView',
+                          context: context,
+                          pageToNavigate: const CarLoanScreenView(),
+                          argument: {'title' : 'National PS', 'path' : 'assets/schemes files/national ps.html'}
+                      );
                     } else if(index == 2) {
-                      Get.to(const CarLoanScreenView(), arguments: {'title' : 'National SC', 'path' : 'assets/schemes files/sc national.html'});
-                      adService.checkCounterAd(currentScreen: '/HomeScreenView');
+                      adService.checkCounterAd(
+                          currentScreen: '/HomeScreenView',
+                          context: context,
+                          pageToNavigate: const CarLoanScreenView(),
+                          argument: {'title' : 'National SC', 'path' : 'assets/schemes files/sc national.html'}
+                      );
                     } else if(index == 3) {
-                      Get.to(const CarLoanScreenView(), arguments: {'title' : 'PM Jan Dhan Yojna', 'path' : 'assets/schemes files/pm jan dhan.html'});
-                      adService.checkCounterAd(currentScreen: '/HomeScreenView');
+                      adService.checkCounterAd(
+                          currentScreen: '/HomeScreenView',
+                          context: context,
+                          pageToNavigate: const CarLoanScreenView(),
+                          argument: {'title' : 'PM Jan Dhan Yojna', 'path' : 'assets/schemes files/pm jan dhan.html'}
+                      );
                     } else if(index == 4) {
-                      Get.to(const CarLoanScreenView(), arguments: {'title' : 'PM Vaya', 'path' : 'assets/schemes files/pm vaya.html'});
-                      adService.checkCounterAd(currentScreen: '/HomeScreenView');
+                      adService.checkCounterAd(
+                          currentScreen: '/HomeScreenView',
+                          context: context,
+                          pageToNavigate: const CarLoanScreenView(),
+                          argument: {'title' : 'PM Vaya', 'path' : 'assets/schemes files/pm vaya.html'}
+                      );
                     } else if(index == 5) {
-                      Get.to(const CarLoanScreenView(), arguments: {'title' : 'SS Post', 'path' : 'assets/schemes files/ss post.html'});
-                      adService.checkCounterAd(currentScreen: '/HomeScreenView');
+                      adService.checkCounterAd(
+                          currentScreen: '/HomeScreenView',
+                          context: context,
+                          pageToNavigate: const CarLoanScreenView(),
+                          argument: {'title' : 'SS Post', 'path' : 'assets/schemes files/ss post.html'}
+                      );
                     } else if(index == 6) {
-                      Get.to(const CarLoanScreenView(), arguments: {'title' : 'Public PF', 'path' : 'assets/schemes files/public pf.html'});
-                      adService.checkCounterAd(currentScreen: '/HomeScreenView');
+                      adService.checkCounterAd(
+                          currentScreen: '/HomeScreenView',
+                          context: context,
+                          pageToNavigate: const CarLoanScreenView(),
+                          argument: {'title' : 'Public PF', 'path' : 'assets/schemes files/public pf.html'}
+                      );
                     } else {
-                      Get.to(const CarLoanScreenView(), arguments: {'title' : 'Senior CS', 'path' : 'assets/schemes files/cs senior.html'});
-                      adService.checkCounterAd(currentScreen: '/HomeScreenView');
+                      adService.checkCounterAd(
+                          currentScreen: '/HomeScreenView',
+                          context: context,
+                          pageToNavigate: const CarLoanScreenView(),
+                          argument: {'title' : 'Senior CS', 'path' : 'assets/schemes files/cs senior.html'}
+                      );
                     }
                   }
                 },
@@ -353,7 +408,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
 
 
 
-  gradientCard({required double height, required AdService adService, required double width, required String title, required List<Map<String, dynamic>> mapData, required bool isBanking}) {
+  gradientCard({required double height, required BuildContext context, required AdService adService, required double width, required String title, required List<Map<String, dynamic>> mapData, required bool isBanking}) {
     double cardHeight = height * 0.14;
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 10.sp),
@@ -382,18 +437,15 @@ class HomeScreenView extends GetView<HomeScreenController> {
                     onTap: () async {
                       if(isBanking == true) {
                         if(index == 0) {
-                          adService.checkCounterAd(currentScreen: '/HomeScreenView');
-                          Get.to(const BalanceScreenView());
+                          adService.checkCounterAd(currentScreen: '/HomeScreenView', context: context, pageToNavigate: const BalanceScreenView());
                         } else if(index == 1) {
-                          adService.checkCounterAd(currentScreen: '/HomeScreenView');
-                          Get.to(const IfscScreenView());
+                          adService.checkCounterAd(currentScreen: '/HomeScreenView', pageToNavigate: IfscScreenView(), context: context);
                         } else if(index == 2) {
-                          Get.to(const HolidayScreenView());
-                          adService.checkCounterAd(currentScreen: '/HomeScreenView');
+                          adService.checkCounterAd(currentScreen: '/HomeScreenView', pageToNavigate: HolidayScreenView(), context: context);
                         } else if(index == 3) {
-                          Get.to(const UssdBankListScreenViewView());
-                          adService.checkCounterAd(currentScreen: '/HomeScreenView');
+                          adService.checkCounterAd(currentScreen: '/HomeScreenView', pageToNavigate: UssdBankListScreenViewView(), context: context);
                         } else {
+                          adService.checkCounterAd(currentScreen: '/HomeScreenView', context: context);
                           LocationPermission permission = await Geolocator.checkPermission();
                           print('permission -> $permission');
                           if(permission == LocationPermission.denied || permission == LocationPermission.deniedForever
@@ -419,24 +471,18 @@ class HomeScreenView extends GetView<HomeScreenController> {
                               map.showMarker(coords: Coords(position.latitude, position.longitude), title: 'My Location');
                             });
                           }
-                          adService.checkCounterAd(currentScreen: '/HomeScreenView');
                         }
                       } else {
                         if(index == 0) {
-                          Get.to(const CurrencyConverterScreenView());
-                          adService.checkCounterAd(currentScreen: '/HomeScreenView');
+                          adService.checkCounterAd(currentScreen: '/HomeScreenView', context: context, pageToNavigate: const CurrencyConverterScreenView());
                         } else if(index == 1) {
-                          Get.to(const HomeLoanCalculatorScreenView());
-                          adService.checkCounterAd(currentScreen: '/HomeScreenView');
+                          adService.checkCounterAd(currentScreen: '/HomeScreenView', context: context, pageToNavigate: const HomeLoanCalculatorScreenView());
                         } else if(index == 2) {
-                          Get.to(const BusinessLoanCalculatorScreenView());
-                          adService.checkCounterAd(currentScreen: '/HomeScreenView');
+                          adService.checkCounterAd(currentScreen: '/HomeScreenView', context: context, pageToNavigate: const BusinessLoanCalculatorScreenView());
                         } else if(index == 3) {
-                          Get.to(const RDLoanCalculatorScreenView());
-                          adService.checkCounterAd(currentScreen: '/HomeScreenView');
+                          adService.checkCounterAd(currentScreen: '/HomeScreenView', context: context, pageToNavigate: const RDLoanCalculatorScreenView());
                         } else {
-                          Get.to(const FDLoanCalculatorScreenView());
-                          adService.checkCounterAd(currentScreen: '/HomeScreenView');
+                          adService.checkCounterAd(currentScreen: '/HomeScreenView', context: context, pageToNavigate: const FDLoanCalculatorScreenView());
                         }
                       }
 

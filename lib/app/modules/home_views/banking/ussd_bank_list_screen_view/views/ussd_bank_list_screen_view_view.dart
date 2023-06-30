@@ -21,14 +21,14 @@ class UssdBankListScreenViewView extends GetView<UssdBankListScreenViewControlle
 
     return WillPopScope(
       onWillPop: () async {
-        adService.checkBackCounterAd(currentScreen: '/UssdBankListScreenViewView');
-        return Future.value(true);
+        adService.checkBackCounterAd(currentScreen: '/UssdBankListScreenViewView', context: context);
+        return Future.value(false);
       },
       child: Scaffold(
         backgroundColor: ConstantsColor.backgroundDarkColor,
         appBar: ConstantsWidgets.appBar(title: 'All Bank USSD Code', onTapBack: () {
-          adService.checkBackCounterAd(currentScreen: '/UssdBankListScreenViewView');
-          Get.back();
+          adService.checkBackCounterAd(currentScreen: '/UssdBankListScreenViewView', context: context);
+          // Get.back();
         }),
         body: Container(
           height: height,
@@ -44,8 +44,7 @@ class UssdBankListScreenViewView extends GetView<UssdBankListScreenViewControlle
               print(' ');
               return InkWell(
                 onTap: () {
-                  adService.checkCounterAd(currentScreen: '/UssdBankListScreenViewView');
-                  Get.to(const UssdBankDetailScreenViewView(), arguments: bankData);
+                  adService.checkCounterAd(currentScreen: '/UssdBankListScreenViewView', context: context, pageToNavigate: const UssdBankDetailScreenViewView(), argument: bankData);
                 },
                 child: Container(
                   height: 33.sp,

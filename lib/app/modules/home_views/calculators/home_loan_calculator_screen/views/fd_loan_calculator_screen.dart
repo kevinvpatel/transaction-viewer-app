@@ -20,78 +20,82 @@ class FDLoanCalculatorScreenView extends GetView<HomeLoanCalculatorScreenControl
 
     return WillPopScope(
       onWillPop: () async {
-        adService.checkBackCounterAd(currentScreen: '/FDLoanCalculatorScreenView');
-        return Future.value(true);
+        adService.checkBackCounterAd(currentScreen: '/FDLoanCalculatorScreenView', context: context);
+        return Future.value(false);
       },
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: ConstantsColor.backgroundDarkColor,
         appBar: ConstantsWidgets.appBar(title: 'FD Calculator', isShareButtonEnable: false, onTapBack: () {
-          adService.checkBackCounterAd(currentScreen: '/FDLoanCalculatorScreenView');
-          Get.back();
+          adService.checkBackCounterAd(currentScreen: '/FDLoanCalculatorScreenView', context: context);
+          // Get.back();
         }),
         body: Container(
           padding: EdgeInsets.symmetric(horizontal: 17.sp, vertical: 15.sp),
-          child: Column(
-            children: [
-              fields(
+          child: SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
+            child: Column(
+              children: [
+                fields(
+                    width: width,
+                    title: 'Deposit Amount',
+                    fieldName: '00',
+                    txtController: controller.txtDepositAmount
+                ),
+                SizedBox(height: 17.sp),
+                fields(
+                    width: width,
+                    title: 'Interest Rate% (p.a)',
+                    fieldName: '00',
+                    txtController: controller.txtInterestRate
+                ),
+                SizedBox(height: 17.sp),
+                fields(
                   width: width,
-                  title: 'Deposit Amount',
-                  fieldName: '00',
-                  txtController: controller.txtDepositAmount
-              ),
-              SizedBox(height: 17.sp),
-              fields(
-                  width: width,
-                  title: 'Interest Rate% (p.a)',
-                  fieldName: '00',
-                  txtController: controller.txtInterestRate
-              ),
-              SizedBox(height: 17.sp),
-              fields(
-                width: width,
-                title: 'Period In Month',
-                fieldName: 'Month',
-                txtController: controller.txtPeriodInMonth,
-              ),
-              SizedBox(height: 17.sp),
-              dropDownField(title: 'Period of Depositor', width: width),
-              SizedBox(height: 20.sp),
-              controller.bottomButtons(
-                  onTapBtn2: () {
-                    adService.checkCounterAd(currentScreen: '/FDLoanCalculatorScreenView');
-                    double depositAmount = double.parse(controller.txtDepositAmount.value.text);
-                    int loanMonth = int.parse(controller.txtPeriodInMonth.value.text);
-                    double interestRate = double.parse(controller.txtInterestRate.value.text) / 100;
-                    int period;
-                    if(controller.selectedPeriod.value == 'Monthly') {
-                      period = 1;
-                    } else if(controller.selectedPeriod.value == 'Quarterly') {
-                      period = 3;
-                    } else if(controller.selectedPeriod.value == 'Half-Yearly') {
-                      period = 6;
-                    } else {
-                      period = 12;
-                    }
-
-                    final maturityAmount = depositAmount * pow(1 + interestRate / period, period * loanMonth);
-
-                    final totalInvestmentValue = maturityAmount - depositAmount;
-
-
-                    controller.mapFdLoan.updateAll((key, value) {
-                      if(key == 'Total Investment Value') {
-                        return totalInvestmentValue.toStringAsFixed(2);
+                  title: 'Period In Month',
+                  fieldName: 'Month',
+                  txtController: controller.txtPeriodInMonth,
+                ),
+                SizedBox(height: 17.sp),
+                dropDownField(title: 'Period of Depositor', width: width),
+                SizedBox(height: 20.sp),
+                controller.bottomButtons(
+                    context: context,
+                    onTapBtn2: () {
+                      adService.checkCounterAd(currentScreen: '/FDLoanCalculatorScreenView', context: context);
+                      double depositAmount = double.parse(controller.txtDepositAmount.value.text);
+                      int loanMonth = int.parse(controller.txtPeriodInMonth.value.text);
+                      double interestRate = double.parse(controller.txtInterestRate.value.text) / 100;
+                      int period;
+                      if(controller.selectedPeriod.value == 'Monthly') {
+                        period = 1;
+                      } else if(controller.selectedPeriod.value == 'Quarterly') {
+                        period = 3;
+                      } else if(controller.selectedPeriod.value == 'Half-Yearly') {
+                        period = 6;
                       } else {
-                        return maturityAmount.toStringAsFixed(2);
+                        period = 12;
                       }
-                    });
-                  }
-              ),
-              SizedBox(height: 20.sp),
-              controller.homeLoanResult(loanMapData: controller.mapFdLoan),
-              Spacer(),
-            ],
+
+                      final maturityAmount = depositAmount * pow(1 + interestRate / period, period * loanMonth);
+
+                      final totalInvestmentValue = maturityAmount - depositAmount;
+
+
+                      controller.mapFdLoan.updateAll((key, value) {
+                        if(key == 'Total Investment Value') {
+                          return totalInvestmentValue.toStringAsFixed(2);
+                        } else {
+                          return maturityAmount.toStringAsFixed(2);
+                        }
+                      });
+                    }
+                ),
+                SizedBox(height: 20.sp),
+                controller.homeLoanResult(loanMapData: controller.mapFdLoan),
+                SizedBox(height: 20.sp),
+              ],
+            ),
           ),
         ),
       ),

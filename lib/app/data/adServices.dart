@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:facebook_audience_network/facebook_audience_network.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -48,7 +50,7 @@ class AdService {
     return configData.value[currentScreen]['banner-type'] == 'admob' ?
     SizedBox(
       height: 50,
-      width: width * 0.8,
+      width: width,
       child: AdWidget(ad: bannerAdAdMob!),
     )
         : FacebookBannerAd(
@@ -152,14 +154,17 @@ class AdService {
     });
   }
 
-
   ///INTERSTITIAL AD
   InterstitialAd? interstitialAdMob;
   Future interstitialAd({
     String? adId,
     required Function(LoadAdError) onAdFailedToLoad,
     bool isBack = false,
-    String? currentScreen
+    String? currentScreen,
+    BuildContext? dialogCtx,
+    dynamic pageToNavigate,
+    dynamic argument,
+    required bool isCheckBack
   }) async {
     ///isBack is here to prevent to take previousRoute name
     ///isBack = true "PreviousRoute"   isBack = false "CurrentRoute"
@@ -175,14 +180,16 @@ class AdService {
           adLoadCallback: InterstitialAdLoadCallback(onAdLoaded: (ad) {
             interstitialAdMob = ad;
             print('interstitialAd LOAD 33 -> $adId');
+            Navigator.pop(dialogCtx!);
+            if(isCheckBack) {
+              Get.back();
+            } else {
+              Get.to(pageToNavigate, arguments: argument);
+            }
             ad.show();
             if (interstitialAdMob == null) {
-              print('attempt to show InterstitialAd before loaded');
+              print('   to show InterstitialAd before loaded');
             }
-            Future.delayed(const Duration(milliseconds: 1000), () {
-              print('ad popup close');
-              Get.back();
-            });
           }, onAdFailedToLoad: onAdFailedToLoad
           )
       ).catchError((err) => print('InterstitialAd err -> $err'));
@@ -190,18 +197,29 @@ class AdService {
 
       if(await canLaunchUrl(Uri.parse(configData[isBack ? Get.previousRoute : currentScreen]['link']))) {
         await launchUrl(Uri.parse(configData[isBack ? Get.previousRoute : currentScreen]['link']));
+        Navigator.pop(dialogCtx!);
+        if(isCheckBack) {
+          Get.back();
+        } else {
+          Get.to(pageToNavigate, arguments: argument);
+        }
       } else {
         Fluttertoast.showToast(msg: 'Could not launch url: ${configData[isBack ? Get.previousRoute : currentScreen]['link']}');
       }
-      Future.delayed(const Duration(milliseconds: 1000), () => Get.back());
 
     } else {
+      print('interstitial-facebook -> ${configData['interstitial-facebook']}');
       FacebookInterstitialAd.loadInterstitialAd(
           placementId: configData['interstitial-facebook'],
           listener: (result, value) {
             if(result == InterstitialAdResult.LOADED) {
-              FacebookInterstitialAd.showInterstitialAd(delay: 2000).then((value) =>
-                  Future.delayed(const Duration(milliseconds: 1000), () => Get.back()));
+              Navigator.pop(dialogCtx!);
+              if(isCheckBack) {
+                Get.back();
+              } else {
+                Get.to(pageToNavigate, arguments: argument);
+              }
+              FacebookInterstitialAd.showInterstitialAd(delay: 2000);
             }
           }
       );
@@ -209,21 +227,16 @@ class AdService {
   }
 
 
-  checkCounterAd({required String currentScreen}) {
-    print('counterr -> $counterInterstitalAd');
-    print('@@ -> ${configData['counter']}');
+  checkCounterAd({required String currentScreen, dynamic pageToNavigate, dynamic argument, required BuildContext context}) {
+    if(counterInterstitalAd.value == configData['counter']) {
+      counterInterstitalAd.value = 1;
 
+      BuildContext dialogCtx = context;
 
-    print('interstitial @@ currentScreen -> ${currentScreen}');
-    print('interstitial @@ configData -> ${configData}');
-
-    return Future.delayed(const Duration(milliseconds: 1200), () {
-      if(counterInterstitalAd.value == configData['counter']) {
-        counterInterstitalAd.value = 1;
-
-        Get.dialog(
-            barrierDismissible: false,
-            WillPopScope(
+      showDialog(
+          context: dialogCtx,
+          builder: (dialogctx) {
+            return WillPopScope(
               onWillPop: () => Future.value(false),
               child: AlertDialog(
                 content: Row(
@@ -239,35 +252,48 @@ class AdService {
                   ],
                 ),
               ),
-            )
-        );
-        Future.delayed(const Duration(milliseconds: 1000), () {
-          interstitialAd(onAdFailedToLoad: (error) {
+            );
+          }
+      );
+
+      interstitialAd(
+          isCheckBack: false,
+          onAdFailedToLoad: (error) {
             interstitialAdMob = null;
             interstitialAd(
+                isCheckBack: false,
                 adId: configData['interstitial-admob'],
                 onAdFailedToLoad: (loadAdError) {
                   counterInterstitalAd.value = 1;
-                  Future.delayed(const Duration(milliseconds: 1000), () => Get.back());
-                }
+                },
+                currentScreen: currentScreen,
+                dialogCtx: dialogCtx,
+                argument: argument,
+                pageToNavigate: pageToNavigate
             );
-          });
-        });
-      } else {
-        counterInterstitalAd.value++;
+          },
+          currentScreen: currentScreen,
+          dialogCtx: dialogCtx,
+          argument: argument,
+          pageToNavigate: pageToNavigate
+      );
+    } else {
+      if(pageToNavigate != null) {
+        Get.to(pageToNavigate, arguments: argument);
       }
-    });
+      counterInterstitalAd.value++;
+    }
   }
 
-  checkBackCounterAd({required String currentScreen}) {
-    print('backCounter -> $backCounterInterstitalAd');
-    print('backCounter@@ -> ${configData['back_counter']}');
-    Future.delayed(const Duration(milliseconds: 1200), () {
-      if(backCounterInterstitalAd.value == configData['back_counter']) {
-        backCounterInterstitalAd.value = 1;
-        Get.dialog(
-            barrierDismissible: false,
-            WillPopScope(
+  checkBackCounterAd({required String currentScreen, required BuildContext context}) {
+    if(backCounterInterstitalAd.value == configData['back_counter']) {
+      backCounterInterstitalAd.value = 1;
+      BuildContext dialogCtx = context;
+
+      showDialog(
+          context: dialogCtx,
+          builder: (dialogctx) {
+            return WillPopScope(
               onWillPop: () => Future.value(false),
               child: AlertDialog(
                 content: Row(
@@ -275,7 +301,7 @@ class AdService {
                     SizedBox(
                         height: 25.sp,
                         width: 25.sp,
-                        child: const CircularProgressIndicator(color: Colors.white)
+                        child: const CircularProgressIndicator(color: ConstantsColor.backgroundDarkColor)
                     ),
                     const Spacer(),
                     Text('Please Wait...', style: TextStyle(fontSize: 16.5.sp)),
@@ -283,27 +309,31 @@ class AdService {
                   ],
                 ),
               ),
-            )
-        );
-        Future.delayed(const Duration(milliseconds: 1000), () {
-          interstitialAd(
-              isBack: currentScreen == '/HomeScreenView' ? false : true,
-              onAdFailedToLoad: (error) {
-                interstitialAdMob = null;
-                interstitialAd(
-                  isBack: currentScreen == '/HomeScreenView' ? false : true,
-                  adId: configData['interstitial-admob'],
-                  onAdFailedToLoad: (loadAdError ) {
-                    backCounterInterstitalAd.value = 1;
-                    Future.delayed(const Duration(milliseconds: 1000), () => Get.back());
-                  },
-                );
-              });
-        });
-      } else {
-        backCounterInterstitalAd.value++;
-      }
-    });
+            );
+          }
+      );
+
+      interstitialAd(
+          isCheckBack: true,
+          isBack: currentScreen == '/HomeScreenView' ? false : true,
+          onAdFailedToLoad: (error) {
+            interstitialAdMob = null;
+            interstitialAd(
+                isCheckBack: true,
+                isBack: currentScreen == '/HomeScreenView' ? false : true,
+                adId: configData['interstitial-admob'],
+                onAdFailedToLoad: (loadAdError ) {
+                  backCounterInterstitalAd.value = 1;
+                }
+            );
+          },
+          currentScreen: currentScreen,
+          dialogCtx: dialogCtx,
+      );
+    } else {
+      Get.back();
+      backCounterInterstitalAd.value++;
+    }
   }
 
 }

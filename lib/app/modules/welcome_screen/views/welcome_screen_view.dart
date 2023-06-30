@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:launch_review/launch_review.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:transaction_viewer_app/app/data/adServices.dart';
 import 'package:transaction_viewer_app/app/data/constants/color_constants.dart';
 import 'package:transaction_viewer_app/app/data/constants/image_constants.dart';
 import 'package:transaction_viewer_app/app/data/constants/widget_constants.dart';
 import 'package:transaction_viewer_app/app/modules/bottom_navigation_screen/views/bottom_navigation_screen_view.dart';
+import 'package:transaction_viewer_app/app/modules/welcome_screen/views/privacy_policy_screen.dart';
 import '../controllers/welcome_screen_controller.dart';
 
 class WelcomeScreenView extends GetView<WelcomeScreenController> {
@@ -46,8 +49,7 @@ class WelcomeScreenView extends GetView<WelcomeScreenController> {
                 height: 28.sp,
                 width: width * 0.42,
                 onTap: () {
-                  Get.to(const BottomNavigationScreenView());
-                  adService.checkCounterAd(currentScreen: '/BottomNavigationScreenView');
+                  adService.checkCounterAd(currentScreen: '/BottomNavigationScreenView', context: context, pageToNavigate: const BottomNavigationScreenView());
                 }
             ),
             SizedBox(height: 28.sp),
@@ -60,7 +62,8 @@ class WelcomeScreenView extends GetView<WelcomeScreenController> {
                     height: 28.sp,
                     width: width * 0.22,
                     onTap: () {
-                      adService.checkCounterAd(currentScreen: '/WelcomeScreenView');
+                      Share.share('Look what i found') ;
+                      adService.checkCounterAd(currentScreen: '/WelcomeScreenView', context: context);
                     }
                 ),
                 SizedBox(width: 25.sp),
@@ -70,8 +73,8 @@ class WelcomeScreenView extends GetView<WelcomeScreenController> {
                     height: 28.sp,
                     width: width * 0.22,
                     onTap: () {
-
-                      adService.checkCounterAd(currentScreen: '/WelcomeScreenView');
+                      adService.checkCounterAd(currentScreen: '/WelcomeScreenView', context: context);
+                      LaunchReview.launch(androidAppId: 'com.gb_version.gb_version_flutter');
                     }
                 ),
               ],
@@ -83,8 +86,7 @@ class WelcomeScreenView extends GetView<WelcomeScreenController> {
                 height: 28.sp,
                 width: width * 0.34,
                 onTap: () {
-
-                  adService.checkCounterAd(currentScreen: '/WelcomeScreenView');
+                  adService.checkCounterAd(currentScreen: '/WelcomeScreenView', context: context, pageToNavigate: PrivacyPolicyScreenView());
                 }
             ),
             const Spacer(flex: 2),

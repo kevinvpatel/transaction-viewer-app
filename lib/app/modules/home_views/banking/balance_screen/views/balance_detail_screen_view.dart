@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:transaction_viewer_app/app/data/adServices.dart';
 import 'package:transaction_viewer_app/app/data/constants/color_constants.dart';
@@ -26,8 +25,8 @@ class BalanceDetailScreenView extends GetView<BalanceScreenController> {
 
     return WillPopScope(
       onWillPop: () async {
-        adService.checkBackCounterAd(currentScreen: '/BalanceDetailScreenView');
-        return Future.value(true);
+        adService.checkBackCounterAd(currentScreen: '/BalanceDetailScreenView', context: context);
+        return Future.value(false);
       },
       child: Scaffold(
         backgroundColor: ConstantsColor.backgroundDarkColor,
@@ -69,7 +68,7 @@ class BalanceDetailScreenView extends GetView<BalanceScreenController> {
                   title: 'Bank Balance',
                   data: detail['balance_check'],
                   onTap: () async {
-                    adService.checkCounterAd(currentScreen: '/BalanceDetailScreenView');
+                    adService.checkCounterAd(currentScreen: '/BalanceDetailScreenView', context: context);
                     Uri phoneno = Uri.parse('tel:${detail['balance_check']}');
                     if(await launchUrl(phoneno)) {
                       //dialer opened
@@ -86,7 +85,7 @@ class BalanceDetailScreenView extends GetView<BalanceScreenController> {
                   title: 'Mini Statement',
                   data: detail['mini_statement'],
                   onTap: () async {
-                    adService.checkCounterAd(currentScreen: '/BalanceDetailScreenView');
+                    adService.checkCounterAd(currentScreen: '/BalanceDetailScreenView', context: context);
                     Uri phoneno = Uri.parse('tel:${detail['mini_statement']}');
                     if(await launchUrl(phoneno)) {
                     //dialer opened
@@ -103,7 +102,7 @@ class BalanceDetailScreenView extends GetView<BalanceScreenController> {
                   title: 'Customer Care Number',
                   data: detail['customer_care'],
                   onTap: () async {
-                    adService.checkCounterAd(currentScreen: '/BalanceDetailScreenView');
+                    adService.checkCounterAd(currentScreen: '/BalanceDetailScreenView', context: context);
                     Uri phoneno = Uri.parse('tel:${detail['customer_care']}');
                     if(await launchUrl(phoneno)) {
                     //dialer opened

@@ -24,15 +24,15 @@ class CurrencyConverterScreenView extends GetView<CurrencyConverterScreenControl
 
     return WillPopScope(
       onWillPop: () async {
-        adService.checkBackCounterAd(currentScreen: '/CurrencyConverterScreenView');
-        return Future.value(true);
+        adService.checkBackCounterAd(currentScreen: '/CurrencyConverterScreenView', context: context);
+        return Future.value(false);
       },
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: ConstantsColor.backgroundDarkColor,
         appBar: ConstantsWidgets.appBar(title: 'Currency Converter', isShareButtonEnable: false, onTapBack: () {
-          adService.checkBackCounterAd(currentScreen: '/CurrencyConverterScreenView');
-          Get.back();
+          adService.checkBackCounterAd(currentScreen: '/CurrencyConverterScreenView', context: context);
+          // Get.back();
         }),
         body: Container(
           padding: EdgeInsets.symmetric(horizontal: 17.sp, vertical: 25.sp),
@@ -43,8 +43,7 @@ class CurrencyConverterScreenView extends GetView<CurrencyConverterScreenControl
                   title: 'From',
                   fieldName: controller.txtCurrency1,
                   onTap: () {
-                    adService.checkCounterAd(currentScreen: '/CurrencyConverterScreenView');
-                    Get.to(SelectCurrencyScreen(), arguments: 'From');
+                    adService.checkCounterAd(currentScreen: '/CurrencyConverterScreenView', context: context, pageToNavigate: SelectCurrencyScreen(), argument: 'From');
                   }
               ),
               SizedBox(height: 17.sp),
@@ -53,8 +52,7 @@ class CurrencyConverterScreenView extends GetView<CurrencyConverterScreenControl
                   title: 'To',
                   fieldName: controller.txtCurrency2,
                   onTap: () {
-                    adService.checkCounterAd(currentScreen: '/CurrencyConverterScreenView');
-                    Get.to(SelectCurrencyScreen(), arguments: 'To');
+                    adService.checkCounterAd(currentScreen: '/CurrencyConverterScreenView', context: context, pageToNavigate: SelectCurrencyScreen(), argument: 'To');
                   }
               ),
               SizedBox(height: 17.sp),
@@ -75,7 +73,7 @@ class CurrencyConverterScreenView extends GetView<CurrencyConverterScreenControl
                 highlightColor: Colors.transparent,
                 splashColor: Colors.transparent,
                 onTap: () {
-                  adService.checkCounterAd(currentScreen: '/CurrencyConverterScreenView');
+                  adService.checkCounterAd(currentScreen: '/CurrencyConverterScreenView', context: context);
                   if(controller.txtCurrency1.isNotEmpty && controller.txtCurrency2.isNotEmpty && controller.enteredAmount.value.text.length > 0) {
                     print('controller.txtCurrency1.value -> ${controller.txtCurrency1}');
                     print('controller.txtCurrency2.value -> ${controller.txtCurrency2}');

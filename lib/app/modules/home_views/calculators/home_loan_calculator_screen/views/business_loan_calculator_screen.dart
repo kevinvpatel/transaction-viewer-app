@@ -20,72 +20,76 @@ class BusinessLoanCalculatorScreenView extends GetView<HomeLoanCalculatorScreenC
 
     return WillPopScope(
       onWillPop: () async {
-        adService.checkBackCounterAd(currentScreen: '/BusinessLoanCalculatorScreenView');
-        return Future.value(true);
+        adService.checkBackCounterAd(currentScreen: '/BusinessLoanCalculatorScreenView', context: context);
+        return Future.value(false);
       },
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: ConstantsColor.backgroundDarkColor,
         appBar: ConstantsWidgets.appBar(title: 'Business Loan Calculator', isShareButtonEnable: false, onTapBack: () {
-          adService.checkBackCounterAd(currentScreen: '/BusinessLoanCalculatorScreenView');
-          Get.back();
+          adService.checkBackCounterAd(currentScreen: '/BusinessLoanCalculatorScreenView', context: context);
+          // Get.back();
         }),
         body: Container(
           padding: EdgeInsets.symmetric(horizontal: 17.sp, vertical: 15.sp),
-          child: Column(
-            children: [
-              fields(
-                  width: width,
-                  title: 'Loan Amount',
-                  fieldName: '00',
-                  txtController: controller.txtLoanAmount
-              ),
-              SizedBox(height: 17.sp),
-              fields(
-                  width: width,
-                  title: 'Interest %',
-                  fieldName: '00',
-                  txtController: controller.txtInterestAmount
-              ),
-              SizedBox(height: 17.sp),
-              fields(
-                  width: width,
-                  title: 'Loan Year',
-                  fieldName: 'Year',
-                  txtController: controller.txtLoanPeriod,
-              ),
-              SizedBox(height: 20.sp),
-              controller.bottomButtons(
-                  onTapBtn2: () {
-                    adService.checkCounterAd(currentScreen: '/BusinessLoanCalculatorScreenView');
-                    double loanAmount = double.parse(controller.txtLoanAmount.value.text);
-                    int loanMonth = int.parse(controller.txtLoanPeriod.value.text);
-                    double interestRate = double.parse(controller.txtInterestAmount.value.text) / 12 / 100;
-                    final emi = loanAmount * interestRate * pow((1+interestRate), loanMonth) / (pow((1+interestRate), loanMonth) - 1);
+          child: SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
+            child: Column(
+              children: [
+                fields(
+                    width: width,
+                    title: 'Loan Amount',
+                    fieldName: '00',
+                    txtController: controller.txtLoanAmount
+                ),
+                SizedBox(height: 17.sp),
+                fields(
+                    width: width,
+                    title: 'Interest %',
+                    fieldName: '00',
+                    txtController: controller.txtInterestAmount
+                ),
+                SizedBox(height: 17.sp),
+                fields(
+                    width: width,
+                    title: 'Loan Year',
+                    fieldName: 'Year',
+                    txtController: controller.txtLoanPeriod,
+                ),
+                SizedBox(height: 20.sp),
+                controller.bottomButtons(
+                    context: context,
+                    onTapBtn2: () {
+                      adService.checkCounterAd(currentScreen: '/BusinessLoanCalculatorScreenView', context: context);
+                      double loanAmount = double.parse(controller.txtLoanAmount.value.text);
+                      int loanMonth = int.parse(controller.txtLoanPeriod.value.text);
+                      double interestRate = double.parse(controller.txtInterestAmount.value.text) / 12 / 100;
+                      final emi = loanAmount * interestRate * pow((1+interestRate), loanMonth) / (pow((1+interestRate), loanMonth) - 1);
 
 
-                    final totalAmount = emi * loanMonth;
-                    final interestAmount = totalAmount - loanAmount;
+                      final totalAmount = emi * loanMonth;
+                      final interestAmount = totalAmount - loanAmount;
 
 
-                    controller.mapBusinessLoan.updateAll((key, value) {
-                      if(key == 'EMI') {
-                        return emi.toStringAsFixed(2);
-                      } else if(key == 'Interest %') {
-                        return interestAmount.toStringAsFixed(2);
-                      } else if(key == 'Loan Amount') {
-                        return loanAmount.toStringAsFixed(2);
-                      } else {
-                        return totalAmount.toStringAsFixed(2);
-                      }
-                    });
+                      controller.mapBusinessLoan.updateAll((key, value) {
+                        if(key == 'EMI') {
+                          return emi.toStringAsFixed(2);
+                        } else if(key == 'Interest %') {
+                          return interestAmount.toStringAsFixed(2);
+                        } else if(key == 'Loan Amount') {
+                          return loanAmount.toStringAsFixed(2);
+                        } else {
+                          return totalAmount.toStringAsFixed(2);
+                        }
+                      });
 
-                  }
-              ),
-              SizedBox(height: 20.sp),
-              controller.homeLoanResult(loanMapData: controller.mapBusinessLoan),
-              Spacer(),
-            ],
+                    }
+                ),
+                SizedBox(height: 20.sp),
+                controller.homeLoanResult(loanMapData: controller.mapBusinessLoan),
+                SizedBox(height: 20.sp),
+              ],
+            ),
           ),
         ),
       ),

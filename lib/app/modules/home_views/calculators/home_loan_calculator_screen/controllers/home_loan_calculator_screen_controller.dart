@@ -29,7 +29,7 @@ class HomeLoanCalculatorScreenController extends GetxController {
 
   AdService adService = AdService();
 
-  Widget bottomButtons({required Function() onTapBtn2}) {
+  Widget bottomButtons({required Function() onTapBtn2, required BuildContext context}) {
     double width = 100.w;
     return Row(
       children: [
@@ -37,7 +37,7 @@ class HomeLoanCalculatorScreenController extends GetxController {
           highlightColor: Colors.transparent,
           splashColor: Colors.transparent,
           onTap: () {
-            adService.checkCounterAd(currentScreen: '/BusinessLoanCalculatorScreenView');
+            adService.checkCounterAd(currentScreen: '/BusinessLoanCalculatorScreenView', context: context);
             txtLoanAmount.value.clear();
             txtInterestAmount.value.clear();
             txtLoanPeriod.value.clear();
@@ -112,35 +112,28 @@ class HomeLoanCalculatorScreenController extends GetxController {
   }.obs;
 
   Widget homeLoanResult({required RxMap<String, dynamic> loanMapData}) {
-    return Expanded(
-      child: Container(
-        decoration: BoxDecoration(
-          gradient: ConstantsColor.buttonGradient,
-          borderRadius: BorderRadius.circular(15.sp),
-          boxShadow: ConstantsWidgets.boxShadow
-        ),
-        padding: EdgeInsets.symmetric(horizontal: 17.sp, vertical: 15.sp),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text('Results For Your Loan', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 17.sp),),
-            SizedBox(height: 17.sp),
-            Expanded(
-              // height: 100.h * 0.22,
-              child: SingleChildScrollView(
-                physics: BouncingScrollPhysics(),
-                child: Obx(() => Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: List.generate(loanMapData.length, (index) {
-                    List listKeys = loanMapData.keys.toList();
-                    List listValues = loanMapData.values.toList();
-                    return textRow(leftText: listKeys[index], rightText: listValues[index].toString());
-                  }),
-                )),
-              ),
-            )
-          ],
-        ),
+    return Container(
+      width: 100.w,
+      decoration: BoxDecoration(
+        gradient: ConstantsColor.buttonGradient,
+        borderRadius: BorderRadius.circular(15.sp),
+        boxShadow: ConstantsWidgets.boxShadow
+      ),
+      padding: EdgeInsets.symmetric(horizontal: 17.sp, vertical: 15.sp),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text('Results For Your Loan', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 17.sp),),
+          SizedBox(height: 17.sp),
+          Obx(() => Column(
+            mainAxisSize: MainAxisSize.min,
+            children: List.generate(loanMapData.length, (index) {
+              List listKeys = loanMapData.keys.toList();
+              List listValues = loanMapData.values.toList();
+              return textRow(leftText: listKeys[index], rightText: listValues[index].toString());
+            }),
+          ))
+        ],
       ),
     );
   }

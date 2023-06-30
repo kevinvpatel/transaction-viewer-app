@@ -28,14 +28,14 @@ class SelectBankScreenView extends GetView<IfscScreenController> {
 
     return WillPopScope(
       onWillPop: () async {
-        adService.checkBackCounterAd(currentScreen: '/SelectBankScreenView');
-        return Future.value(true);
+        adService.checkBackCounterAd(currentScreen: '/SelectBankScreenView', context: context);
+        return Future.value(false);
       },
       child: Scaffold(
         backgroundColor: ConstantsColor.backgroundDarkColor,
         appBar: ConstantsWidgets.appBar(title: Get.arguments, onTapBack: () {
-          adService.checkBackCounterAd(currentScreen: '/SelectBankScreenView');
-          Get.back();
+          adService.checkBackCounterAd(currentScreen: '/SelectBankScreenView', context: context);
+          // Get.back();
         }),
         body: Container(
           height: height,
@@ -87,7 +87,7 @@ class SelectBankScreenView extends GetView<IfscScreenController> {
 
         return InkWell(
           onTap: () async {
-            adService.checkCounterAd(currentScreen: '/SelectBankScreenView');
+            adService.checkCounterAd(currentScreen: '/SelectBankScreenView', context: context);
 
             if(controller.bankName.value == 'Select Bank') {
               log('controller.bankName.value 11 -> ${ifsc_list[index].split('.').first}');

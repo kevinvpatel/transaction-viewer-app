@@ -77,6 +77,9 @@ dependencies:
   hive: ^2.2.3
   hive_flutter: ^1.1.0
 
+#  open playstore
+  launch_review: ^3.0.1
+
   get: 4.6.5
 
   flutter: 

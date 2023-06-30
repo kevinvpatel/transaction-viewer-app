@@ -1,8 +1,9 @@
-
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:transaction_viewer_app/app/data/adServices.dart';
 import 'package:transaction_viewer_app/app/data/constants/color_constants.dart';
 import 'package:transaction_viewer_app/app/data/constants/widget_constants.dart';
 import 'package:transaction_viewer_app/app/modules/bank_statement_views/bank_detail_screen/views/bank_detail_screen_view.dart';
@@ -19,27 +20,32 @@ class CashMoneyScreenView extends GetView<BillPaymentScreenController> {
     return Scaffold(
         backgroundColor: ConstantsColor.backgroundDarkColor,
         appBar: ConstantsWidgets.appBar(title: 'ATM Withdrawal', isShareButtonEnable: true , onTapBack: () {
-
           Get.back();
         }),
         body: Container(
           height: height,
           width: width,
-          child: allTransaction(),
+          child: atmTransaction(),
         )
     );
   }
 
-  Widget allTransaction() {
-    List<Map<String, dynamic>> listMessages = controller.cashMoneyList.groupBy('group');
+  Widget atmTransaction() {
+    List<Map<dynamic, dynamic>> temp = controller.cashMoneyList.groupBy('category');
     double width = 100.w;
-    print('listMessages -> ${controller.cashMoneyList}');
+    temp.removeWhere((element) => element.keys.first != 'ATM Withdrawal');
+
+    List<Map<dynamic, dynamic>> templistMessages = List<Map<dynamic, dynamic>>.from(temp.first.values.first);
+    List<Map<dynamic, dynamic>> listMessages = templistMessages.groupBy('group');
+    print('listMsg -> ${listMessages}');
+
+    AdService adService = AdService();
 
     return SingleChildScrollView(
       physics: BouncingScrollPhysics(),
-      controller: controller.scrollController,
       child: Column(
         children: List.generate(listMessages.length, (index) {
+          Map<dynamic, dynamic> sms = listMessages[index];
 
           return Column(
             children: [
@@ -56,10 +62,10 @@ class CashMoneyScreenView extends GetView<BillPaymentScreenController> {
                       borderRadius: BorderRadius.circular(18.sp)
                   ),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       SizedBox(width: 18.sp),
-                      Text(listMessages[index].keys.first.toString().toUpperCase(),
+                      Text(sms.keys.first,
                           style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600, color: ConstantsColor.purpleColor)),
                     ],
                   ),
@@ -68,12 +74,15 @@ class CashMoneyScreenView extends GetView<BillPaymentScreenController> {
               ListView.separated(
                 shrinkWrap: true,
                 physics: const ClampingScrollPhysics(),
-                itemCount: listMessages[index].values.first.length,
+                itemCount: sms.values.first.length,
                 itemBuilder: (context, groupedIndex) {
-                  List listGroupedMessages = listMessages[index].values.first.toList();
+                  List listGroupedMessages = sms.values.first.toList();
+                  print('sms -> ${listGroupedMessages[groupedIndex]}');
+                  print(' ');
                   return InkWell(
                     onTap: () {
-                      // detailDialoge(message: listGroupedMessages[groupedIndex]);
+                      adService.checkCounterAd(currentScreen: '/BillPaymentScreenView', context: context);
+                      detailDialoge(message: listGroupedMessages[groupedIndex]);
                     },
                     child: Container(
                       height: 33.sp,
@@ -100,5 +109,53 @@ class CashMoneyScreenView extends GetView<BillPaymentScreenController> {
       ),
     );
   }
+
+
+  detailDialoge({required Map<dynamic, dynamic> message}) {
+    // adService.checkCounterAd(currentScreen: '/BankDetailScreenView');
+    Get.dialog(
+        AlertDialog(
+          backgroundColor: Colors.transparent,
+          actions: [
+            Container(
+              width: 95.w,
+              decoration: BoxDecoration(
+                  gradient: ConstantsColor.buttonGradient,
+                  borderRadius: BorderRadius.circular(18.sp),
+                  border: Border.all(color: Colors.white)
+              ),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      IconButton(
+                          onPressed: () {
+                            // adService.checkBackCounterAd(currentScreen: '/BankDetailScreenView');
+                            Get.back();
+                          },
+                          icon: const Icon(CupertinoIcons.clear_circled_solid, color: Colors.white)
+                      )
+                    ],
+                  ),
+                  Text('Transaction Details', style: TextStyle(fontSize: 18.5.sp, fontWeight: FontWeight.w600, color: ConstantsColor.purpleColor)),
+                  SizedBox(height: 20.sp),
+                  Text('Account no - XXXXX${message['account_number']}', style: TextStyle(fontSize: 17.sp, fontWeight: FontWeight.w600, color: Colors.white)),
+                  SizedBox(height: 15.sp),
+                  Padding(
+                    padding: EdgeInsets.only(left: 20.sp, right: 20.sp, bottom: 20.sp),
+                    child: Text(message['body'],
+                      style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.w400, color: Colors.white),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ],
+              ),
+            )
+          ],
+        )
+    );
+  }
+
 
 }

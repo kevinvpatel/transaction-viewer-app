@@ -562,16 +562,16 @@ class CreateTxn {
 
 
 class TransactionTypeRule {
-  List<Rules>? rules;
+  List<TransactionRules>? rules;
   int? groupId;
 
   TransactionTypeRule({this.rules, this.groupId});
 
   TransactionTypeRule.fromJson(Map<String, dynamic> json) {
     if (json['rules'] != null) {
-      rules = <Rules>[];
+      rules = <TransactionRules>[];
       json['rules'].forEach((v) {
-        rules!.add(Rules.fromJson(v));
+        rules!.add(TransactionRules.fromJson(v));
       });
     }
     groupId = json['group_id'];
@@ -583,6 +583,40 @@ class TransactionTypeRule {
       data['rules'] = rules!.map((v) => v.toJson()).toList();
     }
     data['group_id'] = groupId;
+    return data;
+  }
+}
+
+
+class TransactionRules {
+  String? txnType;
+  String? value;
+  String? posOverride;
+  String? accTypeOverride;
+  bool? setNoPos;
+
+  TransactionRules(
+      {this.txnType,
+        this.value,
+        this.posOverride,
+        this.accTypeOverride,
+        this.setNoPos});
+
+  TransactionRules.fromJson(Map<String, dynamic> json) {
+    txnType = json['txn_type'];
+    value = json['value'];
+    posOverride = json['pos_override'];
+    accTypeOverride = json['acc_type_override'];
+    setNoPos = json['set_no_pos'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['txn_type'] = txnType;
+    data['value'] = value;
+    data['pos_override'] = posOverride;
+    data['acc_type_override'] = accTypeOverride;
+    data['set_no_pos'] = setNoPos;
     return data;
   }
 }

@@ -21,20 +21,20 @@ class CreditCardScreenView extends GetView<CreditCardScreenController> {
 
     return WillPopScope(
       onWillPop: () async {
-        adService.checkBackCounterAd(currentScreen: '/CreditCardScreenView');
-        return Future.value(true);
+        adService.checkBackCounterAd(currentScreen: '/CreditCardScreenView', context: context);
+        return Future.value(false);
       },
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: ConstantsColor.backgroundDarkColor,
         appBar: ConstantsWidgets.appBar(title: 'Credit Card Apply', isShareButtonEnable: true, onTapBack: () {
-          adService.checkBackCounterAd(currentScreen: '/CreditCardScreenView');
-          Get.back();
+          adService.checkBackCounterAd(currentScreen: '/CreditCardScreenView', context: context);
+          // Get.back();
         }),
         body: Obx(() => ListView.separated(
           padding: EdgeInsets.only(top: 15.sp, left: 15.sp, right: 15.sp),
           itemCount: controller.creditCardData.keys.length,
-          itemBuilder: (context, index) {
+          itemBuilder: (ctx, index) {
             List list = controller.creditCardData.values.toList();
             return Container(
               padding: EdgeInsets.symmetric(horizontal: 14.sp, vertical: 15.sp),
@@ -71,8 +71,12 @@ class CreditCardScreenView extends GetView<CreditCardScreenController> {
                     highlightColor: Colors.transparent,
                     splashColor: Colors.transparent,
                     onTap: () {
-                      adService.checkCounterAd(currentScreen: '/CreditCardScreenView');
-                      Get.to(const CreditCardApplyScreenView(), arguments: list[index]);
+                      adService.checkCounterAd(
+                          currentScreen: '/CreditCardScreenView',
+                          context: context,
+                          pageToNavigate: const CreditCardApplyScreenView(),
+                          argument: list[index]
+                      );
                     },
                     child: Container(
                       decoration: BoxDecoration(

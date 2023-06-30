@@ -28,14 +28,14 @@ class IfscCodeBankResultView extends GetView<IfscScreenController> {
 
     return WillPopScope(
       onWillPop: () async {
-        adService.checkBackCounterAd(currentScreen: '/IfscCodeBankResultView');
-        return Future.value(true);
+        adService.checkBackCounterAd(currentScreen: '/IfscCodeBankResultView', context: context);
+        return Future.value(false);
       },
       child: Scaffold(
         backgroundColor: ConstantsColor.backgroundDarkColor,
         appBar: ConstantsWidgets.appBar(title: '', onTapBack: () {
-          adService.checkBackCounterAd(currentScreen: '/IfscCodeBankResultView');
-          Get.back();
+          adService.checkBackCounterAd(currentScreen: '/IfscCodeBankResultView', context: context);
+          // Get.back();
         }, isShareButtonEnable: false),
         body: Container(
           height: height,
@@ -89,11 +89,11 @@ class IfscCodeBankResultView extends GetView<IfscScreenController> {
                   SizedBox(height: 23.sp),
                   Text('Branch Codes', style: TextStyle(color: Colors.grey.shade400, fontWeight: FontWeight.w500, fontSize: 18.sp),),
                   SizedBox(height: 23.sp),
-                  branchCodeBox(adService: adService, width: width - 19.sp, height: 38.sp, title: 'IFSC', data: map['details']['ifsc_code'], verticalPadding: 5.sp),
+                  branchCodeBox(adService: adService, context: context, width: width - 19.sp, height: 38.sp, title: 'IFSC', data: map['details']['ifsc_code'], verticalPadding: 5.sp),
                   SizedBox(height: 22.sp),
-                  branchCodeBox(adService: adService, width: width - 19.sp, height: 38.sp, title: 'MICR Code', data: map['details']['micr_code'], verticalPadding: 5.sp),
+                  branchCodeBox(adService: adService, context: context, width: width - 19.sp, height: 38.sp, title: 'MICR Code', data: map['details']['micr_code'], verticalPadding: 5.sp),
                   SizedBox(height: 22.sp),
-                  branchCodeBox(adService: adService, width: width - 19.sp, height: 38.sp, title: 'Phone Number', data: map['details']['phone_number'], verticalPadding: 5.sp),
+                  branchCodeBox(adService: adService, context: context, width: width - 19.sp, height: 38.sp, title: 'Phone Number', data: map['details']['phone_number'], verticalPadding: 5.sp),
                   SizedBox(height: 22.sp),
                 ]
             ),
@@ -133,7 +133,7 @@ class IfscCodeBankResultView extends GetView<IfscScreenController> {
   }
 
 
-  Widget branchCodeBox({required AdService adService, required double width, double? height, required String title, required String data, double? verticalPadding}) {
+  Widget branchCodeBox({required AdService adService, required BuildContext context, required double width, double? height, required String title, required String data, double? verticalPadding}) {
     return Container(
       width: width,
       height: height ?? 42.sp,
@@ -164,7 +164,7 @@ class IfscCodeBankResultView extends GetView<IfscScreenController> {
           button(
             height: height,
             onTap: () async {
-              adService.checkCounterAd(currentScreen: '/IfscCodeBankResultView');
+              adService.checkCounterAd(currentScreen: '/IfscCodeBankResultView', context: context);
               await Clipboard.setData(ClipboardData(text: data));
               Fluttertoast.showToast(msg: 'Copied ${title} : $data');
             },
@@ -172,7 +172,7 @@ class IfscCodeBankResultView extends GetView<IfscScreenController> {
           ),
           SizedBox(width: 17.sp),
           button(height: height, onTap: () {
-            adService.checkCounterAd(currentScreen: '/IfscCodeBankResultView');
+            adService.checkCounterAd(currentScreen: '/IfscCodeBankResultView', context: context);
             Share.share(data);
           }, imagePath: ConstantsImage.sharecode_icon)
         ],

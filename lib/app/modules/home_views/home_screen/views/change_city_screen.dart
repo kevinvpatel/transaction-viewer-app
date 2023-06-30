@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,9 +6,8 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:transaction_viewer_app/app/data/adServices.dart';
 import 'package:transaction_viewer_app/app/data/constants/color_constants.dart';
 import 'package:transaction_viewer_app/app/data/constants/widget_constants.dart';
-import 'package:transaction_viewer_app/app/modules/bottom_navigation_screen/views/bottom_navigation_screen_view.dart';
 import 'package:transaction_viewer_app/app/modules/home_views/home_screen/controllers/home_screen_controller.dart';
-import 'package:transaction_viewer_app/app/modules/home_views/home_screen/views/home_screen_view.dart';
+
 
 class ChangeCityScreen extends GetView<HomeScreenController> {
   const ChangeCityScreen({Key? key}) : super(key: key);
@@ -28,14 +26,14 @@ class ChangeCityScreen extends GetView<HomeScreenController> {
 
     return WillPopScope(
       onWillPop: () async {
-        adService.checkBackCounterAd(currentScreen: '/ChangeCityScreen');
-        return Future.value(true);
+        adService.checkBackCounterAd(currentScreen: '/ChangeCityScreen', context: context);
+        return Future.value(false);
       },
       child: Scaffold(
         backgroundColor: ConstantsColor.backgroundDarkColor,
         appBar: ConstantsWidgets.appBar(title: 'Change City', onTapBack: () {
-          adService.checkBackCounterAd(currentScreen: '/ChangeCityScreen');
-          Get.back();
+          adService.checkBackCounterAd(currentScreen: '/ChangeCityScreen', context: context);
+          // Get.back();
         }, isShareButtonEnable: false),
         body: Container(
           padding: EdgeInsets.symmetric(horizontal: 15.sp, vertical: 20.sp),
@@ -76,7 +74,7 @@ class ChangeCityScreen extends GetView<HomeScreenController> {
                                   itemBuilder: (context, cityIndex) {
                                     return InkWell(
                                       onTap: () {
-                                        adService.checkCounterAd(currentScreen: '/ChangeCityScreen');
+                                        adService.checkCounterAd(currentScreen: '/ChangeCityScreen', context: context);
                                         controller.stateName = listStates[stateIndex];
                                         controller.cityName = listCities[cityIndex]['cityName'];
                                         log('controller.stateName -> ${controller.stateName}');
