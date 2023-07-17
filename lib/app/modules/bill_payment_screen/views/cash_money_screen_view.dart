@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -31,81 +33,93 @@ class CashMoneyScreenView extends GetView<BillPaymentScreenController> {
   }
 
   Widget atmTransaction() {
-    List<Map<dynamic, dynamic>> temp = controller.cashMoneyList.groupBy('category');
+    List<Map<dynamic, dynamic>> listMessages = [];
     double width = 100.w;
-    temp.removeWhere((element) => element.keys.first != 'ATM Withdrawal');
+    double height = 100.h;
+    log('controller.cashMoneyList -> ${controller.cashMoneyList.isNotEmpty}');
 
-    List<Map<dynamic, dynamic>> templistMessages = List<Map<dynamic, dynamic>>.from(temp.first.values.first);
-    List<Map<dynamic, dynamic>> listMessages = templistMessages.groupBy('group');
-    print('listMsg -> ${listMessages}');
+    if(controller.cashMoneyList.isNotEmpty) {
+      List<Map<dynamic, dynamic>> temp = controller.cashMoneyList.groupBy('category');
+      temp.removeWhere((element) => element.keys.first != 'ATM Withdrawal');
+
+      List<Map<dynamic, dynamic>> templistMessages = List<Map<dynamic, dynamic>>.from(temp.first.values.first);
+      listMessages = templistMessages.groupBy('group');
+      print('listMsg -> ${listMessages}');
+    }
 
     AdService adService = AdService();
 
-    return SingleChildScrollView(
-      physics: BouncingScrollPhysics(),
-      child: Column(
-        children: List.generate(listMessages.length, (index) {
-          Map<dynamic, dynamic> sms = listMessages[index];
-
-          return Column(
-            children: [
-              Material(
-                elevation: 2,
-                shadowColor: Colors.white54,
-                borderRadius: BorderRadius.circular(18.sp),
-                child: Container(
-                  height: 34.sp,
-                  width: width,
-                  margin: EdgeInsets.only(right: 1.5.sp),
-                  decoration: BoxDecoration(
-                      gradient: ConstantsColor.buttonGradient,
-                      borderRadius: BorderRadius.circular(18.sp)
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      SizedBox(width: 18.sp),
-                      Text(sms.keys.first,
-                          style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600, color: ConstantsColor.purpleColor)),
-                    ],
+    return Container(
+      width: width,
+      height: height,
+      child: listMessages.length > 0 ? SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
+        child: Column(
+          children: List.generate(listMessages.length, (index) {
+            Map<dynamic, dynamic> sms = listMessages[index];
+            log('sms -> ${sms}');
+            return Column(
+              children: [
+                Material(
+                  elevation: 2,
+                  shadowColor: Colors.white54,
+                  borderRadius: BorderRadius.circular(18.sp),
+                  child: Container(
+                    height: 34.sp,
+                    width: width,
+                    margin: EdgeInsets.only(right: 1.5.sp),
+                    decoration: BoxDecoration(
+                        gradient: ConstantsColor.buttonGradient,
+                        borderRadius: BorderRadius.circular(18.sp)
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        SizedBox(width: 18.sp),
+                        Text(sms.keys.first,
+                            style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600, color: ConstantsColor.purpleColor)),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              ListView.separated(
-                shrinkWrap: true,
-                physics: const ClampingScrollPhysics(),
-                itemCount: sms.values.first.length,
-                itemBuilder: (context, groupedIndex) {
-                  List listGroupedMessages = sms.values.first.toList();
-                  print('sms -> ${listGroupedMessages[groupedIndex]}');
-                  print(' ');
-                  return InkWell(
-                    onTap: () {
-                      adService.checkCounterAd(currentScreen: '/BillPaymentScreenView', context: context);
-                      detailDialoge(message: listGroupedMessages[groupedIndex]);
-                    },
-                    child: Container(
-                      height: 33.sp,
-                      padding: EdgeInsets.symmetric(horizontal: 15.sp),
-                      child: Row(
-                        children: [
-                          Text(DateFormat('dd MMM').format(listGroupedMessages[groupedIndex]['date']), style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600, color: Colors.grey.shade500)),
-                          SizedBox(width: 15.sp),
-                          SizedBox(
-                              width: width * 0.5,
-                              child: Text(listGroupedMessages[groupedIndex]['transaction_account'] ?? 'UNKNOWN',
-                                  style: TextStyle(fontSize: 15.5.sp, fontWeight: FontWeight.w600, color: Colors.white), overflow: TextOverflow.ellipsis, maxLines: 1)
-                          ),
-                        ],
+                ListView.separated(
+                  shrinkWrap: true,
+                  physics: const ClampingScrollPhysics(),
+                  itemCount: sms.values.first.length,
+                  itemBuilder: (context, groupedIndex) {
+                    List listGroupedMessages = sms.values.first.toList();
+                    print('sms -> ${listGroupedMessages[groupedIndex]}');
+                    print(' ');
+                    return InkWell(
+                      onTap: () {
+                        adService.checkCounterAd(currentScreen: '/BillPaymentScreenView', context: context);
+                        detailDialoge(message: listGroupedMessages[groupedIndex]);
+                      },
+                      child: Container(
+                        height: 33.sp,
+                        padding: EdgeInsets.symmetric(horizontal: 15.sp),
+                        child: Row(
+                          children: [
+                            Text(DateFormat('dd MMM').format(listGroupedMessages[groupedIndex]['date']), style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600, color: Colors.grey.shade500)),
+                            SizedBox(width: 15.sp),
+                            SizedBox(
+                                width: width * 0.5,
+                                child: Text(listGroupedMessages[groupedIndex]['transaction_account'] ?? 'UNKNOWN',
+                                    style: TextStyle(fontSize: 15.5.sp, fontWeight: FontWeight.w600, color: Colors.white), overflow: TextOverflow.ellipsis, maxLines: 1)
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  );
-                },
-                separatorBuilder: (context, index) => const Divider(color: Colors.white, height: 0, thickness: 0.2),
-              )
-            ],
-          );
-        }),
+                    );
+                  },
+                  separatorBuilder: (context, index) => const Divider(color: Colors.white, height: 0, thickness: 0.2),
+                )
+              ],
+            );
+          }),
+        ),
+      ) : Center(
+        child: Text('No Transaction Available!', style: TextStyle(fontSize: 16.5.sp, fontWeight: FontWeight.w600, color: Colors.white)),
       ),
     );
   }

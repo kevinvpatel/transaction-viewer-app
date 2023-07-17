@@ -10,14 +10,14 @@ Widget convertBankAddressToBankIcon({required String bankName, required Map<Stri
   String? imagePath;
   for(Map<String, dynamic> data in bankBundleData['rules']) {
     imagePath = '';
-    print('bankName ->> ${bankName}');
-    print('full_name ->> ${data['full_name']}');
+    // print('bankName ->> ${bankName}');
+    // print('full_name ->> ${data['full_name']}');
     if(data['full_name'] == bankName.toUpperCase() || data['full_name'] == bankName.toLowerCase() || data['full_name'] == bankName) {
       imagePath = 'assets/bank icons/${data['image']}.png';
       break;
     }
   }
-  print('imagePath ->> ${imagePath}');
+  // print('imagePath ->> ${imagePath}');
   if(imagePath == '') {
     return Padding(
       padding: EdgeInsets.all(padding ?? 0.0),

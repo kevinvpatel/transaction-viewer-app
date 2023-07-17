@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:buttons_tabbar/buttons_tabbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -75,104 +77,113 @@ class BillsAndEmiScreenView extends GetView<BillPaymentScreenController> {
   }
 
   Widget transactionList({required List<String> title, required double width, required BillPaymentScreenController controller, required int tabIndex}) {
-
-    List<Map<String, dynamic>> temp = controller.cashMoneyList.groupBy('category');
-    print('temp -> ${temp}');
-    temp.removeWhere((element) => element.keys.first == 'ATM Withdrawal');
-    List<Map<dynamic, dynamic>> templistMessages = List<Map<dynamic, dynamic>>.from(temp.first.values.first);
-    List<Map<dynamic, dynamic>> listTransactions = templistMessages.groupBy('group');
-    // print('listTransactions ->> ${listTransactions.toSet().toList()}');
     List<int> listCategoriesLength = [];
-    listTransactions.forEach((transaction) {
-      Map<dynamic, dynamic> map = transaction;
-      List<Map<dynamic, dynamic>> listMap = List<Map<dynamic, dynamic>>.from(map.values.first.toSet().toList());
-      List<Map<dynamic, dynamic>> listMapCategory = listMap.groupBy('category');
-      print('listMapCategory ->> ${listMapCategory.first.keys.first}');
-      print('title[tabIndex] ->> ${title[tabIndex]}');
-      if(listMapCategory.first.keys.first == title[tabIndex]) {
-        listCategoriesLength.add(listTransactions.length);
-      } else {
-        listCategoriesLength.add(1);
-      }
-    });
+    List<Map<dynamic, dynamic>> listTransactions = [];
+
+    if(controller.cashMoneyList.isNotEmpty) {
+      List<Map<String, dynamic>> temp = controller.cashMoneyList.groupBy('category');
+      print('temp -> ${temp}');
+      temp.removeWhere((element) => element.keys.first == 'ATM Withdrawal');
+      List<Map<dynamic, dynamic>> templistMessages = List<Map<dynamic, dynamic>>.from(temp.first.values.first);
+      listTransactions = templistMessages.groupBy('group');
+
+      listTransactions.forEach((transaction) {
+        Map<dynamic, dynamic> map = transaction;
+        List<Map<dynamic, dynamic>> listMap = List<Map<dynamic, dynamic>>.from(map.values.first.toSet().toList());
+        List<Map<dynamic, dynamic>> listMapCategory = listMap.groupBy('category');
+        print('listMapCategory ->> ${listMapCategory.first.keys.first}');
+        print('title[tabIndex] ->> ${title[tabIndex]}');
+        if(listMapCategory.first.keys.first == title[tabIndex]) {
+          listCategoriesLength.add(listTransactions.length);
+        } else {
+          listCategoriesLength.add(1);
+        }
+      });
+    }
 
     return Obx(() {
-      print('listCategoriesLength ->> ${listCategoriesLength}');
+      log('listCategoriesLength ->> ${listCategoriesLength}');
 
       return controller.isLoading.value == false
-          ? SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
-            controller: controller.scrollController,
-            child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 12.sp, horizontal: 12.sp),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: List.generate(listCategoriesLength[tabIndex], (index) {
-                  Map<dynamic, dynamic> map = listTransactions[index];
-                  List<Map<dynamic, dynamic>> listMap = List<Map<dynamic, dynamic>>.from(map.values.first.toSet().toList());
-                  List<Map<dynamic, dynamic>> listMapCategory = listMap.groupBy('category');
+          ? listCategoriesLength.length > 0
+              ? SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
+                controller: controller.scrollController,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 12.sp, horizontal: 12.sp),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: List.generate(listCategoriesLength[tabIndex], (index) {
+                      Map<dynamic, dynamic> map = listTransactions[index];
+                      List<Map<dynamic, dynamic>> listMap = List<Map<dynamic, dynamic>>.from(map.values.first.toSet().toList());
+                      List<Map<dynamic, dynamic>> listMapCategory = listMap.groupBy('category');
 
-                  print('listMap ->> ${map}');
-                  print(' ');
-                  if(listMapCategory.first.keys.first == title[tabIndex]) {
-                    return Column(
-                      children: [
-                        Container(
-                          height: 34.sp,
-                          width: width,
-                          padding: EdgeInsets.only(left: 14.5.sp),
-                          alignment: Alignment.centerLeft,
-                          decoration: BoxDecoration(
-                              boxShadow: ConstantsWidgets.boxShadow,
-                              gradient: ConstantsColor.buttonGradient,
-                              borderRadius: BorderRadius.circular(18.sp)
-                          ),
-                          child: Text(map.keys.first.toString().toUpperCase(),
-                              style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600, color: ConstantsColor.purpleColor)),
-                        ),
-                        ListView.separated(
-                          shrinkWrap: true,
-                          physics: const ClampingScrollPhysics(),
-                          itemCount: map.values.first.toSet().length,
-                          itemBuilder: (context, groupedIndex) {
-                            List listGroupedMessages = map.values.first.toSet().toList();
-                            // print('listGroupedMessages ->> ${listGroupedMessages[groupedIndex]['category']}');
-                            return InkWell(
-                              onTap: () {
-                                detailDialoge(message: listGroupedMessages[groupedIndex]);
-                              },
-                              child: Container(
-                                height: 33.sp,
-                                padding: EdgeInsets.symmetric(horizontal: 15.sp),
-                                child: Row(
-                                  children: [
-                                    Text(DateFormat('dd MMM').format(listGroupedMessages[groupedIndex]['date']), style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600, color: Colors.grey.shade500)),
-                                    SizedBox(width: 15.sp),
-                                    SizedBox(
-                                        width: width * 0.5,
-                                        child: Text(listGroupedMessages[groupedIndex]['transaction_account'] ?? 'UNKNOWN',
-                                            style: TextStyle(fontSize: 15.5.sp, fontWeight: FontWeight.w600, color: Colors.white), overflow: TextOverflow.ellipsis, maxLines: 1)
-                                    ),
-                                  ],
-                                ),
+                      print('listMap ->> ${map}');
+                      print(' ');
+                      if(listMapCategory.first.keys.first == title[tabIndex]) {
+                        return Column(
+                          children: [
+                            Container(
+                              height: 34.sp,
+                              width: width,
+                              padding: EdgeInsets.only(left: 14.5.sp),
+                              alignment: Alignment.centerLeft,
+                              decoration: BoxDecoration(
+                                  boxShadow: ConstantsWidgets.boxShadow,
+                                  gradient: ConstantsColor.buttonGradient,
+                                  borderRadius: BorderRadius.circular(18.sp)
                               ),
-                            );
-                          },
-                          separatorBuilder: (context, index) => const Divider(color: Colors.white, height: 0, thickness: 0.2),
-                        )
-                      ],
-                    );
-                  } else {
-                    return Container(
-                      height: 75.h,
-                      alignment: Alignment.center,
-                      child: Text('${title[tabIndex]} list is empty', style: TextStyle(color: Colors.white, fontSize: 17.sp, fontWeight: FontWeight.w500),),
-                    );
-                  }
-                }),
-              ),
-            ),
-          )
+                              child: Text(map.keys.first.toString().toUpperCase(),
+                                  style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600, color: ConstantsColor.purpleColor)),
+                            ),
+                            ListView.separated(
+                              shrinkWrap: true,
+                              physics: const ClampingScrollPhysics(),
+                              itemCount: map.values.first.toSet().length,
+                              itemBuilder: (context, groupedIndex) {
+                                List listGroupedMessages = map.values.first.toSet().toList();
+                                // print('listGroupedMessages ->> ${listGroupedMessages[groupedIndex]['category']}');
+                                return InkWell(
+                                  onTap: () {
+                                    detailDialoge(message: listGroupedMessages[groupedIndex]);
+                                  },
+                                  child: Container(
+                                    height: 33.sp,
+                                    padding: EdgeInsets.symmetric(horizontal: 15.sp),
+                                    child: Row(
+                                      children: [
+                                        Text(DateFormat('dd MMM').format(listGroupedMessages[groupedIndex]['date']), style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600, color: Colors.grey.shade500)),
+                                        SizedBox(width: 15.sp),
+                                        SizedBox(
+                                            width: width * 0.5,
+                                            child: Text(listGroupedMessages[groupedIndex]['transaction_account'] ?? 'UNKNOWN',
+                                                style: TextStyle(fontSize: 15.5.sp, fontWeight: FontWeight.w600, color: Colors.white), overflow: TextOverflow.ellipsis, maxLines: 1)
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              },
+                              separatorBuilder: (context, index) => const Divider(color: Colors.white, height: 0, thickness: 0.2),
+                            )
+                          ],
+                        );
+                      } else {
+                        return Container(
+                          height: 75.h,
+                          alignment: Alignment.center,
+                          child: Text('${title[tabIndex]} list is empty', style: TextStyle(color: Colors.white, fontSize: 17.sp, fontWeight: FontWeight.w500),),
+                        );
+                      }
+                    }),
+                  ),
+                ),
+              ) : Container(
+                height: 75.h,
+                alignment: Alignment.center,
+                child: Text('${title[tabIndex]} list is empty', style: TextStyle(color: Colors.white, fontSize: 17.sp, fontWeight: FontWeight.w500),),
+              )
+
           : const Center(
             child: CircularProgressIndicator(color: Colors.white),
             // child: Text('${title[tabIndex]} list is empty',

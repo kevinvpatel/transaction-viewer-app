@@ -4,12 +4,14 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:transaction_viewer_app/app/data/constants/color_constants.dart';
 import 'package:transaction_viewer_app/app/data/constants/widget_constants.dart';
 import 'package:transaction_viewer_app/app/modules/bank_statement_views/bank_statement_screen/controllers/bank_statement_screen_controller.dart';
+import 'package:transaction_viewer_app/app/modules/bottom_navigation_screen/controllers/bottom_navigation_screen_controller.dart';
 
-class LoadingScreenView extends GetView<BankStatementScreenController> {
+class LoadingScreenView extends GetView<BottomNavigationScreenController> {
   const LoadingScreenView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    BankStatementScreenController controller = Get.put(BankStatementScreenController());
+    // BankStatementScreenController controller = Get.put(BankStatementScreenController());
+    BottomNavigationScreenController bottomNavigationScreenController = Get.put(BottomNavigationScreenController());
     double height = 100.h;
     double width = 100.w;
 
@@ -34,7 +36,7 @@ class LoadingScreenView extends GetView<BankStatementScreenController> {
                   borderRadius: BorderRadius.circular(12.sp),
                   child: LinearProgressIndicator(
                     minHeight: 5.sp,
-                    value: controller.percentage.value / 100,
+                    value: bottomNavigationScreenController.percentage.value / 100,
                     color: ConstantsColor.purpleColor,
                     backgroundColor: Colors.white38,
                   ),
@@ -47,7 +49,7 @@ class LoadingScreenView extends GetView<BankStatementScreenController> {
               Text('Please Wait...',
                   style: TextStyle(color: Colors.white, fontWeight: FontWeight.w400, fontSize: 16.sp)),
               SizedBox(height: 12.sp),
-              Text('(${controller.percentage.value.toStringAsFixed(2)} %)',
+              Text('(${bottomNavigationScreenController.percentage.value.toStringAsFixed(2)} %)',
                   style: TextStyle(color: Colors.white, fontWeight: FontWeight.w400, fontSize: 16.sp)),
             ],
           );

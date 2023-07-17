@@ -1,4 +1,4 @@
-{
+final regJson = {
   "blacklist_regex": "(?i).*\\b(password|otp|verification|thank you|congrats|please|requested|linked|cashback|congratulations|activation|passcode|osp|netsecure)\\b.*",
   "min_app_version": "591",
   "rules": [
@@ -991,7 +991,7 @@
         "57575701"
       ],
       "sender_regexes": [
-        "^5\\d{5}$"
+        "^5\\d{5}\$"
       ]
     },
     {
@@ -2503,7 +2503,7 @@
           }
         },
         {
-          "regex": "(?i)Your a\\/c(?: no.?)? \\d*(\\d{6}) .*credited.* (?:INR|Rs. Rs|Rs)[\\.:,\\s]*([\\d,]+\\.?\\d{0,2}) on .* (?:a\\/c|avbl) bal.*?(?:INR|Rs. Rs|Rs)[\\.:,\\s]*([\\d,]+\\.?\\d{0,2})(?:\\.|\\s)\\s*info[\\s\\:\\.\\-]*(?:(?:visa|rupay).*?refund|pur rev txn dt)[\\/\\s]\\d{2}[\\.\\-]\\w{2,3}[\\-\\.]\\d{2}\\/?(.*?)(?:$|\\.\\s*call)",
+          "regex": "(?i)Your a\\/c(?: no.?)? \\d*(\\d{6}) .*credited.* (?:INR|Rs. Rs|Rs)[\\.:,\\s]*([\\d,]+\\.?\\d{0,2}) on .* (?:a\\/c|avbl) bal.*?(?:INR|Rs. Rs|Rs)[\\.:,\\s]*([\\d,]+\\.?\\d{0,2})(?:\\.|\\s)\\s*info[\\s\\:\\.\\-]*(?:(?:visa|rupay).*?refund|pur rev txn dt)[\\/\\s]\\d{2}[\\.\\-]\\w{2,3}[\\-\\.]\\d{2}\\/?(.*?)(?:\$|\\.\\s*call)",
           "account_type": "debit_card",
           "pattern_UID": "30029",
           "sort_UID": "30029",
@@ -2529,7 +2529,7 @@
           }
         },
         {
-          "regex": "(?i)Your a\\/c(?: no.?)? \\d*(\\d{6}) .*credited.* (?:INR|Rs. Rs|Rs)[\\.:,\\s]*([\\d,]+\\.?\\d{0,2}) on .* (?:a\\/c|avbl) bal.*?(?:INR|Rs. Rs|Rs)[\\.:,\\s]*([\\d,]+\\.?\\d{0,2})(?:\\.|\\s)\\s*(info.*?(pur rev \\d{2}\\-|emvpos refund|refund|atm\\-revsl|\\:\\s*rev\\/|reversal|pur\\-rev\\/|\\:\\s*txn rev\\/|pur rev txn|\\:\\s*pur\\/rev\\/).*?)(?:$|\\.\\s*call)",
+          "regex": "(?i)Your a\\/c(?: no.?)? \\d*(\\d{6}) .*credited.* (?:INR|Rs. Rs|Rs)[\\.:,\\s]*([\\d,]+\\.?\\d{0,2}) on .* (?:a\\/c|avbl) bal.*?(?:INR|Rs. Rs|Rs)[\\.:,\\s]*([\\d,]+\\.?\\d{0,2})(?:\\.|\\s)\\s*(info.*?(pur rev \\d{2}\\-|emvpos refund|refund|atm\\-revsl|\\:\\s*rev\\/|reversal|pur\\-rev\\/|\\:\\s*txn rev\\/|pur rev txn|\\:\\s*pur\\/rev\\/).*?)(?:\$|\\.\\s*call)",
           "account_type": "bank",
           "pattern_UID": "30030",
           "sort_UID": "30030",
@@ -2585,7 +2585,7 @@
           }
         },
         {
-          "regex": "(?i)Your a\\/c(?: no.?|) \\d*(\\d{6}) .*credited.* (?:INR|Rs. Rs|Rs)[\\.:,\\s]*([\\d,]+\\.?\\d{0,2}) on .* (?:a\\/c|avbl) bal.*?(?:INR|Rs. Rs|Rs)[\\.:,\\s]*([\\d,]+\\.?\\d{0,2})(?:\\.|\\s)\\s*info[\\s\\:\\.]*((?:neft|inb.*?|mob)\\/.*?\\/(?:m\\/s\\.?|\\.\\/|a\\/c|24\\/7|\\d*\\/)?(.*?)(?:\\/|$|\\.\\scall).*?(?:$|\\(if))",
+          "regex": "(?i)Your a\\/c(?: no.?|) \\d*(\\d{6}) .*credited.* (?:INR|Rs. Rs|Rs)[\\.:,\\s]*([\\d,]+\\.?\\d{0,2}) on .* (?:a\\/c|avbl) bal.*?(?:INR|Rs. Rs|Rs)[\\.:,\\s]*([\\d,]+\\.?\\d{0,2})(?:\\.|\\s)\\s*info[\\s\\:\\.]*((?:neft|inb.*?|mob)\\/.*?\\/(?:m\\/s\\.?|\\.\\/|a\\/c|24\\/7|\\d*\\/)?(.*?)(?:\\/|\$|\\.\\scall).*?(?:\$|\\(if))",
           "account_type": "bank",
           "pattern_UID": "30031",
           "sort_UID": "30031",
@@ -2691,7 +2691,7 @@
           }
         },
         {
-          "regex": "(?i)Your a\\/c(?: no.?|) \\d*(\\d{6}) .*credited.* (?:INR|Rs. Rs|Rs)[\\.:,\\s]*([\\d,]+\\.?\\d{0,2}) on .* (?:a\\/c|avbl) bal.*?(?:INR|Rs. Rs|Rs)[\\.:,\\s]*([\\d,]+\\.?\\d{0,2})(?:\\.|\\s)\\s*info[\\s\\:\\.]*((?:upi|imps)\\/.*?\\/.*?\\/(?:[a-z]{0,2}\\/)?(.*?)(?:\\/|$|\\.\\s*call).*?(?:$|\\(if))",
+          "regex": "(?i)Your a\\/c(?: no.?|) \\d*(\\d{6}) .*credited.* (?:INR|Rs. Rs|Rs)[\\.:,\\s]*([\\d,]+\\.?\\d{0,2}) on .* (?:a\\/c|avbl) bal.*?(?:INR|Rs. Rs|Rs)[\\.:,\\s]*([\\d,]+\\.?\\d{0,2})(?:\\.|\\s)\\s*info[\\s\\:\\.]*((?:upi|imps)\\/.*?\\/.*?\\/(?:[a-z]{0,2}\\/)?(.*?)(?:\\/|\$|\\.\\s*call).*?(?:\$|\\(if))",
           "account_type": "bank",
           "pattern_UID": "30033",
           "sort_UID": "30033",
@@ -2754,7 +2754,7 @@
           }
         },
         {
-          "regex": "(?i)Your a\\/c(?: no.?)? \\d*(\\d{6}) .*credited.* (?:INR|Rs. Rs|Rs)[\\.:,\\s]*([\\d,]+\\.?\\d{0,2}) on .* (?:a\\/c|avbl) bal.*?(?:INR|Rs. Rs|Rs)[\\.:,\\s]*([\\d,]+\\.?\\d{0,2})(?:\\.|\\s)\\s*info[\\s\\:\\.]*((?:ecs|trf|rtgs\\/.*?)\\/(?:m\\/s)?([^\\d].*?)(?:\\/|$|\\.\\s*call).*?)(?:$|\\(if)",
+          "regex": "(?i)Your a\\/c(?: no.?)? \\d*(\\d{6}) .*credited.* (?:INR|Rs. Rs|Rs)[\\.:,\\s]*([\\d,]+\\.?\\d{0,2}) on .* (?:a\\/c|avbl) bal.*?(?:INR|Rs. Rs|Rs)[\\.:,\\s]*([\\d,]+\\.?\\d{0,2})(?:\\.|\\s)\\s*info[\\s\\:\\.]*((?:ecs|trf|rtgs\\/.*?)\\/(?:m\\/s)?([^\\d].*?)(?:\\/|\$|\\.\\s*call).*?)(?:\$|\\(if)",
           "account_type": "bank",
           "pattern_UID": "30034",
           "sort_UID": "30034",
@@ -2817,7 +2817,7 @@
           }
         },
         {
-          "regex": "(?i)Your a\\/c(?: no.?)? \\d*(\\d{6}) .*credited.* (?:INR|Rs. Rs|Rs)[\\.:,\\s]*([\\d,]+\\.?\\d{0,2}) on .* (?:a\\/c|avbl) bal.*?(?:INR|Rs. Rs|Rs)[\\.:,\\s]*([\\d,]+\\.?\\d{0,2})(?:\\.|\\s)\\s*info[\\s\\:\\.\\-]*(.*?(?:salary|sal\\s*(?:for)?\\s*(?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)).*?)(?:\\.\\s*call|$)",
+          "regex": "(?i)Your a\\/c(?: no.?)? \\d*(\\d{6}) .*credited.* (?:INR|Rs. Rs|Rs)[\\.:,\\s]*([\\d,]+\\.?\\d{0,2}) on .* (?:a\\/c|avbl) bal.*?(?:INR|Rs. Rs|Rs)[\\.:,\\s]*([\\d,]+\\.?\\d{0,2})(?:\\.|\\s)\\s*info[\\s\\:\\.\\-]*(.*?(?:salary|sal\\s*(?:for)?\\s*(?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)).*?)(?:\\.\\s*call|\$)",
           "account_type": "bank",
           "pattern_UID": "30035",
           "sort_UID": "30035",
@@ -2847,7 +2847,7 @@
           }
         },
         {
-          "regex": "(?i)a\\/c(?: no.?|) x*\\d*?(\\d{4,6}) .*credited.* (?:INR|Rs. Rs|Rs)[\\.:,\\s]*([\\d,]+\\.?\\d{0,2}) on .* (?:a\\/c|avbl|avl) bal.*?(?:INR|Rs. Rs|Rs)[\\.:,\\s]*([\\d,]+\\.?\\d{0,2})(?:\\.|\\s)\\s*info[\\s\\:\\.]*(.*?)(?:$|\\.\\s*call|\\-\\s*axis bank)",
+          "regex": "(?i)a\\/c(?: no.?|) x*\\d*?(\\d{4,6}) .*credited.* (?:INR|Rs. Rs|Rs)[\\.:,\\s]*([\\d,]+\\.?\\d{0,2}) on .* (?:a\\/c|avbl|avl) bal.*?(?:INR|Rs. Rs|Rs)[\\.:,\\s]*([\\d,]+\\.?\\d{0,2})(?:\\.|\\s)\\s*info[\\s\\:\\.]*(.*?)(?:\$|\\.\\s*call|\\-\\s*axis bank)",
           "account_type": "bank",
           "pattern_UID": "30036",
           "sort_UID": "30036",
@@ -3564,7 +3564,7 @@
           }
         },
         {
-          "regex": "(?i)(?:INR|Rs. Rs|Rs)[\\.:,\\s]*([\\d,]+\\.?\\d{0,2}) was reversed.*?a\\/c no[\\s\\.]*x*(\\d{6}) on (.*?)[\\s\\.]+info[\\s\\-]+(pur|atm\\-wdl)\\/(.*?)(?:\\/|\\.$)",
+          "regex": "(?i)(?:INR|Rs. Rs|Rs)[\\.:,\\s]*([\\d,]+\\.?\\d{0,2}) was reversed.*?a\\/c no[\\s\\.]*x*(\\d{6}) on (.*?)[\\s\\.]+info[\\s\\-]+(pur|atm\\-wdl)\\/(.*?)(?:\\/|\\.\$)",
           "account_type": "debit_card",
           "pattern_UID": "30057",
           "sort_UID": "30057",
@@ -18115,7 +18115,7 @@
           }
         },
         {
-          "regex": "(?i)your\\s*(?:icici bank)? account x*(\\d{3,4}) .*?credited with (?:INR|Rs)[\\.,\\s]*([\\d,]*\\.?\\d{0,2}) on .*?info[\\s\\:\\-]*(?:by)?\\s*clg\\*(.*?)(?:\\*|\\.\\s*$)",
+          "regex": "(?i)your\\s*(?:icici bank)? account x*(\\d{3,4}) .*?credited with (?:INR|Rs)[\\.,\\s]*([\\d,]*\\.?\\d{0,2}) on .*?info[\\s\\:\\-]*(?:by)?\\s*clg\\*(.*?)(?:\\*|\\.\\s*\$)",
           "account_type": "bank",
           "pattern_UID": "120097",
           "sort_UID": "120097",
@@ -18224,7 +18224,7 @@
           }
         },
         {
-          "regex": "(?i)your account\\s*\\**\\d*(\\d{4})\\s*has been credited with amount\\s*(?:INR|Rs)?[\\.:,\\s]*([\\d,\\-]+\\.?\\d{0,2})[\\s\\.]*(reference no[\\s\\-]*(\\w+))[\\s\\.*]+thanks\\,\\s*(.*)$",
+          "regex": "(?i)your account\\s*\\**\\d*(\\d{4})\\s*has been credited with amount\\s*(?:INR|Rs)?[\\.:,\\s]*([\\d,\\-]+\\.?\\d{0,2})[\\s\\.]*(reference no[\\s\\-]*(\\w+))[\\s\\.*]+thanks\\,\\s*(.*)\$",
           "account_type": "bank",
           "pattern_UID": "120100",
           "sort_UID": "120100",
@@ -18441,7 +18441,7 @@
           }
         },
         {
-          "regex": "(?i)acct x*(\\d{3,4}) is credited with (?:INR|Rs)[\\.,\\s]*([\\d,]+\\.?\\d{0,2}) on [\\d\\-]+ from ([a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+)$",
+          "regex": "(?i)acct x*(\\d{3,4}) is credited with (?:INR|Rs)[\\.,\\s]*([\\d,]+\\.?\\d{0,2}) on [\\d\\-]+ from ([a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+)\$",
           "account_type": "bank",
           "pattern_UID": "120108",
           "sort_UID": "120108",
@@ -23423,7 +23423,7 @@
           }
         },
         {
-          "regex": "(?i)(?:INR|Rs)[\\.:,\\s]*([\\d,]+\\.?\\d{0,2}) .*credited to your (?:a\\/c|account|acct) *x*\\d*(\\d{4}).*?(?:on account of|towards) (?:nach\\-\\w+\\-)*(.*)(?:\\.\\s*$|kotak bank)",
+          "regex": "(?i)(?:INR|Rs)[\\.:,\\s]*([\\d,]+\\.?\\d{0,2}) .*credited to your (?:a\\/c|account|acct) *x*\\d*(\\d{4}).*?(?:on account of|towards) (?:nach\\-\\w+\\-)*(.*)(?:\\.\\s*\$|kotak bank)",
           "account_type": "bank",
           "pattern_UID": "150051",
           "sort_UID": "150051",
@@ -26835,7 +26835,7 @@
           }
         },
         {
-          "regex": "(?i)(?:ac|account) x*\\d*(\\d{4}) .* credited .* (?:INR|Rs)[\\.,\\s]*([\\d,]*\\.?\\d{0,2}) on ([\\d\\-\\s\\:]*).*(?:bal|balance is) (?:INR|Rs)[\\.,\\s]*([\\d,]*\\.?\\d{0,2}).*?neftin\\/.*?\\/(\\w.*?)(?:\\/|$|\\.\\s*welcome)",
+          "regex": "(?i)(?:ac|account) x*\\d*(\\d{4}) .* credited .* (?:INR|Rs)[\\.,\\s]*([\\d,]*\\.?\\d{0,2}) on ([\\d\\-\\s\\:]*).*(?:bal|balance is) (?:INR|Rs)[\\.,\\s]*([\\d,]*\\.?\\d{0,2}).*?neftin\\/.*?\\/(\\w.*?)(?:\\/|\$|\\.\\s*welcome)",
           "account_type": "bank",
           "pattern_UID": "720015",
           "sort_UID": "720015",
@@ -26900,7 +26900,7 @@
           }
         },
         {
-          "regex": "(?i)(?:ac|account) x*\\d*(\\d{4}) .* credited .* (?:INR|Rs)[\\.,\\s]*([\\d,]*\\.?\\d{0,2}) on ([\\d\\-\\s\\:]*).*(?:bal|balance is) (?:INR|Rs)[\\.,\\s]*([\\d,\\-]*\\.?\\d{0,2}).*?info[\\s\\:]*(.*?)(?:$|\\.\\s*welcome)",
+          "regex": "(?i)(?:ac|account) x*\\d*(\\d{4}) .* credited .* (?:INR|Rs)[\\.,\\s]*([\\d,]*\\.?\\d{0,2}) on ([\\d\\-\\s\\:]*).*(?:bal|balance is) (?:INR|Rs)[\\.,\\s]*([\\d,\\-]*\\.?\\d{0,2}).*?info[\\s\\:]*(.*?)(?:\$|\\.\\s*welcome)",
           "account_type": "bank",
           "pattern_UID": "720016",
           "sort_UID": "720016",
@@ -29845,7 +29845,7 @@
           }
         },
         {
-          "regex": "(?i)(?:INR|Rs)[\\.:,\\s]*([\\d,]+\\.?\\d{0,2}) credited to your a\\/c no.? x*\\d*(\\d{4}) on.*?through.*? by (.*?)\\, info(.*?)$",
+          "regex": "(?i)(?:INR|Rs)[\\.:,\\s]*([\\d,]+\\.?\\d{0,2}) credited to your a\\/c no.? x*\\d*(\\d{4}) on.*?through.*? by (.*?)\\, info(.*?)\$",
           "account_type": "bank",
           "pattern_UID": "130066",
           "sort_UID": "130066",
@@ -34703,7 +34703,7 @@
           }
         },
         {
-          "regex": "(?i)(?:INR|Rs)[\\.:,\\s]*([\\d,]+\\.?\\d{0,2}).*?credited to your a\\/c[\\s\\S]*\\d*x*(\\d{4}) on.*?(neft|rtgs) vide (ref no\\.(\\w+))\\s*by\\.(.*?)$",
+          "regex": "(?i)(?:INR|Rs)[\\.:,\\s]*([\\d,]+\\.?\\d{0,2}).*?credited to your a\\/c[\\s\\S]*\\d*x*(\\d{4}) on.*?(neft|rtgs) vide (ref no\\.(\\w+))\\s*by\\.(.*?)\$",
           "account_type": "bank",
           "pattern_UID": "470017",
           "sort_UID": "470017",
@@ -46938,7 +46938,7 @@
           }
         },
         {
-          "regex": "(?i)(?:ac|account) x*\\d*(\\d{4}) .* credited .* (?:INR|Rs)[\\.,\\s]*([\\d,]*\\.?\\d{0,2}) on ([\\d\\-\\s\\:]*).*(?:bal|balance is) (?:INR|Rs)[\\.,\\s]*([\\d,]*\\.?\\d{0,2}).*?neftin\\/.*?\\/(\\w.*?)(?:\\/|$|\\.\\s*welcome)",
+          "regex": "(?i)(?:ac|account) x*\\d*(\\d{4}) .* credited .* (?:INR|Rs)[\\.,\\s]*([\\d,]*\\.?\\d{0,2}) on ([\\d\\-\\s\\:]*).*(?:bal|balance is) (?:INR|Rs)[\\.,\\s]*([\\d,]*\\.?\\d{0,2}).*?neftin\\/.*?\\/(\\w.*?)(?:\\/|\$|\\.\\s*welcome)",
           "account_type": "bank",
           "pattern_UID": "720015",
           "sort_UID": "720015",
@@ -47035,7 +47035,7 @@
           }
         },
         {
-          "regex": "(?i)(?:ac|account) x*\\d*(\\d{4}) .* credited .* (?:INR|Rs)[\\.,\\s]*([\\d,]*\\.?\\d{0,2}) on ([\\d\\-\\s\\:]*).*(?:bal|balance is) (?:INR|Rs)[\\.,\\s]*([\\d,\\-]*\\.?\\d{0,2}).*?info[\\s\\:]*(.*?)(?:$|\\.\\s*welcome)",
+          "regex": "(?i)(?:ac|account) x*\\d*(\\d{4}) .* credited .* (?:INR|Rs)[\\.,\\s]*([\\d,]*\\.?\\d{0,2}) on ([\\d\\-\\s\\:]*).*(?:bal|balance is) (?:INR|Rs)[\\.,\\s]*([\\d,\\-]*\\.?\\d{0,2}).*?info[\\s\\:]*(.*?)(?:\$|\\.\\s*welcome)",
           "account_type": "bank",
           "pattern_UID": "720016",
           "sort_UID": "720016",
@@ -52146,7 +52146,7 @@
           }
         },
         {
-          "regex": "(?i)a\\/c \\w*\\/\\w*\\/\\d*?(\\d{1,4}) .* credited .*with (?:INR|Rs)[\\.,\\s]*([\\d,]*\\.?\\d{0,2}).*clear bal.(?:INR|Rs)[\\.,\\s]*([\\d,-]*\\.?\\d{0,2}).*?tran category\\:(.*?)$",
+          "regex": "(?i)a\\/c \\w*\\/\\w*\\/\\d*?(\\d{1,4}) .* credited .*with (?:INR|Rs)[\\.,\\s]*([\\d,]*\\.?\\d{0,2}).*clear bal.(?:INR|Rs)[\\.,\\s]*([\\d,-]*\\.?\\d{0,2}).*?tran category\\:(.*?)\$",
           "account_type": "bank",
           "pattern_UID": "810010",
           "sort_UID": "810010",
@@ -59114,7 +59114,7 @@
         "57273111"
       ],
       "sender_regexes": [
-        "^5\\d{5}$"
+        "^5\\d{5}\$"
       ]
     },
     {
@@ -61486,7 +61486,7 @@
           }
         },
         {
-          "regex": "(?i)your salary of (?:INR|Rs)[\\.,\\s]*([\\d,]*\\.?\\d{0,2}) has been credited to your niyo card.*? by (.*)\\.\\s*$",
+          "regex": "(?i)your salary of (?:INR|Rs)[\\.,\\s]*([\\d,]*\\.?\\d{0,2}) has been credited to your niyo card.*? by (.*)\\.\\s*\$",
           "account_type": "prepaid",
           "pattern_UID": "165005",
           "sort_UID": "165005",
@@ -68519,7 +68519,7 @@
           }
         },
         {
-          "regex": "(?i)(?:your payment|paid a bill) of (INR|Rs|[a-z]{3}|\\u20b9)[\\.,\\s]*([\\d,]*\\.?\\d{0,2}) (?:at|on) (.*?)\\s*(?:has been processed|& also have earned reward|was processed|$)",
+          "regex": "(?i)(?:your payment|paid a bill) of (INR|Rs|[a-z]{3}|\\u20b9)[\\.,\\s]*([\\d,]*\\.?\\d{0,2}) (?:at|on) (.*?)\\s*(?:has been processed|& also have earned reward|was processed|\$)",
           "account_type": "credit_card",
           "pattern_UID": "219002",
           "sort_UID": "219002",
@@ -68637,7 +68637,7 @@
           }
         },
         {
-          "regex": "(?i)(?:hand\\-picked groceries|delicious purchase) for (INR|Rs|[a-z]{3}|\\u20b9)[\\.,\\s]*([\\d,]*\\.?\\d{0,2}) at (.*?)\\s*(?:\\.\\s*packing some fresh reward|serving you|$)",
+          "regex": "(?i)(?:hand\\-picked groceries|delicious purchase) for (INR|Rs|[a-z]{3}|\\u20b9)[\\.,\\s]*([\\d,]*\\.?\\d{0,2}) at (.*?)\\s*(?:\\.\\s*packing some fresh reward|serving you|\$)",
           "account_type": "credit_card",
           "pattern_UID": "219005",
           "sort_UID": "219005",
@@ -69365,4 +69365,4 @@
     }
   ],
   "version": "6964"
-}
+};

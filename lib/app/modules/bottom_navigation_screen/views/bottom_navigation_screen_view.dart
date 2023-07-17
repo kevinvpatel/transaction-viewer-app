@@ -93,26 +93,26 @@ class BottomNavigationScreenView
         body: Column(
           children: [
             GetBuilder(
-              init: BankStatementScreenController(),
-              builder: (bankStatementScreenController) {
+              init: BottomNavigationScreenController(),
+              builder: (bottomNavigationScreenController) {
                 return Expanded(
                   child: PageView.builder(
                       physics: NeverScrollableScrollPhysics(  ),
                       itemCount: controller.lstScreens.length,
                       controller: controller.pageController,
                       onPageChanged: (page) {
-                        controller.tabIndex.value = page;
-                        bankStatementScreenController.update();
+                        controller.bottomNavigationTabIndex.value = page;
+                        bottomNavigationScreenController.update();
                       },
                       itemBuilder: (context, index) {
                         if(index == 0) {
-                          if(bankStatementScreenController.percentage.value.toStringAsFixed(0) != '100') {
+                          if(bottomNavigationScreenController.percentage.value.toStringAsFixed(0) != '100') {
                             return LoadingScreenView();
                           } else {
                             return BankStatementScreenView();
                           }
                         } else if(index == 2) {
-                          if(bankStatementScreenController.percentage.value.toStringAsFixed(0) != '100') {
+                          if(bottomNavigationScreenController.percentage.value.toStringAsFixed(0) != '100') {
                             return LoadingScreenView();
                           } else {
                             return BillPaymentScreenView();
@@ -140,7 +140,7 @@ class BottomNavigationScreenView
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         CircleNavBar(
-          activeIndex: controller.tabIndex.value,
+          activeIndex: controller.bottomNavigationTabIndex.value,
           activeIcons: [
             Image.asset(ConstantsImage.bank_statement_icon, height: 22.sp, color: Colors.white),
             Image.asset(ConstantsImage.home_icon, width: 22.sp, color: Colors.white),
@@ -151,7 +151,7 @@ class BottomNavigationScreenView
             Image.asset(ConstantsImage.home_icon, height: 22.sp, color: const Color.fromRGBO(82, 74, 87, 1),),
             Image.asset(ConstantsImage.bills_icon_icon, height: 22.sp)
           ],
-          circlPadding: EdgeInsets.all(controller.tabIndex.value == 0 ? 15.sp : 14.sp),
+          circlPadding: EdgeInsets.all(controller.bottomNavigationTabIndex.value == 0 ? 15.sp : 14.sp),
           circlBorderColor: Colors.green,
           circlBorderWidth: 2,
           circleGradient: ConstantsColor.pinkGradient,
@@ -161,10 +161,10 @@ class BottomNavigationScreenView
           padding: EdgeInsets.only(left: 12.sp, right: 12.sp, bottom: 12.sp),
           cornerRadius: BorderRadius.circular(24.sp),
           onTap: (index) {
-            controller.tabIndex.value = index;
+            controller.bottomNavigationTabIndex.value = index;
             controller.pageController.animateToPage(index, duration: const Duration(milliseconds: 10), curve: Curves.linearToEaseOut);
 
-            print('controller.tabIndex.value -> ${controller.tabIndex.value}');
+            print('controller.tabIndex.value -> ${controller.bottomNavigationTabIndex.value}');
           },
 
         ),

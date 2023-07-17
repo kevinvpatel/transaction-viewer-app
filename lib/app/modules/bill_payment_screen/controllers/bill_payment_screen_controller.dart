@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:transaction_viewer_app/app/data/Reg_Model.dart';
+import 'package:transaction_viewer_app/app/data/regData.dart';
 import 'package:transaction_viewer_app/app/data/services.dart';
 import 'package:transaction_viewer_app/app/modules/bank_statement_views/bank_detail_screen/views/loading_screen.dart';
 import 'package:transaction_viewer_app/app/modules/bank_statement_views/bank_statement_screen/controllers/bank_statement_screen_controller.dart';
@@ -124,8 +125,6 @@ class BillPaymentScreenController extends GetxController {
         }
       });
 
-
-
       // await SMSServices.getSmsData().then((messages) async {
       //   for(int i = 0; i < messages.length; i++) {
       //
@@ -198,9 +197,9 @@ class BillPaymentScreenController extends GetxController {
 
   Future<RxList<Patterns>> getCashTransactionType() async {
     RxList<Patterns> lstPattern = <Patterns>[].obs;
-    String jsonData = await rootBundle.loadString('assets/reg.json');
-    Map<String, dynamic> result = json.decode(jsonData);
-    Reg regData = Reg.fromJson(result);
+    // String jsonData = await rootBundle.loadString('assets/reg.json');
+    // Map<String, dynamic> result = json.decode(jsonData);
+    Reg regData = Reg.fromJson(regJson);
 
     for(int i = 0; i < regData.rules!.length; i++) {
       regData.rules![i].patterns?.forEach((pattern) {
@@ -215,9 +214,9 @@ class BillPaymentScreenController extends GetxController {
 
   Future<RxList<Patterns>> getBillsTransactionType() async {
     RxList<Patterns> lstPattern = <Patterns>[].obs;
-    String jsonData = await rootBundle.loadString('assets/reg.json');
-    Map<String, dynamic> result = json.decode(jsonData);
-    Reg regData = Reg.fromJson(result);
+    // String jsonData = await rootBundle.loadString('assets/reg.json');
+    // Map<String, dynamic> result = json.decode(jsonData);
+    Reg regData = Reg.fromJson(regJson);
 
     for(int i = 0; i < regData.rules!.length; i++) {
       regData.rules![i].patterns?.forEach((pattern) {

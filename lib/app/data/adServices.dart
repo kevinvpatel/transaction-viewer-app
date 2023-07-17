@@ -22,58 +22,69 @@ class AdService {
   static RxBool isBannerAdLoaded = false.obs;
 
   static Widget bannerAd({required double width, required String currentScreen}) {
-    debugPrint('currentScreen bannerAd -> ${currentScreen}');
-    debugPrint('configData.value -> ${configData.value}');
-    debugPrint('data -> ${configData.value[currentScreen]['banner-type']}');
+    ever(configData, (callback) {
+      if(configData.value[currentScreen]['banner-type'] == 'admob') {
 
-    if(configData.value[currentScreen]['banner-type'] == 'admob') {
-      bannerAdAdMob = BannerAd(
-          size: AdSize.banner,
-          // adUnitId: data['banner-admob'],
-          adUnitId: 'ca-app-pub-3940256099942544/6300978111',
-          listener: BannerAdListener(
-            onAdLoaded: (ad) {
-              isBannerAdLoaded.value = true;
-              print('Banner Loaded Successfully @@@@@@');
-            },
-            onAdFailedToLoad: (ad, error) {
-              isBannerAdLoaded.value = false;
-              print('Banner -> ${ad.responseInfo?.adapterResponses}  &  Failed -> $error');
-              // ad.dispose();
-            },
-          ),
-          request: const AdRequest()
+        debugPrint('currentScreen bannerAd -> ${currentScreen}');
+        debugPrint('configData.value -> ${configData.value}');
+        debugPrint('data -> ${configData.value[currentScreen]['banner-type']}');
+
+        bannerAdAdMob = BannerAd(
+            size: AdSize.banner,
+            // adUnitId: data['banner-admob'],
+            adUnitId: 'ca-app-pub-3940256099942544/6300978111',
+            listener: BannerAdListener(
+              onAdLoaded: (ad) {
+                isBannerAdLoaded.value = true;
+                print('Banner Loaded Successfully @@@@@@');
+              },
+              onAdFailedToLoad: (ad, error) {
+                isBannerAdLoaded.value = false;
+                print('Banner -> ${ad.responseInfo?.adapterResponses}  &  Failed -> $error');
+                // ad.dispose();
+              },
+            ),
+            request: const AdRequest()
+        );
+        bannerAdAdMob?.load();
+      }
+    });
+
+    if(configData.value.isNotEmpty) {
+      return configData.value[currentScreen]['banner-type'] == 'admob' ?
+      SizedBox(
+        height: 50,
+        width: width,
+        child: AdWidget(ad: bannerAdAdMob!),
+      )
+          : configData.value[currentScreen]['banner-type'] == 'facebook' ?
+      FacebookBannerAd(
+        bannerSize: BannerSize.STANDARD,
+        keepAlive: true,
+        placementId: configData.value['banner-facebook'],
+        listener: (result, value) {
+          switch (result) {
+            case BannerAdResult.ERROR:
+              print("Error Facebook Banner Ad: $value");
+              break;
+            case BannerAdResult.LOADED:
+              print("Loaded Banner Ad: $value");
+              break;
+            case BannerAdResult.CLICKED:
+              print("Clicked Banner Ad: $value");
+              break;
+            case BannerAdResult.LOGGING_IMPRESSION:
+              print("Logging Impression Banner Ad: $value");
+              break;
+          }
+        },
+      )
+          : Expanded(
+          child: Image.network(configData[currentScreen]['image-link'], fit: BoxFit.cover)
       );
-      bannerAdAdMob?.load();
+    } else {
+      return SizedBox.shrink();
     }
-
-    return configData.value[currentScreen]['banner-type'] == 'admob' ?
-    SizedBox(
-      height: 50,
-      width: width,
-      child: AdWidget(ad: bannerAdAdMob!),
-    )
-        : FacebookBannerAd(
-      bannerSize: BannerSize.STANDARD,
-      keepAlive: true,
-      placementId: configData.value['banner-facebook'],
-      listener: (result, value) {
-        switch (result) {
-          case BannerAdResult.ERROR:
-            print("Error Facebook Banner Ad: $value");
-            break;
-          case BannerAdResult.LOADED:
-            print("Loaded Banner Ad: $value");
-            break;
-          case BannerAdResult.CLICKED:
-            print("Clicked Banner Ad: $value");
-            break;
-          case BannerAdResult.LOGGING_IMPRESSION:
-            print("Logging Impression Banner Ad: $value");
-            break;
-        }
-      },
-    );
   }
 
 
@@ -89,68 +100,78 @@ class AdService {
     debugPrint('configData.value nativeAd -> ${configData}');
     NativeAd? nativeMediumAd;
     RxBool isNativeAdLoaded = false.obs;
-    if(configData[currentScreen]['native-type'] == 'admob') {
-      nativeMediumAd = NativeAd(
-          adUnitId: configData[currentScreen]['native-admob'],
-          factoryId: smallAd ? 'listTile' : 'listTileMedium',   // listTile = small Ad , listTileMedium = medium Ad
-          listener: NativeAdListener(
-              onAdLoaded: (ad) {
-                isNativeAdLoaded.value = true;
-                print('Native Ad Loaded Successfully @@@@@@');
-              },
-              onAdFailedToLoad: (ad, error) {
-                isNativeAdLoaded.value = false;
-                print('Native Ad Loaded failed -> $error');
-              }
-          ),
-          request: const AdRequest()
-      );
-      nativeMediumAd.load();
-    }
+    ever(configData, (callback) {
+      if(configData.value.isNotEmpty) {
+        if(configData[currentScreen]['native-type'] == 'admob') {
+          nativeMediumAd = NativeAd(
+              adUnitId: configData[currentScreen]['native-admob'],
+              factoryId: smallAd ? 'listTile' : 'listTileMedium',   // listTile = small Ad , listTileMedium = medium Ad
+              listener: NativeAdListener(
+                  onAdLoaded: (ad) {
+                    isNativeAdLoaded.value = true;
+                    print('Native Ad Loaded Successfully @@@@@@');
+                  },
+                  onAdFailedToLoad: (ad, error) {
+                    isNativeAdLoaded.value = false;
+                    print('Native Ad Loaded failed -> $error');
+                  }
+              ),
+              request: const AdRequest()
+          );
+          nativeMediumAd?.load();
+        }
+      }
+    });
 
     return Obx(() {
-      return configData[currentScreen]['native-type'] == 'admob' ?
-      ///GOOGLE AD
-      isNativeAdLoaded.value == true
-          ? AdWidget(ad: nativeMediumAd!)
-      // : const Center(child: CircularProgressIndicator(color: ConstantsColor.themeColor))
-          : const Center(child: CupertinoActivityIndicator())
-      ///FACEBOOK AD
-          : configData[currentScreen]['native-type'] == 'facebook' ? FacebookNativeAd(
-        placementId: configData['native-facebook'],
-        adType: NativeAdType.NATIVE_AD,
-        height: height,
-        // bannerAdSize: NativeBannerAdSize.HEIGHT_120,
-        width: smallAd ? width * 0.43 : width,
-        backgroundColor: Colors.blue,
-        titleColor: Colors.white,
-        descriptionColor: Colors.white,
-        buttonColor: Colors.deepPurple,
-        buttonTitleColor: Colors.white,
-        buttonBorderColor: Colors.white,
-        listener: (result, value) {
-          print("Native Banner Ad: $result --> $value");
-        },
-      ) : InkWell(
-        highlightColor: Colors.transparent,
-        focusColor: Colors.transparent,
-        splashColor: Colors.transparent,
-        onTap: () async {
-          if(await canLaunchUrl(Uri.parse(configData[currentScreen]['link']))){
-            await launchUrl(Uri.parse(configData[currentScreen]['link']));
-          } else {
-            Fluttertoast.showToast(msg: 'Could not launch url: ${configData[currentScreen]['link']}');
-          }
-        },
-        child: SizedBox(
-          // height: 300,
-          width: smallAd ? width * 0.6 : width,
-          child: ClipRRect(
-              borderRadius: BorderRadius.circular(radius),
-              child: Image.network(configData[currentScreen]['image-link'], fit: BoxFit.cover)
-          ),
-        ),
-      );
+      if(configData.value.isNotEmpty) {
+        return configData[currentScreen]['native-type'] == 'admob' ?
+        ///GOOGLE AD
+        isNativeAdLoaded.value == true
+            ? AdWidget(ad: nativeMediumAd!)
+            : const Center(child: CupertinoActivityIndicator())
+        ///FACEBOOK AD
+            : configData[currentScreen]['native-type'] == 'facebook'
+            ? FacebookNativeAd(
+          placementId: configData['native-facebook'],
+          adType: NativeAdType.NATIVE_AD,
+          height: height,
+          // bannerAdSize: NativeBannerAdSize.HEIGHT_120,
+          width: smallAd ? width * 0.43 : width,
+          backgroundColor: Colors.blue,
+          titleColor: Colors.white,
+          descriptionColor: Colors.white,
+          buttonColor: Colors.deepPurple,
+          buttonTitleColor: Colors.white,
+          buttonBorderColor: Colors.white,
+          listener: (result, value) {
+            print("Native Banner Ad: $result --> $value");
+          },
+        )
+        ///URL AD
+            : InkWell(
+              highlightColor: Colors.transparent,
+              focusColor: Colors.transparent,
+              splashColor: Colors.transparent,
+              onTap: () async {
+                if(await canLaunchUrl(Uri.parse(configData[currentScreen]['link']))){
+                  await launchUrl(Uri.parse(configData[currentScreen]['link']));
+                } else {
+                  Fluttertoast.showToast(msg: 'Could not launch url: ${configData[currentScreen]['link']}');
+                }
+              },
+              child: SizedBox(
+                // height: 300,
+                width: smallAd ? width * 0.6 : width,
+                child: ClipRRect(
+                    borderRadius: BorderRadius.circular(radius),
+                    child: Image.network(configData[currentScreen]['image-link'], fit: BoxFit.cover)
+                ),
+              ),
+            );
+      } else {
+        return SizedBox.shrink();
+      }
     });
   }
 
@@ -173,57 +194,65 @@ class AdService {
     print('interstitial configData -> ${configData[currentScreen]}');
     print('interstitial  -> ${configData}');
 
-    if(configData[isBack ? Get.previousRoute : currentScreen]['interstitial-type'] == 'admob') {
-      await InterstitialAd.load(
-          adUnitId: adId ?? configData[isBack ? Get.previousRoute : currentScreen]['interstitial-admob'],
-          request: const AdRequest(),
-          adLoadCallback: InterstitialAdLoadCallback(onAdLoaded: (ad) {
-            interstitialAdMob = ad;
-            print('interstitialAd LOAD 33 -> $adId');
+    ever(configData, (callback) async {
+      if(configData.value.isNotEmpty) {
+        if(configData[isBack ? Get.previousRoute : currentScreen]['interstitial-type'] == 'admob') {
+          await InterstitialAd.load(
+              adUnitId: adId ?? configData[isBack ? Get.previousRoute : currentScreen]['interstitial-admob'],
+              request: const AdRequest(),
+              adLoadCallback: InterstitialAdLoadCallback(onAdLoaded: (ad) {
+                interstitialAdMob = ad;
+                print('interstitialAd LOAD 33 -> $adId');
+                Navigator.pop(dialogCtx!);
+                if(isCheckBack) {
+                  Get.back();
+                } else {
+                  Get.to(pageToNavigate, arguments: argument);
+                }
+                ad.show();
+                if (interstitialAdMob == null) {
+                  print('   to show InterstitialAd before loaded');
+                }
+              }, onAdFailedToLoad: onAdFailedToLoad
+              )
+          ).catchError((err) => print('InterstitialAd err -> $err'));
+        }
+        else if(configData[isBack ? Get.previousRoute : currentScreen]['interstitial-type'] == 'url') {
+
+          if(await canLaunchUrl(Uri.parse(configData[isBack ? Get.previousRoute : currentScreen]['link']))) {
+            await launchUrl(Uri.parse(configData[isBack ? Get.previousRoute : currentScreen]['link']));
             Navigator.pop(dialogCtx!);
             if(isCheckBack) {
               Get.back();
             } else {
               Get.to(pageToNavigate, arguments: argument);
             }
-            ad.show();
-            if (interstitialAdMob == null) {
-              print('   to show InterstitialAd before loaded');
-            }
-          }, onAdFailedToLoad: onAdFailedToLoad
-          )
-      ).catchError((err) => print('InterstitialAd err -> $err'));
-    } else if(configData[isBack ? Get.previousRoute : currentScreen]['interstitial-type'] == 'url') {
+          } else {
+            Fluttertoast.showToast(msg: 'Could not launch url: ${configData[isBack ? Get.previousRoute : currentScreen]['link']}');
+          }
 
-      if(await canLaunchUrl(Uri.parse(configData[isBack ? Get.previousRoute : currentScreen]['link']))) {
-        await launchUrl(Uri.parse(configData[isBack ? Get.previousRoute : currentScreen]['link']));
-        Navigator.pop(dialogCtx!);
-        if(isCheckBack) {
-          Get.back();
-        } else {
-          Get.to(pageToNavigate, arguments: argument);
+        }
+        else {
+          print('interstitial-facebook -> ${configData['interstitial-facebook']}');
+          FacebookInterstitialAd.loadInterstitialAd(
+              placementId: configData['interstitial-facebook'],
+              listener: (result, value) {
+                if(result == InterstitialAdResult.LOADED) {
+                  Navigator.pop(dialogCtx!);
+                  if(isCheckBack) {
+                    Get.back();
+                  } else {
+                    Get.to(pageToNavigate, arguments: argument);
+                  }
+                  FacebookInterstitialAd.showInterstitialAd(delay: 2000);
+                }
+              }
+          );
         }
       } else {
-        Fluttertoast.showToast(msg: 'Could not launch url: ${configData[isBack ? Get.previousRoute : currentScreen]['link']}');
+        interstitialAdMob == null;
       }
-
-    } else {
-      print('interstitial-facebook -> ${configData['interstitial-facebook']}');
-      FacebookInterstitialAd.loadInterstitialAd(
-          placementId: configData['interstitial-facebook'],
-          listener: (result, value) {
-            if(result == InterstitialAdResult.LOADED) {
-              Navigator.pop(dialogCtx!);
-              if(isCheckBack) {
-                Get.back();
-              } else {
-                Get.to(pageToNavigate, arguments: argument);
-              }
-              FacebookInterstitialAd.showInterstitialAd(delay: 2000);
-            }
-          }
-      );
-    }
+    });
   }
 
 

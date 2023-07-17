@@ -80,6 +80,14 @@ dependencies:
 #  open playstore
   launch_review: ^3.0.1
 
+#  pdf generator
+  pdf: ^3.8.4
+  path_provider: ^2.0.15
+
+#  open file
+#  open_file: ^3.2.1
+  open_filex: ^4.3.2
+
   get: 4.6.5
 
   flutter: 
@@ -89,11 +97,18 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   flutter_test: 
     sdk: flutter
+  flutter_launcher_icons: ^0.13.1
+
+flutter_launcher_icons:
+  image_path: 'assets/Logo/LOGO.png'
+  android: true
+  ios: true
+
 
 
 flutter:
   assets:
-    - assets/reg.json
+#    - assets/reg.json
     - assets/bank_list_icons.json
     - assets/IFSC_Code/
     - assets/splash_screen/

@@ -1,20 +1,17 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_sms_inbox/flutter_sms_inbox.dart';
 import 'package:get/get.dart';
-import 'package:hive/hive.dart';
-import 'package:intl/intl.dart';
 import 'package:transaction_viewer_app/app/data/Reg_Model.dart';
-import 'package:transaction_viewer_app/app/data/adServices.dart';
-import 'package:transaction_viewer_app/app/data/constants.dart';
 import 'package:transaction_viewer_app/app/modules/bank_statement_views/bank_statement_screen/controllers/bank_statement_screen_controller.dart';
 
 class BankDetailScreenController extends GetxController with GetSingleTickerProviderStateMixin  {
   //TODO: Implement BankStatementViewsBankDetailScreenController
-  //
+
   // RxInt tabIndex = 0.obs;
   // ScrollController scrollController = ScrollController();
   RxString selectedFilter = ''.obs;
@@ -142,18 +139,23 @@ class BankDetailScreenController extends GetxController with GetSingleTickerProv
   //   }
   // }
 
-  onClickRadio(value) {
+  onClickRadio(value) async {
     selectedFilter.value = value!;
-    print('controller.selectedFilter.value -> ${selectedFilter.value}');
-    BankStatementScreenController controller = Get.put(BankStatementScreenController());
-    print('controller.allMessageDetails -> ${controller.allMessageDetails}');
-
     update();
   }
+
+  // Map<String, dynamic> listTransactions = <String, dynamic>{};
+  List<Map<dynamic, dynamic>> listAllTransactions = <Map<String, dynamic>>[];
+  List<Map<dynamic, dynamic>> listCreditTransactions = <Map<String, dynamic>>[];
+  List<Map<dynamic, dynamic>> listDebitTransactions = <Map<String, dynamic>>[];
 
   @override
   void onInit() {
     super.onInit();
+    listAllTransactions = List<Map<dynamic, dynamic>>.from(Get.arguments['bank_data_all_messages']);
+    listCreditTransactions = List<Map<dynamic, dynamic>>.from(Get.arguments['bank_data_credit_messages']);
+    listDebitTransactions = List<Map<dynamic, dynamic>>.from(Get.arguments['bank_data_debit_messages']);
+    update();
   }
 
   @override
